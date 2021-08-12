@@ -153,7 +153,7 @@ base_stagg_grp$grp = ifelse(base_stagg_grp$id %% 2 == 0, 'Evens', 'Odds')
 ```
 
 Now re-run our two regressions from earlier, but splitting the sample to
-generate `multi_fixest` objects.
+generate `fixest_multi` objects.
 
 ```{r stagg_grp}
 est_twfe_grp = feols(y ~ x1 + i(time_to_treatment, treated, ref = c(-1, -1000)) | 
