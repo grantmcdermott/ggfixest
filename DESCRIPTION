@@ -1,0 +1,22 @@
+Package: ggiplot
+Title: ggplot2 Equivalents of fixest::iplot()
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Grant",
+           family = "McDermott",
+           role = c("aut", "cre"),
+           email = "grantmcd@uoregon.edu",
+           comment = c(ORCID = "0000-0001-7883-8573"))
+Description: Provides ggplot2 equivalents of fixest::iplot(). Enables some
+	additional functionality and convenience features, including grouped 
+	mutli_fixest object facetting and programatic updating of existing plots
+	(e.g. themes and aesthetics).
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+    fixest (>= 0.9.0),
+    ggplot2 (>= 2.0.0)
