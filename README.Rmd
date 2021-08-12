@@ -237,15 +237,21 @@ Dictionaries work similarly to `iplot`. Simple example:
 base_inter$letter = letters[base_inter$period]
 est_letters = feols(y ~ x1 + i(letter, treat, 'e') | id+letter, base_inter)
 
-ggiplot(est_letters) # No dictionary
-
 # Dictionary for capitalising the letters
 dict = LETTERS[1:10]; names(dict) = letters[1:10]
 
-# You can either set the dictionary directly in the plot call.
-ggiplot(est_letters, dict=dict)
+ggiplot(est_letters) # No dictionary
+```
 
-# Or, set it globally using the setFixest_dict macro
+You can either set the dictionary directly in the plot call...
+
+```{r dict_direct}
+ggiplot(est_letters, dict = dict)
+```
+
+... Or, set it globally using the `setFixest_dict()` macro.
+
+```{r dict_global}
 setFixest_dict(dict)
 ggiplot(est_letters)
 
