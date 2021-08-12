@@ -38,20 +38,6 @@ Start by loading the **ggiplot** package. Note that we also have to load
 ``` r
 library(ggiplot)
 library(fixest)
-#> (Permanently remove the following message with fixest_startup_msg(FALSE).)
-#> fixest 0.10.0:
-#> - vcov: new argument 'vcov' that replaces 'se' and 'cluster' in all
-#> functions (retro compatibility is ensured)
-#> - breaking change: function 'dof()' has been renamed into 'ssc()' (which
-#> stands for small sample correction). No retro-compatibility.
-#> From fixest 0.9.0 onward: BREAKING changes! 
-#> - In i():
-#>     + the first two arguments have been swapped! Now it's i(factor_var,
-#> continuous_var) for interactions.
-#>     + argument 'drop' has been removed (put everything in 'ref' now).
-#> - In feglm(): 
-#>     + the default family becomes 'gaussian' to be in line with glm(). Hence,
-#> for Poisson estimations, please use fepois() instead.
 library(ggplot2)
 ```
 

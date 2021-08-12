@@ -45,7 +45,7 @@ additional functionality.
 Start by loading the **ggiplot** package. Note that we also have to load 
 **fixest** and **ggplot2** in order to actually use it.
 
-```{r example}
+```{r example, message=FALSE}
 library(ggiplot)
 library(fixest)
 library(ggplot2)
