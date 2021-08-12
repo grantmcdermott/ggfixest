@@ -24,8 +24,9 @@ remotes::install_github("grantmcdermott/ggiplot")
 
 ## Examples
 
-Here follow some examples that draw on the **fixest** introductory
-vignette, as well as the `iplot()` help documentation.
+Here follow some examples that draw on the **fixest** [introductory
+vignette](https://lrberge.github.io/fixest/articles/fixest_walkthrough.html),
+as well as the `iplot()` help documentation.
 
 As we’ll see, the package essentially consists of a single function —
 **`ggiplot()`** — that tries to closely mimic it base compatriot.
@@ -75,7 +76,10 @@ ggiplot(est_did, geom = 'errorbar')
 
 <img src="man/figures/README-est_did_ebar-1.png" width="100%" />
 
-Many of the arguments work the same for `ggiplot()` as in `iplot()`.
+Many of the arguments for `iplot()` carry over to `ggiplot()` too. This
+is deliberate, since we want to reduce the cognitive overhead of
+switching between the two plotting methods. For example, we can join
+points using the same `pt.join = TRUE` argument.
 
 ``` r
 iplot(est_did, pt.join = TRUE)
@@ -117,7 +121,7 @@ ggiplot(est_did, geom_style = 'ribbon', col = 'orange')
 ### Example 2: Multiple estimation (i)
 
 We’ll demonstrate using the staggered treatment example from the
-introductory **fixest** vignette.
+**fixest** introductory vignette.
 
 ``` r
 data(base_stagg)
@@ -158,10 +162,10 @@ ggiplot(list(est_twfe, est_sa20),
 
 <img src="man/figures/README-stagg_ggiplot_noname-1.png" width="100%" />
 
-One nice think about the **ggplot2** API is that it makes changing
+One nice thing about the **ggplot2** API is that it makes changing
 multiplot figures simple. For example, if you don’t like the
-presentation of “dodged” models in a single frame, then it easy to facet
-them instead using the `multi_style = 'facet'` argument.
+presentation of “dodged” models in a single frame, then it’s easy to
+facet them instead using the `multi_style = 'facet'` argument.
 
 ``` r
 ggiplot(list('TWFE' = est_twfe, 'Sun & Abraham (2020)' = est_sa20),
@@ -211,7 +215,7 @@ ggiplot(est_twfe_grp, ref.line = -1, main = 'Staggered treatment: TWFE')
 
 <img src="man/figures/README-stagg_grp_single-2.png" width="100%" />
 
-However, `iplot` complains if we combine a *list* of (several)
+However, `iplot` complains if we combine a list of *several*
 `fixest_multi` objects.
 
 ``` r
@@ -265,7 +269,10 @@ last_plot() + labs(caption = 'Note: Super fancy plot brought to you by ggiplot')
 <img src="man/figures/README-theme_update-1.png" width="100%" />
 
 ``` r
-last_plot() + theme_void() + scale_colour_brewer(palette = 'Set1')
+last_plot() + 
+    theme_grey() + 
+    theme(legend.position = 'none') +
+    scale_colour_brewer(palette = 'Set1', aesthetics = c('colour', 'fill'))
 #> Scale for 'colour' is already present. Adding another scale for 'colour',
 #> which will replace the existing scale.
 ```
