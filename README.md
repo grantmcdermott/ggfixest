@@ -130,14 +130,16 @@ est_sa20 = feols(y ~ x1 + sunab(year_treated, year) |
 Again, for comparison, here the base `iplot` original. Note that we add
 the legend manually.
 
-``` stagg_iplot
+``` r
 iplot(list('TWFE' = est_twfe, 'Sun & Abraham (2020)' = est_sa20),
       main = 'Staggered treatment', ref.line = -1, pt.join = TRUE)
 legend('topleft', col = c(1, 2), pch = c(20, 17),
               legend = c('TWFE', 'Sun & Abraham (2020)'))
 ```
 
-Here’s the `giplot` version.
+<img src="man/figures/README-stagg_iplot-1.png" width="100%" />
+
+Here’s the `ggiplot` version.
 
 ``` r
 ggiplot(list('TWFE' = est_twfe, 'Sun & Abraham (2020)' = est_sa20),
