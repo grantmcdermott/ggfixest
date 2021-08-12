@@ -57,9 +57,9 @@ support some more complex plot arrangements out-of-the-box that would be
 more difficult to achieve using the base \code{iplot()} alternative.
 }
 \examples{
-# Note: We have to load fixest and ggplot in order to use ggiplot().
+# Note: We have to load fixest and ggplot2 in order to use ggiplot().
 library(fixest)
-library(ggplot)
+library(ggplot2)
 
 # Here follow some examples, borrowing from the fixest::iplot() documentation
 # and the package introductory vignette.
@@ -172,7 +172,7 @@ ggiplot(list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
 #
 
 # Setting the theme inside the `ggiplot()` call is optional and not strictly
-# necessary, since the ggplot2 API allows progromatic updating of existing
+# necessary, since the ggplot2 API allows programmatic updating of existing
 # plots. E.g.
 last_plot() + labs(caption = 'Note: Super fancy plot brought to you by ggiplot')
 last_plot() + theme_void() + scale_colour_brewer(palette = 'Set1')
