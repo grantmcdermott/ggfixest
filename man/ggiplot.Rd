@@ -143,22 +143,22 @@ legend('topleft', col = c(1, 2), pch = c(20, 17),
        legend = c('Evens', 'Odds'))
 ggiplot(est_twfe_grp, ref.line = -1, main = 'Staggered treatment: TWFE')
 
-# However, iplot struggles if we combine a list of fixest_multi objects
+# However, iplot complains if we combine a list of fixest_multi objects
 \donttest{
 iplot(list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
-      ref.line = -1, main = 'Staggered treatment: Split mutli-sample')
+      ref.line = -1, main = 'Staggered treatment: Split multi-sample')
 }
 
 # In contrast, ggiplot works...
 ggiplot(list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
-        ref.line = -1, main = 'Staggered treatment: Split mutli-sample')
+        ref.line = -1, main = 'Staggered treatment: Split multi-sample')
 
-# ... but is even better when we use facetting instead of dodged errorbars.
+# ... but is even better when we use faceting instead of dodged errorbars.
 # Let's use this an opportunity to construct a fancy plot that invokes some
 # additional arguments and ggplot theming.
 ggiplot(list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
         ref.line = -1,
-        main = 'Staggered treatment: Split mutli-sample',
+        main = 'Staggered treatment: Split multi-sample',
         xlab = 'Time to treatment',
         multi_style = 'facet',
         geom_style = 'ribbon',
