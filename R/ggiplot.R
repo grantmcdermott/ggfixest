@@ -102,7 +102,7 @@
 #' #
 #'
 #' # An area where ggiplot shines is in complex multiple estimation cases, such
-#' # as lists of multi_fixest objects. To illustrate, let's add a split variable
+#' # as lists of fixest_multi objects. To illustrate, let's add a split variable
 #' # (group) to our staggered dataset.
 #' base_stagg_grp = base_stagg
 #' base_stagg_grp$grp = ifelse(base_stagg_grp$id %% 2 == 0, 'Evens', 'Odds')
@@ -112,14 +112,14 @@
 #' est_twfe_grp = feols(y ~ x1 + i(time_to_treatment, treated, ref = c(-1, -1000)) | id + year, base_stagg_grp, split = ~ grp)
 #' est_sa20_grp = feols(y ~ x1 + sunab(year_treated, year) | id + year, base_stagg_grp, split = ~ grp)
 #'
-#' # Both iplot and ggiplot do fine with a single multi_fixest object (although
+#' # Both iplot and ggiplot do fine with a single fixest_multi object (although
 #' # remember that we have to manually add a legend for the former)
 #' iplot(est_twfe_grp, ref.line = -1, main = 'Staggered treatment: TWFE')
 #' legend('topleft', col = c(1, 2), pch = c(20, 17),
 #'        legend = c('Evens', 'Odds'))
 #' ggiplot(est_twfe_grp, ref.line = -1, main = 'Staggered treatment: TWFE')
 #'
-#' # However, iplot struggles if we combine a list of multi_fixest objects
+#' # However, iplot struggles if we combine a list of fixest_multi objects
 #' \donttest{
 #' iplot(list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
 #'       ref.line = -1, main = 'Staggered treatment: Split mutli-sample')
