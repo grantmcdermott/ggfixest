@@ -11,8 +11,7 @@ Description: Provides ggplot2 equivalents of fixest::iplot(). Enables some
 	additional functionality and convenience features, including grouped 
 	mutli_fixest object facetting and programatic updating of existing plots
 	(e.g. themes and aesthetics).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
