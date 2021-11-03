@@ -185,17 +185,6 @@ ggiplot =
 					 multi_style = c('dodge', 'facet'),
 					 facet_args = NULL,
 					 theme = NULL,
-					 # dict = getFixest_dict(),
-					 # col = NULL,
-					 # pt.join = FALSE,
-					 # zero = TRUE,
-					 # zero.par = list(col = 'black', lty = 1, lwd = 0.3),
-					 # ref.line = 'auto',
-					 # ref.line.par = list(col = 'black', lty = 2, lwd = 0.3),
-					 # ci_level = 0.95,
-					 # xlab = NULL,
-					 # ylab = NULL,
-					 # main = NULL,
 					 ...) {
 
 		geom_style = match.arg(geom_style)
