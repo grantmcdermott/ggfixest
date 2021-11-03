@@ -111,7 +111,7 @@ ggiplot(est_did, geom_style = 'ribbon')
 <img src="man/figures/README-est_did_ribbon-2.png" width="100%" />
 
 ``` r
-ggiplot(est_did, geom_style = 'ribbon', col = 'orange')
+ggiplot(est_did, geom_style = 'ribbon', pt.pch = NA, col = 'orange')
 #> Scale for 'colour' is already present. Adding another scale for 'colour',
 #> which will replace the existing scale.
 ```

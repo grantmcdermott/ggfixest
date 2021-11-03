@@ -94,7 +94,7 @@ less arguments depending on what you want to do. For example,
 iplot(est_did, pt.join = TRUE, ci.lty = 0, ci.width = 0, ci.fill = TRUE,
       ci.fill.par = list(col = 'black', alpha = 0.4))
 ggiplot(est_did, geom_style = 'ribbon')
-ggiplot(est_did, geom_style = 'ribbon', col = 'orange')
+ggiplot(est_did, geom_style = 'ribbon', pt.pch = NA, col = 'orange')
 ```
 
 ### Example 2: Multiple estimation (i)
