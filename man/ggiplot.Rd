@@ -32,12 +32,16 @@ adjustments, such as centered plot title. Can also be defined on an
 existing ggiplot object to redefine theme elements. See examples.}
 
 \item{...}{Arguments passed down, or equivalent, to the corresponding
-\code{fixest::iplot()} arguments. Currently used are: \code{main}, \code{xlab}, and \code{ylab}
-(for setting the plot title, x- and- y axis labels, respectively); \code{zero}
-and \code{zero.par} (for defining or adjusting the zero line); \code{ref.line}
-and \code{ref.line.par} (for defining or adjusting the vertical reference line);
-\code{col} (for manually defining line, point, and ribbon colours); and
-\code{ci_level} (for changing the desired confidence level; default = 0.95).}
+\code{fixest::iplot()} arguments. Currently used are:
+\itemize{
+\item \code{main}, \code{xlab}, and \code{ylab} for setting the plot title, x- and y-axis labels, respectively.
+\item \code{zero} and \code{zero.par} for defining or adjusting the zero line.
+\item \code{ref.line} and \code{ref.line.par} for defining or adjusting the vertical reference line.
+\item \code{pt.pch} and \code{pt.join} for overriding the default point estimate shapes and joining them, respectively.
+\item \code{col} for manually defining line, point, and ribbon colours.
+\item \code{ci_level} for changing the desired confidence level (default = 0.95).
+\item \code{dict} a dictionary for overriding coefficient names.
+}}
 }
 \value{
 A ggplot2 object.

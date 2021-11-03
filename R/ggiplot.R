@@ -18,12 +18,14 @@
 #'   adjustments, such as centered plot title. Can also be defined on an
 #'   existing ggiplot object to redefine theme elements. See examples.
 #' @param ... Arguments passed down, or equivalent, to the corresponding
-#'   `fixest::iplot()` arguments. Currently used are: `main`, `xlab`, and `ylab`
-#'   (for setting the plot title, x- and- y axis labels, respectively); `zero`
-#'   and `zero.par` (for defining or adjusting the zero line); `ref.line`
-#'   and `ref.line.par` (for defining or adjusting the vertical reference line);
-#'   `col` (for manually defining line, point, and ribbon colours); and
-#'   `ci_level` (for changing the desired confidence level; default = 0.95).
+#'   `fixest::iplot()` arguments. Currently used are:
+#'   * `main`, `xlab`, and `ylab` for setting the plot title, x- and y-axis labels, respectively.
+#'   * `zero` and `zero.par` for defining or adjusting the zero line.
+#'   * `ref.line` and `ref.line.par` for defining or adjusting the vertical reference line.
+#'   * `pt.pch` and `pt.join` for overriding the default point estimate shapes and joining them, respectively.
+#'   * `col` for manually defining line, point, and ribbon colours.
+#'   * `ci_level` for changing the desired confidence level (default = 0.95).
+#'   * `dict` a dictionary for overriding coefficient names.
 #' @details This function generally tries to mimic the functionality and (where
 #'   appropriate) arguments of `fixest::iplot()` as closely as possible.
 #'   However, by leveraging the ggplot2 API and infrastructure, it is able to
@@ -207,6 +209,7 @@ ggiplot =
 		ylab = if (!is.null(dots$ylab)) dots$ylab else NULL
 		dict = if (!is.null(dots$dict)) dots$dict else getFixest_dict()
 		col = if (!is.null(dots$col)) dots$col else NULL
+		pt.pch = if (!is.null(dots$pt.pch)) dots$pt.pch else NULL
 		pt.join = if (!is.null(dots$pt.join)) dots$pt.join else FALSE
 		zero = if (!is.null(dots$zero)) dots$zero else TRUE
 		zero.par = if (!is.null(dots$zero.par))	dots$zero.par else list(col = 'black',
@@ -241,6 +244,16 @@ ggiplot =
 				multi_style = 'none'
 			}
 		}
+		# if (class(object) %in% c('fixest', 'fixest_multi')) {
+		# 	if (class(object)=='fixest_multi') {
+		# 		data = do.call('rbind', lapply(object, iplot_data))
+		# 		fct_vars = ~ id
+		# 	} else {
+		# 		data = iplot_data(object)
+		# 		multi_style = 'none'
+		# 	}
+		# 	data$group = data$id
+		# }
 
 		if (class(object)=='list') {
 			data = lapply(object, iplot_data)
@@ -282,6 +295,13 @@ ggiplot =
 			facet_args = facet_defaults
 		}
 
+		if (!is.null(pt.pch)) {
+			# data$group = factor(data$group)
+			ugroups = unique(data$group)
+			pt_values_df = data.frame(group = ugroups, values = pt.pch)[1:length(ugroups), ]
+			pt_values = pt_values_df$values
+			names(pt_values) = pt_values_df$group
+		}
 
 		if (multi_style=='none') {
 			if (is.null(col)) {
@@ -290,10 +310,10 @@ ggiplot =
 				gg = ggplot(data, aes(x, estimate, ymin=ci_low, ymax=ci_high,
 															col=col, fill=col))
 			}
-		} else {
-			gg = ggplot(data, aes(x, estimate, ymin=ci_low, ymax=ci_high,
-														fill=group, col=group, shape = group))
-		}
+			} else {
+				gg = ggplot(data, aes(x, estimate, ymin=ci_low, ymax=ci_high,
+															fill=group, col=group, shape = group))
+			}
 
 		gg =
 			gg +
@@ -306,36 +326,55 @@ ggiplot =
 			{
 				if (geom_style %in% c('pointrange', 'errorbar') & multi_style %in% c('none', 'facet')) {
 					if (geom_style=='pointrange') {
-						geom_pointrange()
+						geom_linerange()
 					} else {
-						list(geom_point(size = 2.5),
-								 geom_errorbar(width = 0.1))
+						geom_errorbar(width = 0.1)
 					}
 				}
 			} +
 			{
 				if (geom_style %in% c('pointrange', 'errorbar') & multi_style=='dodge') {
 					if (geom_style=='pointrange') {
-						geom_pointrange(position = position_dodge2(width = 0.5, padding = 0.5))
+						geom_linerange(position = position_dodge2(width = 0.5, padding = 0.5))
 					} else {
-						list(geom_point(size = 2.5, position = position_dodge2(width = 0.5, padding = 0.5)),
-								 geom_errorbar(width = 0.2, position = position_dodge(width = 0.5)))
+						geom_errorbar(width = 0.2, position = position_dodge(width = 0.5, padding = 0.5))
 					}
 				}
 			} +
 			{
 				if (geom_style=='ribbon') {
-					list(geom_ribbon(alpha = 0.5, col = NA), geom_point())
+					if (multi_style=='dodge') {
+						geom_ribbon(alpha = 0.5, col = NA, position = position_dodge2(width = 0.5, padding = 0.5))
+					} else {
+						geom_ribbon(alpha = 0.5, col = NA)
+					}
 				}
 			} +
 			{
-				if (geom_style=='ribbon' || (pt.join && multi_style!='dodge')) {
-					geom_line()
+				if (geom_style=='ribbon' || pt.join) {
+					if (multi_style=='dodge') {
+						geom_line(position = position_dodge2(width = 0.5, padding = 0.5))
+					} else {
+						geom_line()
+					}
+
 				}
 			} +
 			{
-				if (geom_style=='ribbon' || (pt.join && multi_style=='dodge')) {
-					geom_line(position = position_dodge2(width = 0.5, padding = 0.5))
+				if (!(!is.null(pt.pch) && is.na(pt.pch))) {
+					if (multi_style=='none' && !is.null(pt.pch)) {
+						if (multi_style=='dodge') {
+							geom_point(shape = pt.pch, size = 2.5, position = position_dodge2(width = 0.5, padding = 0.5))
+						} else {
+							geom_point(shape = pt.pch, size = 2.5)
+						}
+					} else {
+						if (multi_style=='dodge') {
+							geom_point(size = 2.5, position = position_dodge2(width = 0.5, padding = 0.5))
+						} else {
+							geom_point(size = 2.5)
+						}
+					}
 				}
 			} +
 			scale_color_brewer(palette = 'Set2', aesthetics = c('colour', 'fill')) +
@@ -346,6 +385,15 @@ ggiplot =
 								 guides(col = 'none', fill = 'none'))
 					} else {
 						scale_colour_manual(values = col, aesthetics = c('colour', 'fill'))
+					}
+				}
+			} +
+			{
+				if (!is.null(pt.pch) && !is.na(pt.pch)) {
+					if (multi_style=='none') {
+						list(scale_shape_manual(values = pt_values), guides(shape = 'none'))
+					} else {
+						scale_shape_manual(values = pt_values)
 					}
 				}
 			} +
