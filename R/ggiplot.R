@@ -292,6 +292,11 @@ ggiplot =
 			names(pt_values) = pt_values_df$group
 		}
 
+		ptsize = 2.5
+		if (multi_style=='facet') {
+			ptsize = ptsize - 0.25*length(unique(data$group))
+		}
+
 		if (multi_style=='none') {
 			if (is.null(col)) {
 				gg = ggplot(data, aes(x, estimate, ymin=ci_low, ymax=ci_high))
@@ -353,15 +358,15 @@ ggiplot =
 				if (!(!is.null(pt.pch) && is.na(pt.pch))) {
 					if (multi_style=='none' && !is.null(pt.pch)) {
 						if (multi_style=='dodge') {
-							geom_point(shape = pt.pch, size = 2.5, position = position_dodge2(width = 0.5, padding = 0.5))
+							geom_point(shape = pt.pch, size = ptsize, position = position_dodge2(width = 0.5, padding = 0.5))
 						} else {
-							geom_point(shape = pt.pch, size = 2.5)
+							geom_point(shape = pt.pch, size = ptsize)
 						}
 					} else {
 						if (multi_style=='dodge') {
-							geom_point(size = 2.5, position = position_dodge2(width = 0.5, padding = 0.5))
+							geom_point(size = ptsize, position = position_dodge2(width = 0.5, padding = 0.5))
 						} else {
-							geom_point(size = 2.5)
+							geom_point(size = ptsize)
 						}
 					}
 				}
