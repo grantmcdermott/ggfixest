@@ -261,8 +261,10 @@ ggiplot =
 			rownames(data) = NULL
 			if (length(unique(data$id))==1) {
 				fct_vars = ~ group
+				n_fcts = length(unique(data$group))
 			} else {
 				fct_vars = ~ id + group
+				n_fcts = length(unique(data$group)) * length(unique(data$id))
 			}
 			if (is.null(facet_args$ncol)) facet_args$ncol = length(unique(data$group))
 		}
@@ -294,7 +296,7 @@ ggiplot =
 
 		ptsize = 2.5
 		if (multi_style=='facet') {
-			ptsize = ptsize - 0.25*length(unique(data$group))
+			ptsize = ptsize - 0.25*n_fcts
 		}
 
 		if (multi_style=='none') {
