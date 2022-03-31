@@ -18,14 +18,14 @@ i, either interactions with factors or raw factors."><!-- mathjax --><script src
     
     <a class="navbar-brand me-2" href="../index.html">ggiplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
@@ -119,12 +119,12 @@ more difficult to achieve using the base <code><a href="https://lrberge.github.i
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Note: We have to load fixest and ggplot2 in order to use ggiplot().</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># We'll also load fixest to estimate the actual models that we're plottig.</span></span>
 <span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lrberge.github.io/fixest/" class="external-link">fixest</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/grantmcdermott/ggiplot" class="external-link">ggiplot</a></span><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co"># Here follow some examples, borrowing from the fixest::iplot() documentation</span></span>
-<span class="r-in"><span class="co"># and the package introductory vignette.</span></span>
+<span class="r-in"><span class="co"># These examples borrow from the fixest::iplot() documentation and the</span></span>
+<span class="r-in"><span class="co"># introductory package vignette.</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#</span></span>
 <span class="r-in"><span class="co">## Example 1: Vanilla TWFE</span></span>
@@ -134,11 +134,11 @@ more difficult to achieve using the base <code><a href="https://lrberge.github.i
 <span class="r-in"><span class="va">base_inter</span> <span class="op">=</span> <span class="va">base_did</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">est_did</span> <span class="op">=</span> <span class="fu"><a href="https://lrberge.github.io/fixest/reference/feols.html" class="external-link">feols</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x1</span> <span class="op">+</span> <span class="fu"><a href="https://lrberge.github.io/fixest/reference/i.html" class="external-link">i</a></span><span class="op">(</span><span class="va">period</span>, <span class="va">treat</span>, <span class="fl">5</span><span class="op">)</span> <span class="op">|</span> <span class="va">id</span><span class="op">+</span><span class="va">period</span>, <span class="va">base_inter</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Comparison of default plots</span></span>
-<span class="r-in"><span class="fu"><a href="https://lrberge.github.io/fixest/reference/coefplot.html" class="external-link">iplot</a></span><span class="op">(</span><span class="va">est_did</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="ggiplot-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="fu">ggiplot</span><span class="op">(</span><span class="va">est_did</span><span class="op">)</span></span>
+<span class="r-plt img"><img src="ggiplot-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># Comparison with iplot defaults</span></span>
+<span class="r-in"><span class="fu"><a href="https://lrberge.github.io/fixest/reference/coefplot.html" class="external-link">iplot</a></span><span class="op">(</span><span class="va">est_did</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="ggiplot-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="fu">ggiplot</span><span class="op">(</span><span class="va">est_did</span>, geom <span class="op">=</span> <span class="st">'errorbar'</span><span class="op">)</span> <span class="co"># closer iplot original</span></span>
 <span class="r-plt img"><img src="ggiplot-3.png" alt="" width="700" height="433"></span>
@@ -149,18 +149,13 @@ more difficult to achieve using the base <code><a href="https://lrberge.github.i
 <span class="r-in"><span class="fu">ggiplot</span><span class="op">(</span><span class="va">est_did</span>, pt.join <span class="op">=</span> <span class="cn">TRUE</span>, geom_style <span class="op">=</span> <span class="st">'errorbar'</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="ggiplot-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co"># The ggiplot defaults are slightly different in some cases, but may require</span></span>
-<span class="r-in"><span class="co"># less arguments depending on what you want to do</span></span>
-<span class="r-in"><span class="co"># iplot(est_did, pt.join = TRUE, ci.lty = 0, ci.width = 0, ci.fill = TRUE)</span></span>
-<span class="r-in"><span class="fu"><a href="https://lrberge.github.io/fixest/reference/coefplot.html" class="external-link">iplot</a></span><span class="op">(</span><span class="va">est_did</span>, pt.join <span class="op">=</span> <span class="cn">TRUE</span>, ci.lty <span class="op">=</span> <span class="fl">0</span>, ci.width <span class="op">=</span> <span class="fl">0</span>, ci.fill <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span class="r-in">      ci.fill.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">'black'</span>, alpha <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="ggiplot-6.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span class="co"># Plots can be customized and tweaked easily</span></span>
 <span class="r-in"><span class="fu">ggiplot</span><span class="op">(</span><span class="va">est_did</span>, geom_style <span class="op">=</span> <span class="st">'ribbon'</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="ggiplot-7.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="ggiplot-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="fu">ggiplot</span><span class="op">(</span><span class="va">est_did</span>, geom_style <span class="op">=</span> <span class="st">'ribbon'</span>, col <span class="op">=</span> <span class="st">'orange'</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for 'colour' is already present. Adding another scale for 'colour',</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> which will replace the existing scale.</span>
-<span class="r-plt img"><img src="ggiplot-8.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="ggiplot-7.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#</span></span>
 <span class="r-in"><span class="co"># Example 2: Multiple estimation (i)</span></span>
@@ -173,29 +168,16 @@ more difficult to achieve using the base <code><a href="https://lrberge.github.i
 <span class="r-in"><span class="va">est_twfe</span> <span class="op">=</span> <span class="fu"><a href="https://lrberge.github.io/fixest/reference/feols.html" class="external-link">feols</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x1</span> <span class="op">+</span> <span class="fu"><a href="https://lrberge.github.io/fixest/reference/i.html" class="external-link">i</a></span><span class="op">(</span><span class="va">time_to_treatment</span>, <span class="va">treated</span>, ref <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1000</span><span class="op">)</span><span class="op">)</span> <span class="op">|</span> <span class="va">id</span> <span class="op">+</span> <span class="va">year</span>, <span class="va">base_stagg</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">est_sa20</span> <span class="op">=</span> <span class="fu"><a href="https://lrberge.github.io/fixest/reference/feols.html" class="external-link">feols</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x1</span> <span class="op">+</span> <span class="fu"><a href="https://lrberge.github.io/fixest/reference/sunab.html" class="external-link">sunab</a></span><span class="op">(</span><span class="va">year_treated</span>, <span class="va">year</span><span class="op">)</span> <span class="op">|</span> <span class="va">id</span> <span class="op">+</span> <span class="va">year</span>, <span class="va">base_stagg</span><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co"># iplot (note that we have to add a legend manually)</span></span>
-<span class="r-in"><span class="fu"><a href="https://lrberge.github.io/fixest/reference/coefplot.html" class="external-link">iplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'TWFE'</span> <span class="op">=</span> <span class="va">est_twfe</span>, <span class="st">'Sun &amp; Abraham (2020)'</span> <span class="op">=</span> <span class="va">est_sa20</span><span class="op">)</span>,</span>
-<span class="r-in">      main <span class="op">=</span> <span class="st">'Staggered treatment'</span>, ref.line <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, pt.join <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">'topleft'</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">17</span><span class="op">)</span>,</span>
-<span class="r-in">       legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'TWFE'</span>, <span class="st">'Sun &amp; Abraham (2020)'</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="ggiplot-9.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># ggiplot</span></span>
 <span class="r-in"><span class="fu">ggiplot</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'TWFE'</span> <span class="op">=</span> <span class="va">est_twfe</span>, <span class="st">'Sun &amp; Abraham (2020)'</span> <span class="op">=</span> <span class="va">est_sa20</span><span class="op">)</span>,</span>
 <span class="r-in">        main <span class="op">=</span> <span class="st">'Staggered treatment'</span>, ref.line <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, pt.join <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="ggiplot-10.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># If we don't name our list of models then it defaults to something sensible</span></span>
-<span class="r-in"><span class="fu">ggiplot</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">est_twfe</span>, <span class="va">est_sa20</span><span class="op">)</span>,</span>
-<span class="r-in">        main <span class="op">=</span> <span class="st">'Staggered treatment'</span>, ref.line <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, pt.join <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="ggiplot-11.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="ggiplot-8.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># If you don't like the presentation of 'dodged' models in a single frame,</span></span>
 <span class="r-in"><span class="co"># then it easy to facet them instead using multi_style = 'facet'.</span></span>
 <span class="r-in"><span class="fu">ggiplot</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'TWFE'</span> <span class="op">=</span> <span class="va">est_twfe</span>, <span class="st">'Sun &amp; Abraham (2020)'</span> <span class="op">=</span> <span class="va">est_sa20</span><span class="op">)</span>,</span>
 <span class="r-in">        main <span class="op">=</span> <span class="st">'Staggered treatment'</span>, ref.line <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, pt.join <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span class="r-in">        multi_style <span class="op">=</span> <span class="st">'facet'</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="ggiplot-12.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="ggiplot-9.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#</span></span>
 <span class="r-in"><span class="co"># Example 3: Multiple estimation (ii)</span></span>
@@ -209,31 +191,15 @@ more difficult to achieve using the base <code><a href="https://lrberge.github.i
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Now re-run our two regressions from earlier, but splitting the sample to</span></span>
 <span class="r-in"><span class="co"># generate fixest_multi objects.</span></span>
-<span class="r-in"><span class="va">est_twfe_grp</span> <span class="op">=</span> <span class="fu"><a href="https://lrberge.github.io/fixest/reference/feols.html" class="external-link">feols</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x1</span> <span class="op">+</span> <span class="fu"><a href="https://lrberge.github.io/fixest/reference/i.html" class="external-link">i</a></span><span class="op">(</span><span class="va">time_to_treatment</span>, <span class="va">treated</span>, ref <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1000</span><span class="op">)</span><span class="op">)</span> <span class="op">|</span> <span class="va">id</span> <span class="op">+</span> <span class="va">year</span>, <span class="va">base_stagg_grp</span>, split <span class="op">=</span> <span class="op">~</span> <span class="va">grp</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">est_sa20_grp</span> <span class="op">=</span> <span class="fu"><a href="https://lrberge.github.io/fixest/reference/feols.html" class="external-link">feols</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x1</span> <span class="op">+</span> <span class="fu"><a href="https://lrberge.github.io/fixest/reference/sunab.html" class="external-link">sunab</a></span><span class="op">(</span><span class="va">year_treated</span>, <span class="va">year</span><span class="op">)</span> <span class="op">|</span> <span class="va">id</span> <span class="op">+</span> <span class="va">year</span>, <span class="va">base_stagg_grp</span>, split <span class="op">=</span> <span class="op">~</span> <span class="va">grp</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">est_twfe_grp</span> <span class="op">=</span> <span class="fu"><a href="https://lrberge.github.io/fixest/reference/feols.html" class="external-link">feols</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x1</span> <span class="op">+</span> <span class="fu"><a href="https://lrberge.github.io/fixest/reference/i.html" class="external-link">i</a></span><span class="op">(</span><span class="va">time_to_treatment</span>, <span class="va">treated</span>, ref <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1000</span><span class="op">)</span><span class="op">)</span> <span class="op">|</span></span>
+<span class="r-in">                     <span class="va">id</span> <span class="op">+</span> <span class="va">year</span>, <span class="va">base_stagg_grp</span>, split <span class="op">=</span> <span class="op">~</span> <span class="va">grp</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">est_sa20_grp</span> <span class="op">=</span> <span class="fu"><a href="https://lrberge.github.io/fixest/reference/feols.html" class="external-link">feols</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x1</span> <span class="op">+</span> <span class="fu"><a href="https://lrberge.github.io/fixest/reference/sunab.html" class="external-link">sunab</a></span><span class="op">(</span><span class="va">year_treated</span>, <span class="va">year</span><span class="op">)</span> <span class="op">|</span></span>
+<span class="r-in">                     <span class="va">id</span> <span class="op">+</span> <span class="va">year</span>, <span class="va">base_stagg_grp</span>, split <span class="op">=</span> <span class="op">~</span> <span class="va">grp</span><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co"># Both iplot and ggiplot do fine with a single fixest_multi object (although</span></span>
-<span class="r-in"><span class="co"># remember that we have to manually add a legend for the former)</span></span>
-<span class="r-in"><span class="fu"><a href="https://lrberge.github.io/fixest/reference/coefplot.html" class="external-link">iplot</a></span><span class="op">(</span><span class="va">est_twfe_grp</span>, ref.line <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, main <span class="op">=</span> <span class="st">'Staggered treatment: TWFE'</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">'topleft'</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">17</span><span class="op">)</span>,</span>
-<span class="r-in">       legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Evens'</span>, <span class="st">'Odds'</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="ggiplot-13.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">ggiplot</span><span class="op">(</span><span class="va">est_twfe_grp</span>, ref.line <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, main <span class="op">=</span> <span class="st">'Staggered treatment: TWFE'</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="ggiplot-14.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># However, iplot complains if we combine a list of fixest_multi objects</span></span>
-<span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="fu"><a href="https://lrberge.github.io/fixest/reference/coefplot.html" class="external-link">iplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'TWFE'</span> <span class="op">=</span> <span class="va">est_twfe_grp</span>, <span class="st">'Sun &amp; Abraham (2020)'</span> <span class="op">=</span> <span class="va">est_sa20_grp</span><span class="op">)</span>,</span>
-<span class="r-in">      ref.line <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, main <span class="op">=</span> <span class="st">'Staggered treatment: Split multi-sample'</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in coefplot_prms(object = object, ..., sd = sd, ci_low = ci_low,     ci_high = ci_high, x = x, x.shift = x.shift, dict = dict,     keep = keep, drop = drop, order = order, ci_level = ci_level,     ref = ref, only.i = is_iplot, sep = sep, as.multiple = as.multiple):</span> The first element of 'object' raises and error:</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> Error in coeftable(object = my__object__) : </span>
-<span class="r-err co"><span class="r-pr">#&gt;</span>   Sorry, the coeffficients table could not be extracted.</span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># In contrast, ggiplot works...</span></span>
+<span class="r-in"><span class="co"># ggiplot combines with list of multi-estimation objects without a problem...</span></span>
 <span class="r-in"><span class="fu">ggiplot</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'TWFE'</span> <span class="op">=</span> <span class="va">est_twfe_grp</span>, <span class="st">'Sun &amp; Abraham (2020)'</span> <span class="op">=</span> <span class="va">est_sa20_grp</span><span class="op">)</span>,</span>
 <span class="r-in">        ref.line <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, main <span class="op">=</span> <span class="st">'Staggered treatment: Split multi-sample'</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="ggiplot-15.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="ggiplot-10.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># ... but is even better when we use faceting instead of dodged errorbars.</span></span>
 <span class="r-in"><span class="co"># Let's use this an opportunity to construct a fancy plot that invokes some</span></span>
@@ -248,7 +214,7 @@ more difficult to achieve using the base <code><a href="https://lrberge.github.i
 <span class="r-in">           <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">'HersheySans'</span><span class="op">)</span>,</span>
 <span class="r-in">                 plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,</span>
 <span class="r-in">                 legend.position <span class="op">=</span> <span class="st">'none'</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="ggiplot-16.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="ggiplot-11.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#</span></span>
 <span class="r-in"><span class="co"># Aside on theming and scale adjustments</span></span>
@@ -258,11 +224,11 @@ more difficult to achieve using the base <code><a href="https://lrberge.github.i
 <span class="r-in"><span class="co"># necessary, since the ggplot2 API allows programmatic updating of existing</span></span>
 <span class="r-in"><span class="co"># plots. E.g.</span></span>
 <span class="r-in"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/last_plot.html" class="external-link">last_plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>caption <span class="op">=</span> <span class="st">'Note: Super fancy plot brought to you by ggiplot'</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="ggiplot-17.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="ggiplot-12.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/last_plot.html" class="external-link">last_plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_void</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_colour_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">'Set1'</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for 'colour' is already present. Adding another scale for 'colour',</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> which will replace the existing scale.</span>
-<span class="r-plt img"><img src="ggiplot-18.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="ggiplot-13.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="co"># etc.</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#</span></span>
@@ -275,19 +241,19 @@ more difficult to achieve using the base <code><a href="https://lrberge.github.i
 <span class="r-in"><span class="va">est_letters</span> <span class="op">=</span> <span class="fu"><a href="https://lrberge.github.io/fixest/reference/feols.html" class="external-link">feols</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x1</span> <span class="op">+</span> <span class="fu"><a href="https://lrberge.github.io/fixest/reference/i.html" class="external-link">i</a></span><span class="op">(</span><span class="va">letter</span>, <span class="va">treat</span>, <span class="st">'e'</span><span class="op">)</span> <span class="op">|</span> <span class="va">id</span><span class="op">+</span><span class="va">letter</span>, <span class="va">base_inter</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">ggiplot</span><span class="op">(</span><span class="va">est_letters</span><span class="op">)</span> <span class="co"># No dictionary</span></span>
-<span class="r-plt img"><img src="ggiplot-19.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="ggiplot-14.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Dictionary for capitalising the letters</span></span>
 <span class="r-in"><span class="va">dict</span> <span class="op">=</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>; <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">dict</span><span class="op">)</span> <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># You can either set the dictionary directly in the plot call.</span></span>
 <span class="r-in"><span class="fu">ggiplot</span><span class="op">(</span><span class="va">est_letters</span>, dict<span class="op">=</span><span class="va">dict</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="ggiplot-20.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="ggiplot-15.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Or, set it globally using the setFixest_dict macro</span></span>
 <span class="r-in"><span class="fu"><a href="https://lrberge.github.io/fixest/reference/setFixest_dict.html" class="external-link">setFixest_dict</a></span><span class="op">(</span><span class="va">dict</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">ggiplot</span><span class="op">(</span><span class="va">est_letters</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="ggiplot-21.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="ggiplot-16.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu"><a href="https://lrberge.github.io/fixest/reference/setFixest_dict.html" class="external-link">setFixest_dict</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># reset</span></span>
 <span class="r-in"></span>
@@ -302,7 +268,7 @@ more difficult to achieve using the base <code><a href="https://lrberge.github.i
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
     </footer></div>

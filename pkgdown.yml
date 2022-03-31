@@ -1,8 +1,8 @@
 pandoc: 2.7.3
-pkgdown: 2.0.1
+pkgdown: 2.0.2
 pkgdown_sha: ~
 articles: {}
-last_built: 2021-12-04T05:43Z
+last_built: 2022-03-31T23:04Z
 urls:
   reference: http://grantmcdermott.com/ggiplot, https://github.com/grantmcdermott/ggiplot/reference
   article: http://grantmcdermott.com/ggiplot, https://github.com/grantmcdermott/ggiplot/articles

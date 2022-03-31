@@ -32,14 +32,14 @@
     
     <a class="navbar-brand me-2" href="index.html">ggiplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="reference/index.html">Reference</a>
@@ -83,11 +83,10 @@
 </h2>
 <p>Here follow some examples that draw on the <strong>fixest</strong> <a href="https://lrberge.github.io/fixest/articles/fixest_walkthrough.html" class="external-link">introductory vignette</a>, as well as the <code><a href="https://lrberge.github.io/fixest/reference/coefplot.html" class="external-link">iplot()</a></code> help documentation.</p>
 <p>As we’ll see, the package essentially consists of a single function — <strong><code><a href="reference/ggiplot.html">ggiplot()</a></code></strong> — that tries to closely mimic it base compatriot. However, by leveraging the <strong>ggplot2</strong> API and infrastructure, it also offers some additional functionality.</p>
-<p>Start by loading the <strong>ggiplot</strong> package. Note that we also have to load <strong>fixest</strong> and <strong>ggplot2</strong> in order to actually use it.</p>
+<p>Start by loading the <strong>ggiplot</strong> package alongside <strong>fixest</strong>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/grantmcdermott/ggiplot" class="external-link">ggiplot</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lrberge.github.io/fixest/" class="external-link">fixest</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lrberge.github.io/fixest/" class="external-link">fixest</a></span><span class="op">)</span></code></pre></div>
 <div class="section level3">
 <h3 id="example-1-vanilla-twfe">Example 1: Vanilla TWFE<a class="anchor" aria-label="anchor" href="#example-1-vanilla-twfe"></a>
 </h3>
@@ -310,7 +309,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
     </footer>
