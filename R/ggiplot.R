@@ -213,13 +213,37 @@ ggiplot =
 			p = iplot(object, only.params = TRUE, ci_level = ci_level, dict = dict)
 			d = p$prms
 			if (class(object)=='fixest_multi') {
-				d$x = rep(p$labels, each = length(object))
-				d$id = factor(d$id, labels = names(object))
-				d$dep_var = unique(as.character(lapply(object, function(m) paste(m$call$fml[[2]]))))
+				meta = attr(object, "meta")
+				dep_vars = meta$all_names$lhs
+				if (is.null(dep_vars)) {
+					# dep_vars = unique(as.character(lapply(object, function(m) paste(m$call$fml[[2]]))))
+					dep_vars = unique(as.character(lapply(object, function(m) paste(m$fml[[2]]))))
+				}
+				## Need to do a bit of finicky work, depending on whether the fixest_multi
+				## object is just a multi-LHS object.
+				# if (all.equal(dep_vars, names(object))) {
+				if (!is.null(meta$all_names$lhs)) {
+					if (any(c("rhs", "sample") %in% colnames(meta$tree))) {
+						d$x = rep(p$labels, each = length(object)*length(dep_vars))
+						if (!is.null(meta$all_names$rhs)) {
+							d$id = factor(d$id, labels = rep(meta$all_names$rhs, each = length(dep_vars)))
+						} else {
+							d$id = factor(d$id, labels = rep(names(object), each = length(dep_vars)))
+						}
+					} else {
+						d$x = rep(p$labels, each = length(object))
+				  	d$id = factor(d$id, labels = names(object))
+					}
+				} else {
+					d$x = rep(p$labels, each = length(object)*length(dep_vars))
+					d$id = factor(d$id, labels = rep(names(object), each = length(dep_vars)))
+				}
+				d$dep_var = dep_vars
 			} else {
 				if (class(p$labels)=='integer') p$labels = as.numeric(p$labels) ## catch
 				if (!identical(d$x, p$labels)) d$x = factor(d$x, labels = p$labels)
-				d$dep_var = paste(object$call$fml[[2]])
+				# d$dep_var = paste(object$call$fml[[2]])
+				d$dep_var = paste(object$fml[[2]])
 			}
 			return(d)
 		}
@@ -228,7 +252,17 @@ ggiplot =
 			data = iplot_data(object)
 			data$group = data$id
 			if (class(object)=='fixest_multi') {
-				fct_vars = ~ id
+				if (length(unique(data$dep_var)) > 1) {
+					if (all(data$dep_var==data$id)) {
+						fct_vars = ~ dep_var
+					} else {
+						fct_vars = ~ dep_var + id
+					}
+					n_fcts = length(unique(data$dep_var))
+				} else {
+					fct_vars = ~ id
+					n_fcts = length(unique(data$id))
+				}
 			} else {
 				multi_style = 'none'
 			}
@@ -266,6 +300,10 @@ ggiplot =
 				fct_vars = ~ id + group
 				n_fcts = length(unique(data$group)) * length(unique(data$id))
 			}
+			if (length(unique(data$dep_var)) > 1) {
+				fct_vars = update(fct_vars, ~ dep_var + .)
+				n_fcts = n_fcts * length(unique(data$dep_var))
+			}
 			if (is.null(facet_args$ncol)) facet_args$ncol = length(unique(data$group))
 		}
 
@@ -274,7 +312,7 @@ ggiplot =
 			if (ref.line=='auto')	ref.line = data$x[which(data$is_ref)[1]]
 		}
 		if (is.null(ylab)) ylab = paste0('Estimate and ', ci_level*100, '% Conf. Int.')
-		if (is.null(main)) main = paste0('Effect on ', unique(data$dep_var))
+		if (is.null(main)) main = paste0('Effect on ', oxford(unique(data$dep_var)))
 
 		if (multi_style=='facet') {
 			facet_defaults = formals(facet_wrap)
