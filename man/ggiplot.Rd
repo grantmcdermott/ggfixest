@@ -61,12 +61,12 @@ support some more complex plot arrangements out-of-the-box that would be
 more difficult to achieve using the base \code{iplot()} alternative.
 }
 \examples{
-# Note: We have to load fixest and ggplot2 in order to use ggiplot().
+# We'll also load fixest to estimate the actual models that we're plottig.
 library(fixest)
-library(ggplot2)
+library(ggiplot)
 
-# Here follow some examples, borrowing from the fixest::iplot() documentation
-# and the package introductory vignette.
+# These examples borrow from the fixest::iplot() documentation and the
+# introductory package vignette.
 
 #
 ## Example 1: Vanilla TWFE
@@ -76,21 +76,17 @@ data(base_did)
 base_inter = base_did
 
 est_did = feols(y ~ x1 + i(period, treat, 5) | id+period, base_inter)
-
-# Comparison of default plots
-iplot(est_did)
 ggiplot(est_did)
+
+# Comparison with iplot defaults
+iplot(est_did)
 ggiplot(est_did, geom = 'errorbar') # closer iplot original
 
 # Many of the arguments work the same as in iplot()
 iplot(est_did, pt.join = TRUE)
 ggiplot(est_did, pt.join = TRUE, geom_style = 'errorbar')
 
-# The ggiplot defaults are slightly different in some cases, but may require
-# less arguments depending on what you want to do
-# iplot(est_did, pt.join = TRUE, ci.lty = 0, ci.width = 0, ci.fill = TRUE)
-iplot(est_did, pt.join = TRUE, ci.lty = 0, ci.width = 0, ci.fill = TRUE,
-      ci.fill.par = list(col = 'black', alpha = 0.4))
+# Plots can be customized and tweaked easily
 ggiplot(est_did, geom_style = 'ribbon')
 ggiplot(est_did, geom_style = 'ribbon', col = 'orange')
 
@@ -105,18 +101,7 @@ data(base_stagg)
 est_twfe = feols(y ~ x1 + i(time_to_treatment, treated, ref = c(-1, -1000)) | id + year, base_stagg)
 est_sa20 = feols(y ~ x1 + sunab(year_treated, year) | id + year, base_stagg)
 
-# iplot (note that we have to add a legend manually)
-iplot(list('TWFE' = est_twfe, 'Sun & Abraham (2020)' = est_sa20),
-      main = 'Staggered treatment', ref.line = -1, pt.join = TRUE)
-legend('topleft', col = c(1, 2), pch = c(20, 17),
-       legend = c('TWFE', 'Sun & Abraham (2020)'))
-
-# ggiplot
 ggiplot(list('TWFE' = est_twfe, 'Sun & Abraham (2020)' = est_sa20),
-        main = 'Staggered treatment', ref.line = -1, pt.join = TRUE)
-
-# If we don't name our list of models then it defaults to something sensible
-ggiplot(list(est_twfe, est_sa20),
         main = 'Staggered treatment', ref.line = -1, pt.join = TRUE)
 
 # If you don't like the presentation of 'dodged' models in a single frame,
@@ -137,23 +122,12 @@ base_stagg_grp$grp = ifelse(base_stagg_grp$id \%\% 2 == 0, 'Evens', 'Odds')
 
 # Now re-run our two regressions from earlier, but splitting the sample to
 # generate fixest_multi objects.
-est_twfe_grp = feols(y ~ x1 + i(time_to_treatment, treated, ref = c(-1, -1000)) | id + year, base_stagg_grp, split = ~ grp)
-est_sa20_grp = feols(y ~ x1 + sunab(year_treated, year) | id + year, base_stagg_grp, split = ~ grp)
+est_twfe_grp = feols(y ~ x1 + i(time_to_treatment, treated, ref = c(-1, -1000)) |
+                     id + year, base_stagg_grp, split = ~ grp)
+est_sa20_grp = feols(y ~ x1 + sunab(year_treated, year) |
+                     id + year, base_stagg_grp, split = ~ grp)
 
-# Both iplot and ggiplot do fine with a single fixest_multi object (although
-# remember that we have to manually add a legend for the former)
-iplot(est_twfe_grp, ref.line = -1, main = 'Staggered treatment: TWFE')
-legend('topleft', col = c(1, 2), pch = c(20, 17),
-       legend = c('Evens', 'Odds'))
-ggiplot(est_twfe_grp, ref.line = -1, main = 'Staggered treatment: TWFE')
-
-# However, iplot complains if we combine a list of fixest_multi objects
-\donttest{
-iplot(list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
-      ref.line = -1, main = 'Staggered treatment: Split multi-sample')
-}
-
-# In contrast, ggiplot works...
+# ggiplot combines with list of multi-estimation objects without a problem...
 ggiplot(list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
         ref.line = -1, main = 'Staggered treatment: Split multi-sample')
 

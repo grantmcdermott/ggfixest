@@ -33,14 +33,15 @@
 #'   more difficult to achieve using the base `iplot()` alternative.
 #' @seealso [fixest::iplot()].
 #' @return A ggplot2 object.
+#' @import ggplot2
 #' @export
 #' @examples
-#' # Note: We have to load fixest and ggplot2 in order to use ggiplot().
+#' # We'll also load fixest to estimate the actual models that we're plottig.
 #' library(fixest)
-#' library(ggplot2)
+#' library(ggiplot)
 #'
-#' # Here follow some examples, borrowing from the fixest::iplot() documentation
-#' # and the package introductory vignette.
+#' # These examples borrow from the fixest::iplot() documentation and the
+#' # introductory package vignette.
 #'
 #' #
 #' ## Example 1: Vanilla TWFE
@@ -50,21 +51,17 @@
 #' base_inter = base_did
 #'
 #' est_did = feols(y ~ x1 + i(period, treat, 5) | id+period, base_inter)
-#'
-#' # Comparison of default plots
-#' iplot(est_did)
 #' ggiplot(est_did)
+#'
+#' # Comparison with iplot defaults
+#' iplot(est_did)
 #' ggiplot(est_did, geom = 'errorbar') # closer iplot original
 #'
 #' # Many of the arguments work the same as in iplot()
 #' iplot(est_did, pt.join = TRUE)
 #' ggiplot(est_did, pt.join = TRUE, geom_style = 'errorbar')
 #'
-#' # The ggiplot defaults are slightly different in some cases, but may require
-#' # less arguments depending on what you want to do
-#' # iplot(est_did, pt.join = TRUE, ci.lty = 0, ci.width = 0, ci.fill = TRUE)
-#' iplot(est_did, pt.join = TRUE, ci.lty = 0, ci.width = 0, ci.fill = TRUE,
-#'       ci.fill.par = list(col = 'black', alpha = 0.4))
+#' # Plots can be customized and tweaked easily
 #' ggiplot(est_did, geom_style = 'ribbon')
 #' ggiplot(est_did, geom_style = 'ribbon', col = 'orange')
 #'
@@ -79,18 +76,7 @@
 #' est_twfe = feols(y ~ x1 + i(time_to_treatment, treated, ref = c(-1, -1000)) | id + year, base_stagg)
 #' est_sa20 = feols(y ~ x1 + sunab(year_treated, year) | id + year, base_stagg)
 #'
-#' # iplot (note that we have to add a legend manually)
-#' iplot(list('TWFE' = est_twfe, 'Sun & Abraham (2020)' = est_sa20),
-#'       main = 'Staggered treatment', ref.line = -1, pt.join = TRUE)
-#' legend('topleft', col = c(1, 2), pch = c(20, 17),
-#'        legend = c('TWFE', 'Sun & Abraham (2020)'))
-#'
-#' # ggiplot
 #' ggiplot(list('TWFE' = est_twfe, 'Sun & Abraham (2020)' = est_sa20),
-#'         main = 'Staggered treatment', ref.line = -1, pt.join = TRUE)
-#'
-#' # If we don't name our list of models then it defaults to something sensible
-#' ggiplot(list(est_twfe, est_sa20),
 #'         main = 'Staggered treatment', ref.line = -1, pt.join = TRUE)
 #'
 #' # If you don't like the presentation of 'dodged' models in a single frame,
@@ -111,23 +97,12 @@
 #'
 #' # Now re-run our two regressions from earlier, but splitting the sample to
 #' # generate fixest_multi objects.
-#' est_twfe_grp = feols(y ~ x1 + i(time_to_treatment, treated, ref = c(-1, -1000)) | id + year, base_stagg_grp, split = ~ grp)
-#' est_sa20_grp = feols(y ~ x1 + sunab(year_treated, year) | id + year, base_stagg_grp, split = ~ grp)
+#' est_twfe_grp = feols(y ~ x1 + i(time_to_treatment, treated, ref = c(-1, -1000)) |
+#'                      id + year, base_stagg_grp, split = ~ grp)
+#' est_sa20_grp = feols(y ~ x1 + sunab(year_treated, year) |
+#'                      id + year, base_stagg_grp, split = ~ grp)
 #'
-#' # Both iplot and ggiplot do fine with a single fixest_multi object (although
-#' # remember that we have to manually add a legend for the former)
-#' iplot(est_twfe_grp, ref.line = -1, main = 'Staggered treatment: TWFE')
-#' legend('topleft', col = c(1, 2), pch = c(20, 17),
-#'        legend = c('Evens', 'Odds'))
-#' ggiplot(est_twfe_grp, ref.line = -1, main = 'Staggered treatment: TWFE')
-#'
-#' # However, iplot complains if we combine a list of fixest_multi objects
-#' \donttest{
-#' iplot(list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
-#'       ref.line = -1, main = 'Staggered treatment: Split multi-sample')
-#' }
-#'
-#' # In contrast, ggiplot works...
+#' # ggiplot combines with list of multi-estimation objects without a problem...
 #' ggiplot(list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
 #'         ref.line = -1, main = 'Staggered treatment: Split multi-sample')
 #'
@@ -196,7 +171,7 @@ ggiplot =
 		main = if (!is.null(dots$main)) dots$main else NULL
 		xlab = if (!is.null(dots$xlab)) dots$xlab else NULL
 		ylab = if (!is.null(dots$ylab)) dots$ylab else NULL
-		dict = if (!is.null(dots$dict)) dots$dict else getFixest_dict()
+		dict = if (!is.null(dots$dict)) dots$dict else fixest::getFixest_dict()
 		col = if (!is.null(dots$col)) dots$col else NULL
 		pt.pch = if (!is.null(dots$pt.pch)) dots$pt.pch else NULL
 		pt.join = if (!is.null(dots$pt.join)) dots$pt.join else FALSE
@@ -210,7 +185,7 @@ ggiplot =
 																																								lwd = 0.3)
 
 		iplot_data = function(object) {
-			p = iplot(object, only.params = TRUE, ci_level = ci_level, dict = dict)
+			p = fixest::iplot(object, only.params = TRUE, ci_level = ci_level, dict = dict)
 			d = p$prms
 			if (class(object)=='fixest_multi') {
 				meta = attr(object, "meta")
@@ -301,7 +276,7 @@ ggiplot =
 				n_fcts = length(unique(data$group)) * length(unique(data$id))
 			}
 			if (length(unique(data$dep_var)) > 1) {
-				fct_vars = update(fct_vars, ~ dep_var + .)
+				fct_vars = stats::update(fct_vars, ~ dep_var + .)
 				n_fcts = n_fcts * length(unique(data$dep_var))
 			}
 			if (is.null(facet_args$ncol)) facet_args$ncol = length(unique(data$group))
@@ -339,14 +314,18 @@ ggiplot =
 
 		if (multi_style=='none') {
 			if (is.null(col)) {
-				gg = ggplot(data, aes(x, estimate, ymin=ci_low, ymax=ci_high))
+				gg = ggplot(data, aes(x = .data$x, y = .data$estimate,
+															ymin = .data$ci_low, ymax = .data$ci_high))
 			} else {
-				gg = ggplot(data, aes(x, estimate, ymin=ci_low, ymax=ci_high,
-															col=col, fill=col))
+				gg = ggplot(data, aes(x = .data$x, y = .data$estimate,
+															ymin = .data$ci_low, ymax = .data$ci_high,
+															col = col, fill =col))
 			}
 			} else {
-				gg = ggplot(data, aes(x, estimate, ymin=ci_low, ymax=ci_high,
-															fill=group, col=group, shape = group))
+				gg = ggplot(data, aes(x = .data$x, y = .data$estimate,
+															ymin = .data$ci_low, ymax = .data$ci_high,
+															fill = .data$group, col = .data$group,
+															shape = .data$group))
 			}
 
 		gg =
@@ -371,7 +350,7 @@ ggiplot =
 					if (geom_style=='pointrange') {
 						geom_linerange(position = position_dodge2(width = 0.5, padding = 0.5))
 					} else {
-						geom_errorbar(width = 0.2, position = position_dodge(width = 0.5, padding = 0.5))
+						geom_errorbar(width = 0.2, position = position_dodge(width = 0.5))
 					}
 				}
 			} +
