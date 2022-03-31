@@ -33,13 +33,11 @@ As we’ll see, the package essentially consists of a single function —
 However, by leveraging the **ggplot2** API and infrastructure, it also
 offers some additional functionality.
 
-Start by loading the **ggiplot** package. Note that we also have to load
-**fixest** and **ggplot2** in order to actually use it.
+Start by loading the **ggiplot** package alongside **fixest**.
 
 ``` r
 library(ggiplot)
 library(fixest)
-library(ggplot2)
 ```
 
 ### Example 1: Vanilla TWFE
