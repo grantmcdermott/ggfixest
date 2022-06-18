@@ -29,6 +29,9 @@ i, either interactions with factors or raw factors."><!-- mathjax --><script src
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -75,20 +78,30 @@ intervals). The function restricts the output to variables created with
     <dl><dt>object</dt>
 <dd><p>A model object of class <code>fixest</code> or <code>fixest_multi</code>, or a list
 thereof.</p></dd>
+
+
 <dt>geom_style</dt>
 <dd><p>Character string. One of <code>c('pointrange', 'errorbar', 'ribbon')</code>
 describing the preferred geometric representation of the coefficients.</p></dd>
+
+
 <dt>multi_style</dt>
 <dd><p>Character string. One of <code>c('dodge', 'facet')</code>, defining
 how multi-model objects should be presented.</p></dd>
+
+
 <dt>facet_args</dt>
 <dd><p>A list of arguments passed down to <code>ggplot::fact_wrap()</code>.
 E.g. <code>facet_args = list(ncol = 2, scales = 'free_y')</code>. Only used if
 <code>multi_style = 'facet'</code>.</p></dd>
+
+
 <dt>theme</dt>
 <dd><p>ggplot2 theme. Defaults to <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_linedraw()</a></code> with some minor
 adjustments, such as centered plot title. Can also be defined on an
 existing ggiplot object to redefine theme elements. See examples.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Arguments passed down, or equivalent, to the corresponding
 <code><a href="https://lrberge.github.io/fixest/reference/coefplot.html" class="external-link">fixest::iplot()</a></code> arguments. Currently used are:</p><ul><li><p><code>main</code>, <code>xlab</code>, and <code>ylab</code> for setting the plot title, x- and y-axis labels, respectively.</p></li>
@@ -99,10 +112,13 @@ existing ggiplot object to redefine theme elements. See examples.</p></dd>
 <li><p><code>ci_level</code> for changing the desired confidence level (default = 0.95).</p></li>
 <li><p><code>dict</code> a dictionary for overriding coefficient names.</p></li>
 </ul></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A ggplot2 object.</p>
+    
+
+<p>A ggplot2 object.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -268,7 +284,7 @@ more difficult to achieve using the base <code><a href="https://lrberge.github.i
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>
