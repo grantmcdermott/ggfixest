@@ -25,6 +25,9 @@
 #'   * `pt.pch` and `pt.join` for overriding the default point estimate shapes and joining them, respectively.
 #'   * `col` for manually defining line, point, and ribbon colours.
 #'   * `ci_level` for changing the desired confidence level (default = 0.95).
+#'   Note that multiple levels are allowed, e.g. `ci_level = c(0.8, 0.95)`, but
+#'   it is recommended to set the `geom_style` argument to either "errorbar" or
+#'   "ribbon" for these to be visible.
 #'   * `dict` a dictionary for overriding coefficient names.
 #' @details This function generally tries to mimic the functionality and (where
 #'   appropriate) arguments of `fixest::iplot()` as closely as possible.
@@ -64,6 +67,11 @@
 #' # Plots can be customized and tweaked easily
 #' ggiplot(est_did, geom_style = 'ribbon')
 #' ggiplot(est_did, geom_style = 'ribbon', col = 'orange')
+#'
+#' # Multiple confidence interval levels are supported, but the geom_style
+#' # argument should be set to either "errorbar" or "ribbon" for these to be
+#' # visible. (The "pointrange" default doesn't make the differences clear.)
+#' ggiplot(est_did, geom_style = 'errorbar', ci_level = c(.8, .95))
 #'
 #' #
 #' # Example 2: Multiple estimation (i)
@@ -184,8 +192,8 @@ ggiplot =
 																																								lty = 2,
 																																								lwd = 0.3)
 
-		iplot_data = function(object) {
-			p = fixest::iplot(object, only.params = TRUE, ci_level = ci_level, dict = dict)
+		iplot_data = function(object, .ci_level = ci_level, .dict = dict) {
+			p = fixest::iplot(object, only.params = TRUE, ci_level = .ci_level, dict = .dict)
 			d = p$prms
 			if (class(object)=='fixest_multi') {
 				meta = attr(object, "meta")
@@ -220,11 +228,18 @@ ggiplot =
 				# d$dep_var = paste(object$call$fml[[2]])
 				d$dep_var = paste(object$fml[[2]])
 			}
+			d$ci_level = .ci_level
 			return(d)
 		}
 
 		if (class(object) %in% c('fixest', 'fixest_multi')) {
-			data = iplot_data(object)
+			if (length(ci_level)==1) {
+				data = iplot_data(object)
+			} else {
+				data = lapply(ci_level, function(ci_l) iplot_data(object, .ci_level = ci_l))
+				data = do.call("rbind", data)
+			}
+
 			data$group = data$id
 			if (class(object)=='fixest_multi') {
 				if (length(unique(data$dep_var)) > 1) {
@@ -254,7 +269,13 @@ ggiplot =
 		# }
 
 		if (class(object)=='list') {
-			data = lapply(object, iplot_data)
+			# data = lapply(object, iplot_data)
+			if (length(ci_level)==1) {
+				data = lapply(object, iplot_data)
+			} else {
+				data = lapply(ci_level, function(ci_l) lapply(object, iplot_data, .ci_level = ci_l))
+				data = do.call(function(...) Map("rbind", ...), data)
+			}
 			nms = names(object)
 			if (is.null(nms)) {
 				if ('fixest' %in% unlist(lapply(object, class))) {
@@ -286,7 +307,7 @@ ggiplot =
 		if (!is.null(ref.line)) {
 			if (ref.line=='auto')	ref.line = data$x[which(data$is_ref)[1]]
 		}
-		if (is.null(ylab)) ylab = paste0('Estimate and ', ci_level*100, '% Conf. Int.')
+		if (is.null(ylab)) ylab = paste0('Estimate and ', oxford(paste0(ci_level*100, '%')), ' Conf. Int.')
 		if (is.null(main)) main = paste0('Effect on ', oxford(unique(data$dep_var)))
 
 		if (multi_style=='facet') {
@@ -315,17 +336,20 @@ ggiplot =
 		if (multi_style=='none') {
 			if (is.null(col)) {
 				gg = ggplot(data, aes(x = .data$x, y = .data$estimate,
-															ymin = .data$ci_low, ymax = .data$ci_high))
+															ymin = .data$ci_low, ymax = .data$ci_high,
+															group = .data$ci_level))
 			} else {
 				gg = ggplot(data, aes(x = .data$x, y = .data$estimate,
 															ymin = .data$ci_low, ymax = .data$ci_high,
-															col = col, fill =col))
+															col = col, fill = col,
+															group = .data$ci_level))
 			}
 			} else {
 				gg = ggplot(data, aes(x = .data$x, y = .data$estimate,
 															ymin = .data$ci_low, ymax = .data$ci_high,
 															fill = .data$group, col = .data$group,
-															shape = .data$group))
+															shape = .data$group,
+															group = .data$ci_level))
 			}
 
 		gg =
@@ -340,8 +364,10 @@ ggiplot =
 				if (geom_style %in% c('pointrange', 'errorbar') & multi_style %in% c('none', 'facet')) {
 					if (geom_style=='pointrange') {
 						geom_linerange()
+					} else if (multi_style=='facet') {
+						geom_errorbar(width = 0.2*n_fcts)
 					} else {
-						geom_errorbar(width = 0.1)
+						geom_errorbar(width = 0.2)
 					}
 				}
 			} +
@@ -357,9 +383,9 @@ ggiplot =
 			{
 				if (geom_style=='ribbon') {
 					if (multi_style=='dodge') {
-						geom_ribbon(alpha = 0.5, col = NA, position = position_dodge2(width = 0.5, padding = 0.5))
+						geom_ribbon(alpha = 0.4, col = NA, position = position_dodge2(width = 0.5, padding = 0.5))
 					} else {
-						geom_ribbon(alpha = 0.5, col = NA)
+						geom_ribbon(alpha = 0.4, col = NA)
 					}
 				}
 			} +
