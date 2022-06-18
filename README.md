@@ -116,6 +116,17 @@ ggiplot(est_did, geom_style = 'ribbon', pt.pch = NA, col = 'orange')
 
 <img src="man/figures/README-est_did_ribbon-3.png" width="100%" />
 
+Multiple confidence interval levels are supported, but the `geom_style`
+argument should be set to either “errorbar” or “ribbon” for these to be
+clearly visible. (The “pointrange” default doesn’t make the differences
+clear.)
+
+``` r
+ggiplot(est_did, geom_style = 'errorbar', ci_level = c(.8, .95))
+```
+
+<img src="man/figures/README-est_did_ci_multi-1.png" width="100%" />
+
 ### Example 2: Multiple estimation (i)
 
 We’ll demonstrate using the staggered treatment example from the
@@ -220,8 +231,7 @@ However, `iplot` complains if we combine a list of *several*
 iplot(list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
       ref.line = -1, main = 'Staggered treatment: Split mutli-sample')
 #> Error in coefplot_prms(object = object, ..., sd = sd, ci_low = ci_low, : The first element of 'object' raises and error:
-#> Error in coeftable(object = my__object__) : 
-#>   Sorry, the coeffficients table could not be extracted.
+#> Error in nb * sd : non-numeric argument to binary operator
 ```
 
 In contrast, `ggiplot` works…

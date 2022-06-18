@@ -95,6 +95,14 @@ ggiplot(est_did, geom_style = 'ribbon')
 ggiplot(est_did, geom_style = 'ribbon', pt.pch = NA, col = 'orange')
 ```
 
+Multiple confidence interval levels are supported, but the `geom_style` argument
+should be set to either "errorbar" or "ribbon" for these to be clearly visible. 
+(The "pointrange" default doesn't make the differences clear.)
+
+```{r est_did_ci_multi}
+ggiplot(est_did, geom_style = 'errorbar', ci_level = c(.8, .95))
+```
+
 ### Example 2: Multiple estimation (i)
 
 We'll demonstrate using the staggered treatment example from the **fixest**
