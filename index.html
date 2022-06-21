@@ -128,9 +128,9 @@
 <span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for 'colour',</span>
 <span class="co">#&gt; which will replace the existing scale.</span></code></pre></div>
 <p><img src="reference/figures/README-est_did_ribbon-3.png" width="100%"></p>
-<p>Multiple confidence interval levels are supported, but the <code>geom_style</code> argument should be set to either “errorbar” or “ribbon” for these to be clearly visible. (The “pointrange” default doesn’t make the differences clear.)</p>
+<p>Unlike <code><a href="https://lrberge.github.io/fixest/reference/coefplot.html" class="external-link">iplot()</a></code>, multiple confidence interval levels are supported.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/ggiplot.html">ggiplot</a></span><span class="op">(</span><span class="va">est_did</span>, geom_style <span class="op">=</span> <span class="st">'errorbar'</span>, ci_level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.8</span>, <span class="fl">.95</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="reference/ggiplot.html">ggiplot</a></span><span class="op">(</span><span class="va">est_did</span>, ci_level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.8</span>, <span class="fl">.95</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-est_did_ci_multi-1.png" width="100%"></p>
 </div>
 <div class="section level3">
