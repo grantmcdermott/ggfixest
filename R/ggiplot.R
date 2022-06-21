@@ -25,9 +25,7 @@
 #'   * `pt.pch` and `pt.join` for overriding the default point estimate shapes and joining them, respectively.
 #'   * `col` for manually defining line, point, and ribbon colours.
 #'   * `ci_level` for changing the desired confidence level (default = 0.95).
-#'   Note that multiple levels are allowed, e.g. `ci_level = c(0.8, 0.95)`, but
-#'   it is recommended to set the `geom_style` argument to either "errorbar" or
-#'   "ribbon" for these to be visible.
+#'   Note that multiple levels are allowed, e.g. `ci_level = c(0.8, 0.95)`.
 #'   * `dict` a dictionary for overriding coefficient names.
 #' @details This function generally tries to mimic the functionality and (where
 #'   appropriate) arguments of `fixest::iplot()` as closely as possible.
@@ -336,20 +334,17 @@ ggiplot =
 		if (multi_style=='none') {
 			if (is.null(col)) {
 				gg = ggplot(data, aes(x = .data$x, y = .data$estimate,
-															ymin = .data$ci_low, ymax = .data$ci_high,
-															group = .data$ci_level))
+															ymin = .data$ci_low, ymax = .data$ci_high))
 			} else {
 				gg = ggplot(data, aes(x = .data$x, y = .data$estimate,
 															ymin = .data$ci_low, ymax = .data$ci_high,
-															col = col, fill = col,
-															group = .data$ci_level))
+															col = col, fill = col))
 			}
 			} else {
 				gg = ggplot(data, aes(x = .data$x, y = .data$estimate,
 															ymin = .data$ci_low, ymax = .data$ci_high,
 															fill = .data$group, col = .data$group,
-															shape = .data$group,
-															group = .data$ci_level))
+															shape = .data$group))
 			}
 
 		gg =
@@ -362,8 +357,14 @@ ggiplot =
 			} +
 			{
 				if (geom_style %in% c('pointrange', 'errorbar') & multi_style %in% c('none', 'facet')) {
-					if (geom_style=='pointrange') {
-						geom_linerange()
+					if (geom_style=='pointrange' || length(ci_level)!=1) {
+						if (length(ci_level)==1) {
+							geom_linerange()
+						} else {
+							list(geom_linerange(data = ~subset(.x, ci_level==max(ci_level))),
+									 geom_errorbar(data = ~subset(.x, ci_level!=max(ci_level)),
+									 							width = 0.2))
+						}
 					} else if (multi_style=='facet') {
 						geom_errorbar(width = 0.2*n_fcts)
 					} else {
@@ -373,28 +374,66 @@ ggiplot =
 			} +
 			{
 				if (geom_style %in% c('pointrange', 'errorbar') & multi_style=='dodge') {
-					if (geom_style=='pointrange') {
-						geom_linerange(position = position_dodge2(width = 0.5, padding = 0.5))
+					if (geom_style=='pointrange' || length(ci_level)!=1) {
+						if (length(ci_level)==1) {
+							geom_linerange(position = position_dodge2(width = 0.5, padding = 0.5))
+						} else {
+							if (class(object)=='list' & length(object)>1) {
+								list(geom_linerange(data = ~subset(.x, ci_level==max(ci_level)),
+																		position = position_dodge2(width = 0.5, padding = 0.5)),
+										 geom_errorbar(data = ~subset(.x, ci_level!=max(ci_level)),
+										 							width = 0.5, position = position_dodge2(width = 0.5, padding = 0.5)))
+							} else {
+								list(geom_linerange(data = ~subset(.x, ci_level==max(ci_level)),
+																		position = position_dodge2(width = 0.5, padding = 0.5)),
+										 geom_errorbar(data = ~subset(.x, ci_level!=max(ci_level)),
+										 							width = 0.5, position = position_dodge(width = 0.5)))
+							}
+						}
 					} else {
-						geom_errorbar(width = 0.2, position = position_dodge(width = 0.5))
+						geom_errorbar(width = 0.5, position = position_dodge(width = 0.5))
 					}
 				}
 			} +
 			{
 				if (geom_style=='ribbon') {
 					if (multi_style=='dodge') {
-						geom_ribbon(alpha = 0.4, col = NA, position = position_dodge2(width = 0.5, padding = 0.5))
+						if (length(ci_level)==1) {
+							geom_ribbon(alpha = 0.4, col = NA, position = position_dodge2(width = 0.5, padding = 0.5))
+						} else {
+							lapply(ci_level,
+										 function(ci) geom_ribbon(data = ~subset(.x, ci_level==ci),
+										 												 alpha = 0.4, col = NA,
+										 												 position = position_dodge2(width = 0.5, padding = 0.5)))
+						}
 					} else {
-						geom_ribbon(alpha = 0.4, col = NA)
+						if (length(ci_level)==1) {
+							geom_ribbon(alpha = 0.4, col = NA)
+						} else {
+							geom_ribbon(alpha = 0.4, col = NA,
+													aes(group = .data$ci_level))
+						}
 					}
 				}
 			} +
 			{
 				if (geom_style=='ribbon' || pt.join) {
 					if (multi_style=='dodge') {
-						geom_line(position = position_dodge2(width = 0.5, padding = 0.5))
+						if (length(ci_level)==1) {
+							geom_line(aes(group = paste0(group, id)),
+												position = position_dodge(width = 0.5))
+						} else {
+							geom_line(data = ~subset(.x, ci_level==max(ci_level)),
+												aes(group = paste0(group, id)),
+												position = position_dodge2(width = 0.5, padding = 0.5))
+						}
+
 					} else {
-						geom_line()
+						if (length(ci_level)==1) {
+							geom_line()
+						} else {
+							geom_line(aes(group = .data$ci_level))
+						}
 					}
 
 				}
@@ -403,13 +442,23 @@ ggiplot =
 				if (!(!is.null(pt.pch) && is.na(pt.pch))) {
 					if (multi_style=='none' && !is.null(pt.pch)) {
 						if (multi_style=='dodge') {
-							geom_point(shape = pt.pch, size = ptsize, position = position_dodge2(width = 0.5, padding = 0.5))
+							if (length(ci_level)==1) {
+								geom_point(shape = pt.pch, size = ptsize, position = position_dodge2(width = 0.5, padding = 0.5))
+							} else {
+								geom_point(data = ~subset(.x, ci_level==max(ci_level)),
+													 shape = pt.pch, size = ptsize, position = position_dodge2(width = 0.5, padding = 0.5))
+							}
 						} else {
 							geom_point(shape = pt.pch, size = ptsize)
 						}
 					} else {
 						if (multi_style=='dodge') {
-							geom_point(size = ptsize, position = position_dodge2(width = 0.5, padding = 0.5))
+							if (length(ci_level)==1) {
+								geom_point(size = ptsize, position = position_dodge2(width = 0.5, padding = 0.5))
+							} else {
+								geom_point(data = ~subset(.x, ci_level==max(ci_level)),
+													 size = ptsize, position = position_dodge2(width = 0.5, padding = 0.5))
+							}
 						} else {
 							geom_point(size = ptsize)
 						}
