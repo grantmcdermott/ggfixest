@@ -32,14 +32,22 @@ adjustments, such as centered plot title. Can also be defined on an
 existing ggiplot object to redefine theme elements. See examples.}
 
 \item{...}{Arguments passed down, or equivalent, to the corresponding
-\code{fixest::iplot()} arguments. Currently used are:
+\code{fixest::iplot()} arguments. Note that some of these require list objects.
+Currently used are:
 \itemize{
 \item \code{main}, \code{xlab}, and \code{ylab} for setting the plot title, x- and y-axis labels, respectively.
-\item \code{zero} and \code{zero.par} for defining or adjusting the zero line.
-\item \code{ref.line} and \code{ref.line.par} for defining or adjusting the vertical reference line.
+\item \code{zero} and \code{zero.par} for defining or adjusting the zero line. For
+example, \code{zero.par = list(col = 'orange')}.
+\item \code{ref.line} and \code{ref.line.par} for defining or adjusting the vertical
+reference line. For example, \code{ref.line.par = list(col = 'red', lty = 4)}.
 \item \code{pt.pch} and \code{pt.join} for overriding the default point estimate shapes and joining them, respectively.
 \item \code{col} for manually defining line, point, and ribbon colours.
 \item \code{ci_level} for changing the desired confidence level (default = 0.95).
+Note that multiple levels are allowed, e.g. \code{ci_level = c(0.8, 0.95)}.
+\item \code{ci.fill.par} for changing the confidence interval fill. Only used when
+\code{geom_style = "ribbon"} and currently only affects the alpha (transparency)
+channel. For example, we can make the CI band lighter with
+\code{ci.fill.par = list(alpha = 0.2)}.
 \item \code{dict} a dictionary for overriding coefficient names.
 }}
 }
@@ -89,6 +97,11 @@ ggiplot(est_did, pt.join = TRUE, geom_style = 'errorbar')
 # Plots can be customized and tweaked easily
 ggiplot(est_did, geom_style = 'ribbon')
 ggiplot(est_did, geom_style = 'ribbon', col = 'orange')
+
+# Multiple confidence interval levels are supported, but the geom_style
+# argument should be set to either "errorbar" or "ribbon" for these to be
+# visible. (The "pointrange" default doesn't make the differences clear.)
+ggiplot(est_did, geom_style = 'errorbar', ci_level = c(.8, .95))
 
 #
 # Example 2: Multiple estimation (i)

@@ -18,14 +18,21 @@
 #'   adjustments, such as centered plot title. Can also be defined on an
 #'   existing ggiplot object to redefine theme elements. See examples.
 #' @param ... Arguments passed down, or equivalent, to the corresponding
-#'   `fixest::iplot()` arguments. Currently used are:
+#'   `fixest::iplot()` arguments. Note that some of these require list objects.
+#'   Currently used are:
 #'   * `main`, `xlab`, and `ylab` for setting the plot title, x- and y-axis labels, respectively.
-#'   * `zero` and `zero.par` for defining or adjusting the zero line.
-#'   * `ref.line` and `ref.line.par` for defining or adjusting the vertical reference line.
+#'   * `zero` and `zero.par` for defining or adjusting the zero line. For
+#'   example, `zero.par = list(col = 'orange')`.
+#'   * `ref.line` and `ref.line.par` for defining or adjusting the vertical
+#'   reference line. For example, `ref.line.par = list(col = 'red', lty = 4)`.
 #'   * `pt.pch` and `pt.join` for overriding the default point estimate shapes and joining them, respectively.
 #'   * `col` for manually defining line, point, and ribbon colours.
 #'   * `ci_level` for changing the desired confidence level (default = 0.95).
 #'   Note that multiple levels are allowed, e.g. `ci_level = c(0.8, 0.95)`.
+#'   * `ci.fill.par` for changing the confidence interval fill. Only used when
+#'   `geom_style = "ribbon"` and currently only affects the alpha (transparency)
+#'   channel. For example, we can make the CI band lighter with
+#'   `ci.fill.par = list(alpha = 0.2)`.
 #'   * `dict` a dictionary for overriding coefficient names.
 #' @details This function generally tries to mimic the functionality and (where
 #'   appropriate) arguments of `fixest::iplot()` as closely as possible.
@@ -173,23 +180,24 @@ ggiplot =
 
 		dots = list(...)
 		## Defaults
-		ci_level = if (!is.null(dots$ci_level)) dots$ci_level else 0.95
-		main = if (!is.null(dots$main)) dots$main else NULL
-		xlab = if (!is.null(dots$xlab)) dots$xlab else NULL
-		ylab = if (!is.null(dots$ylab)) dots$ylab else NULL
-		dict = if (!is.null(dots$dict)) dots$dict else fixest::getFixest_dict()
-		col = if (!is.null(dots$col)) dots$col else NULL
-		pt.pch = if (!is.null(dots$pt.pch)) dots$pt.pch else NULL
-		pt.join = if (!is.null(dots$pt.join)) dots$pt.join else FALSE
-		zero = if (!is.null(dots$zero)) dots$zero else TRUE
-		zero.par = if (!is.null(dots$zero.par))	dots$zero.par else list(col = 'black',
-																																		lty = 1,
-																																		lwd = 0.3)
-		ref.line = if (!is.null(dots$ref.line)) dots$ref.line else 'auto'
-		ref.line.par = if (!is.null(dots$ref.line.par)) dots$ref.line.par else list(col = 'black',
-																																								lty = 2,
-																																								lwd = 0.3)
+		ci_level     = if (!is.null(dots[['ci_level']])) dots[['ci_level']] else 0.95
+		ci.fill.par  = list(col = 'lightgray', alpha = 0.3) ## Note: The col arg is going be ignored anyway
+		if (!is.null(dots[['ci.fill.par']])) ci.fill.par = modifyList(ci.fill.par, dots[['ci.fill.par']])
+		main         = if (!is.null(dots[['main']])) dots[['main']] else NULL
+		xlab         = if (!is.null(dots[['xlab']])) dots[['xlab']] else NULL
+		ylab         = if (!is.null(dots[['ylab']])) dots[['ylab']] else NULL
+		dict         = if (!is.null(dots[['dict']])) dots[['dict']] else fixest::getFixest_dict()
+		col          = if (!is.null(dots[['col']])) dots[['col']] else NULL
+		pt.pch       = if (!is.null(dots[['pt.pch']])) dots[['pt.pch']] else NULL
+		pt.join      = if (!is.null(dots[['pt.join']])) dots[['pt.join']] else FALSE
+		zero         = if (!is.null(dots[['zero']])) dots[['zero']] else TRUE
+		zero.par = list(col = 'black', lty = 1, lwd = 0.3)
+		if (!is.null(dots[['zero.par']])) zero.par = modifyList(zero.par, dots[['zero.par']])
+		ref.line     = if (!is.null(dots[['ref.line']])) dots$ref.line else 'auto'
+		ref.line.par = list(col = 'black', lty = 2,lwd = 0.3)
+		if (!is.null(dots[['ref.line.par']])) ref.line.par = modifyList(ref.line.par, dots[['ref.line.par']])
 
+		## Internal function for grabbing the iplot data
 		iplot_data = function(object, .ci_level = ci_level, .dict = dict) {
 			p = fixest::iplot(object, only.params = TRUE, ci_level = .ci_level, dict = .dict)
 			d = p$prms
@@ -399,18 +407,19 @@ ggiplot =
 				if (geom_style=='ribbon') {
 					if (multi_style=='dodge') {
 						if (length(ci_level)==1) {
-							geom_ribbon(alpha = 0.4, col = NA, position = position_dodge2(width = 0.5, padding = 0.5))
+							geom_ribbon(alpha = ci.fill.par[['alpha']], col = NA,
+													position = position_dodge2(width = 0.5, padding = 0.5))
 						} else {
 							lapply(ci_level,
 										 function(ci) geom_ribbon(data = ~subset(.x, ci_level==ci),
-										 												 alpha = 0.4, col = NA,
+										 												 alpha = ci.fill.par[['alpha']], col = NA,
 										 												 position = position_dodge2(width = 0.5, padding = 0.5)))
 						}
 					} else {
 						if (length(ci_level)==1) {
-							geom_ribbon(alpha = 0.4, col = NA)
+							geom_ribbon(alpha = ci.fill.par[['alpha']], col = NA)
 						} else {
-							geom_ribbon(alpha = 0.4, col = NA,
+							geom_ribbon(alpha = ci.fill.par[['alpha']], col = NA,
 													aes(group = .data$ci_level))
 						}
 					}
