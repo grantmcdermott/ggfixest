@@ -116,13 +116,10 @@ ggiplot(est_did, geom_style = 'ribbon', pt.pch = NA, col = 'orange')
 
 <img src="man/figures/README-est_did_ribbon-3.png" width="100%" />
 
-Multiple confidence interval levels are supported, but the `geom_style`
-argument should be set to either “errorbar” or “ribbon” for these to be
-clearly visible. (The “pointrange” default doesn’t make the differences
-clear.)
+Unlike `iplot()`, multiple confidence interval levels are supported.
 
 ``` r
-ggiplot(est_did, geom_style = 'errorbar', ci_level = c(.8, .95))
+ggiplot(est_did, ci_level = c(.8, .95))
 ```
 
 <img src="man/figures/README-est_did_ci_multi-1.png" width="100%" />
