@@ -44,10 +44,13 @@ reference line. For example, \code{ref.line.par = list(col = 'red', lty = 4)}.
 \item \code{col} for manually defining line, point, and ribbon colours.
 \item \code{ci_level} for changing the desired confidence level (default = 0.95).
 Note that multiple levels are allowed, e.g. \code{ci_level = c(0.8, 0.95)}.
+\item \code{ci.width} for changing the width of the extremities of the confidence
+intervals. Only used if \code{geom_style = "errorbar"} (or if multiple CI levels
+are requested for the default pointrange style). The default value is 0.2.
 \item \code{ci.fill.par} for changing the confidence interval fill. Only used when
 \code{geom_style = "ribbon"} and currently only affects the alpha (transparency)
 channel. For example, we can make the CI band lighter with
-\code{ci.fill.par = list(alpha = 0.2)}.
+\code{ci.fill.par = list(alpha = 0.2)} (the default alpha is 0.3).
 \item \code{dict} a dictionary for overriding coefficient names.
 }}
 }
