@@ -97,7 +97,7 @@ require less arguments depending on what you want to do. For example,
 ``` r
 # iplot(est_did, pt.join = TRUE, ci.lty = 0, ci.width = 0, ci.fill = TRUE)
 iplot(est_did, pt.join = TRUE, ci.lty = 0, ci.width = 0, ci.fill = TRUE,
-      ci.fill.par = list(col = 'black', alpha = 0.4))
+      ci.fill.par = list(col = 'black', alpha = 0.3))
 ```
 
 <img src="man/figures/README-est_did_ribbon-1.png" width="100%" />

@@ -501,6 +501,9 @@ ggiplot =
 					}
 				}
 			} +
+			{
+				if (is.numeric(data$x)) scale_x_continuous(breaks = scales::pretty_breaks())
+			} +
 			labs(x = xlab, y = ylab, title = main) +
 			{
 				if (multi_style=='facet') facet_wrap(facets = facet_args$facets,
