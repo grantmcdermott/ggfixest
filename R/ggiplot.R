@@ -18,16 +18,24 @@
 #'   adjustments, such as centered plot title. Can also be defined on an
 #'   existing ggiplot object to redefine theme elements. See examples.
 #' @param ... Arguments passed down, or equivalent, to the corresponding
-#'   `fixest::iplot()` arguments. Currently used are:
+#'   `fixest::iplot()` arguments. Note that some of these require list objects.
+#'   Currently used are:
 #'   * `main`, `xlab`, and `ylab` for setting the plot title, x- and y-axis labels, respectively.
-#'   * `zero` and `zero.par` for defining or adjusting the zero line.
-#'   * `ref.line` and `ref.line.par` for defining or adjusting the vertical reference line.
+#'   * `zero` and `zero.par` for defining or adjusting the zero line. For
+#'   example, `zero.par = list(col = 'orange')`.
+#'   * `ref.line` and `ref.line.par` for defining or adjusting the vertical
+#'   reference line. For example, `ref.line.par = list(col = 'red', lty = 4)`.
 #'   * `pt.pch` and `pt.join` for overriding the default point estimate shapes and joining them, respectively.
 #'   * `col` for manually defining line, point, and ribbon colours.
 #'   * `ci_level` for changing the desired confidence level (default = 0.95).
-#'   Note that multiple levels are allowed, e.g. `ci_level = c(0.8, 0.95)`, but
-#'   it is recommended to set the `geom_style` argument to either "errorbar" or
-#'   "ribbon" for these to be visible.
+#'   Note that multiple levels are allowed, e.g. `ci_level = c(0.8, 0.95)`.
+#'   * `ci.width` for changing the width of the extremities of the confidence
+#'   intervals. Only used if `geom_style = "errorbar"` (or if multiple CI levels
+#'   are requested for the default pointrange style). The default value is 0.2.
+#'   * `ci.fill.par` for changing the confidence interval fill. Only used when
+#'   `geom_style = "ribbon"` and currently only affects the alpha (transparency)
+#'   channel. For example, we can make the CI band lighter with
+#'   `ci.fill.par = list(alpha = 0.2)` (the default alpha is 0.3).
 #'   * `dict` a dictionary for overriding coefficient names.
 #' @details This function generally tries to mimic the functionality and (where
 #'   appropriate) arguments of `fixest::iplot()` as closely as possible.
@@ -175,23 +183,25 @@ ggiplot =
 
 		dots = list(...)
 		## Defaults
-		ci_level = if (!is.null(dots$ci_level)) dots$ci_level else 0.95
-		main = if (!is.null(dots$main)) dots$main else NULL
-		xlab = if (!is.null(dots$xlab)) dots$xlab else NULL
-		ylab = if (!is.null(dots$ylab)) dots$ylab else NULL
-		dict = if (!is.null(dots$dict)) dots$dict else fixest::getFixest_dict()
-		col = if (!is.null(dots$col)) dots$col else NULL
-		pt.pch = if (!is.null(dots$pt.pch)) dots$pt.pch else NULL
-		pt.join = if (!is.null(dots$pt.join)) dots$pt.join else FALSE
-		zero = if (!is.null(dots$zero)) dots$zero else TRUE
-		zero.par = if (!is.null(dots$zero.par))	dots$zero.par else list(col = 'black',
-																																		lty = 1,
-																																		lwd = 0.3)
-		ref.line = if (!is.null(dots$ref.line)) dots$ref.line else 'auto'
-		ref.line.par = if (!is.null(dots$ref.line.par)) dots$ref.line.par else list(col = 'black',
-																																								lty = 2,
-																																								lwd = 0.3)
+		ci_level     = if (!is.null(dots[['ci_level']])) dots[['ci_level']] else 0.95
+		ci.width     = if (!is.null(dots[['ci.width']])) dots[['ci.width']] else 0.2
+		ci.fill.par  = list(col = 'lightgray', alpha = 0.3) ## Note: The col arg is going be ignored anyway
+		if (!is.null(dots[['ci.fill.par']])) ci.fill.par = modifyList(ci.fill.par, dots[['ci.fill.par']])
+		main         = if (!is.null(dots[['main']])) dots[['main']] else NULL
+		xlab         = if (!is.null(dots[['xlab']])) dots[['xlab']] else NULL
+		ylab         = if (!is.null(dots[['ylab']])) dots[['ylab']] else NULL
+		dict         = if (!is.null(dots[['dict']])) dots[['dict']] else fixest::getFixest_dict()
+		col          = if (!is.null(dots[['col']])) dots[['col']] else NULL
+		pt.pch       = if (!is.null(dots[['pt.pch']])) dots[['pt.pch']] else NULL
+		pt.join      = if (!is.null(dots[['pt.join']])) dots[['pt.join']] else FALSE
+		zero         = if (!is.null(dots[['zero']])) dots[['zero']] else TRUE
+		zero.par = list(col = 'black', lty = 1, lwd = 0.3)
+		if (!is.null(dots[['zero.par']])) zero.par = modifyList(zero.par, dots[['zero.par']])
+		ref.line     = if (!is.null(dots[['ref.line']])) dots$ref.line else 'auto'
+		ref.line.par = list(col = 'black', lty = 2,lwd = 0.3)
+		if (!is.null(dots[['ref.line.par']])) ref.line.par = modifyList(ref.line.par, dots[['ref.line.par']])
 
+		## Internal function for grabbing the iplot data
 		iplot_data = function(object, .ci_level = ci_level, .dict = dict) {
 			p = fixest::iplot(object, only.params = TRUE, ci_level = .ci_level, dict = .dict)
 			d = p$prms
@@ -303,6 +313,8 @@ ggiplot =
 			if (is.null(facet_args$ncol)) facet_args$ncol = length(unique(data$group))
 		}
 
+		if (multi_style=='dodge') ci.width = ci.width * n_fcts ## TEST
+
 		if (is.null(xlab)) xlab = sub('::.*', '', data$estimate_names_raw[1])
 		if (!is.null(ref.line)) {
 			if (ref.line=='auto')	ref.line = data$x[which(data$is_ref)[1]]
@@ -336,20 +348,17 @@ ggiplot =
 		if (multi_style=='none') {
 			if (is.null(col)) {
 				gg = ggplot(data, aes(x = .data$x, y = .data$estimate,
-															ymin = .data$ci_low, ymax = .data$ci_high,
-															group = .data$ci_level))
+															ymin = .data$ci_low, ymax = .data$ci_high))
 			} else {
 				gg = ggplot(data, aes(x = .data$x, y = .data$estimate,
 															ymin = .data$ci_low, ymax = .data$ci_high,
-															col = col, fill = col,
-															group = .data$ci_level))
+															col = col, fill = col))
 			}
 			} else {
 				gg = ggplot(data, aes(x = .data$x, y = .data$estimate,
 															ymin = .data$ci_low, ymax = .data$ci_high,
 															fill = .data$group, col = .data$group,
-															shape = .data$group,
-															group = .data$ci_level))
+															shape = .data$group))
 			}
 
 		gg =
@@ -362,39 +371,85 @@ ggiplot =
 			} +
 			{
 				if (geom_style %in% c('pointrange', 'errorbar') & multi_style %in% c('none', 'facet')) {
-					if (geom_style=='pointrange') {
-						geom_linerange()
+					if (geom_style=='pointrange' || length(ci_level)!=1) {
+						if (length(ci_level)==1) {
+							geom_linerange()
+						} else {
+							list(geom_linerange(data = ~subset(.x, ci_level==max(ci_level))),
+									 geom_errorbar(data = ~subset(.x, ci_level!=max(ci_level)),
+									 							width = ci.width))
+						}
 					} else if (multi_style=='facet') {
-						geom_errorbar(width = 0.2*n_fcts)
+						geom_errorbar(width = ci.width*n_fcts)
 					} else {
-						geom_errorbar(width = 0.2)
+						geom_errorbar(width = ci.width)
 					}
 				}
 			} +
 			{
 				if (geom_style %in% c('pointrange', 'errorbar') & multi_style=='dodge') {
-					if (geom_style=='pointrange') {
-						geom_linerange(position = position_dodge2(width = 0.5, padding = 0.5))
+					if (geom_style=='pointrange' || length(ci_level)!=1) {
+						if (length(ci_level)==1) {
+							geom_linerange(position = position_dodge2(width = ci.width, padding = ci.width))
+						} else {
+							if (class(object)=='list' & length(object)>1) {
+								list(geom_linerange(data = ~subset(.x, ci_level==max(ci_level)),
+																		position = position_dodge2(width = ci.width, padding = ci.width)),
+										 geom_errorbar(data = ~subset(.x, ci_level!=max(ci_level)),
+										 							width = ci.width,
+										 							position = position_dodge2(width = ci.width, padding = ci.width)))
+							} else {
+								list(geom_linerange(data = ~subset(.x, ci_level==max(ci_level)),
+																		position = position_dodge2(width = ci.width, padding = ci.width)),
+										 geom_errorbar(data = ~subset(.x, ci_level!=max(ci_level)),
+										 							width = ci.width, position = position_dodge(width = ci.width)))
+							}
+						}
 					} else {
-						geom_errorbar(width = 0.2, position = position_dodge(width = 0.5))
+						geom_errorbar(width = ci.width, position = position_dodge(width = ci.width))
 					}
 				}
 			} +
 			{
 				if (geom_style=='ribbon') {
 					if (multi_style=='dodge') {
-						geom_ribbon(alpha = 0.4, col = NA, position = position_dodge2(width = 0.5, padding = 0.5))
+						if (length(ci_level)==1) {
+							geom_ribbon(alpha = ci.fill.par[['alpha']], col = NA,
+													position = position_dodge2(width = ci.width, padding = ci.width))
+						} else {
+							lapply(ci_level,
+										 function(ci) geom_ribbon(data = ~subset(.x, ci_level==ci),
+										 												 alpha = ci.fill.par[['alpha']], col = NA,
+										 												 position = position_dodge2(width = ci.width, padding = ci.width)))
+						}
 					} else {
-						geom_ribbon(alpha = 0.4, col = NA)
+						if (length(ci_level)==1) {
+							geom_ribbon(alpha = ci.fill.par[['alpha']], col = NA)
+						} else {
+							geom_ribbon(alpha = ci.fill.par[['alpha']], col = NA,
+													aes(group = .data$ci_level))
+						}
 					}
 				}
 			} +
 			{
 				if (geom_style=='ribbon' || pt.join) {
 					if (multi_style=='dodge') {
-						geom_line(position = position_dodge2(width = 0.5, padding = 0.5))
+						if (length(ci_level)==1) {
+							geom_line(aes(group = paste0(group, id)),
+												position = position_dodge(width = ci.width))
+						} else {
+							geom_line(data = ~subset(.x, ci_level==max(ci_level)),
+												aes(group = paste0(group, id)),
+												position = position_dodge2(width = ci.width, padding = ci.width))
+						}
+
 					} else {
-						geom_line()
+						if (length(ci_level)==1) {
+							geom_line()
+						} else {
+							geom_line(aes(group = .data$ci_level))
+						}
 					}
 
 				}
@@ -403,13 +458,23 @@ ggiplot =
 				if (!(!is.null(pt.pch) && is.na(pt.pch))) {
 					if (multi_style=='none' && !is.null(pt.pch)) {
 						if (multi_style=='dodge') {
-							geom_point(shape = pt.pch, size = ptsize, position = position_dodge2(width = 0.5, padding = 0.5))
+							if (length(ci_level)==1) {
+								geom_point(shape = pt.pch, size = ptsize, position = position_dodge2(width = ci.width, padding = ci.width))
+							} else {
+								geom_point(data = ~subset(.x, ci_level==max(ci_level)),
+													 shape = pt.pch, size = ptsize, position = position_dodge2(width = ci.width, padding = ci.width))
+							}
 						} else {
 							geom_point(shape = pt.pch, size = ptsize)
 						}
 					} else {
 						if (multi_style=='dodge') {
-							geom_point(size = ptsize, position = position_dodge2(width = 0.5, padding = 0.5))
+							if (length(ci_level)==1) {
+								geom_point(size = ptsize, position = position_dodge2(width = ci.width, padding = ci.width))
+							} else {
+								geom_point(data = ~subset(.x, ci_level==max(ci_level)),
+													 size = ptsize, position = position_dodge2(width = ci.width, padding = ci.width))
+							}
 						} else {
 							geom_point(size = ptsize)
 						}
@@ -435,6 +500,9 @@ ggiplot =
 						scale_shape_manual(values = pt_values)
 					}
 				}
+			} +
+			{
+				if (is.numeric(data$x)) scale_x_continuous(breaks = scales::pretty_breaks())
 			} +
 			labs(x = xlab, y = ylab, title = main) +
 			{
