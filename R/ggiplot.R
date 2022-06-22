@@ -186,7 +186,7 @@ ggiplot =
 		ci_level     = if (!is.null(dots[['ci_level']])) dots[['ci_level']] else 0.95
 		ci.width     = if (!is.null(dots[['ci.width']])) dots[['ci.width']] else 0.2
 		ci.fill.par  = list(col = 'lightgray', alpha = 0.3) ## Note: The col arg is going be ignored anyway
-		if (!is.null(dots[['ci.fill.par']])) ci.fill.par = modifyList(ci.fill.par, dots[['ci.fill.par']])
+		if (!is.null(dots[['ci.fill.par']])) ci.fill.par = utils::modifyList(ci.fill.par, dots[['ci.fill.par']])
 		main         = if (!is.null(dots[['main']])) dots[['main']] else NULL
 		xlab         = if (!is.null(dots[['xlab']])) dots[['xlab']] else NULL
 		ylab         = if (!is.null(dots[['ylab']])) dots[['ylab']] else NULL
@@ -196,10 +196,10 @@ ggiplot =
 		pt.join      = if (!is.null(dots[['pt.join']])) dots[['pt.join']] else FALSE
 		zero         = if (!is.null(dots[['zero']])) dots[['zero']] else TRUE
 		zero.par = list(col = 'black', lty = 1, lwd = 0.3)
-		if (!is.null(dots[['zero.par']])) zero.par = modifyList(zero.par, dots[['zero.par']])
+		if (!is.null(dots[['zero.par']])) zero.par = utils::modifyList(zero.par, dots[['zero.par']])
 		ref.line     = if (!is.null(dots[['ref.line']])) dots$ref.line else 'auto'
 		ref.line.par = list(col = 'black', lty = 2,lwd = 0.3)
-		if (!is.null(dots[['ref.line.par']])) ref.line.par = modifyList(ref.line.par, dots[['ref.line.par']])
+		if (!is.null(dots[['ref.line.par']])) ref.line.par = utils::modifyList(ref.line.par, dots[['ref.line.par']])
 
 		## Internal function for grabbing the iplot data
 		iplot_data = function(object, .ci_level = ci_level, .dict = dict) {

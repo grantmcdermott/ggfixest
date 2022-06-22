@@ -89,7 +89,7 @@ aggr_es = function(object,
 	res = do.call("rbind", res)
 	row.names(res) = NULL
 	if (period=="both") {
-		attributes(res) = modifyList(attributes(res), hyp_attr)
+		attributes(res) = utils::modifyList(attributes(res), hyp_attr)
 		attributes(res)["hypothesis"] = NULL
 	}
 	return(res)
