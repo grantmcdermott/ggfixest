@@ -13,7 +13,9 @@
 #' @param object A model object of class `fixest`, where the `i()` operator has
 #' been used to facilitate an "event-study" DiD design. See Examples.
 #' @param rhs Numeric. The null hypothesis value. Defaults to 0.
-#' @param aggregation Character. The aggregation type. Either "mean" (the
+#' @param period Character string. Which group of periods are we aggregating?
+#' One of "post" (the default), "prep", or "both".
+#' @param aggregation Character string. The aggregation type. Either "mean" (the
 #' default) or "cumulative".
 #' @param abbr_term Logical. Should the leading "term" column of the return
 #' data frame be abbreviated? The default is TRUE. If FALSE, then the term

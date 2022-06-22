@@ -19,7 +19,10 @@ been used to facilitate an "event-study" DiD design. See Examples.}
 
 \item{rhs}{Numeric. The null hypothesis value. Defaults to 0.}
 
-\item{aggregation}{Character. The aggregation type. Either "mean" (the
+\item{period}{Character string. Which group of periods are we aggregating?
+One of "post" (the default), "prep", or "both".}
+
+\item{aggregation}{Character string. The aggregation type. Either "mean" (the
 default) or "cumulative".}
 
 \item{abbr_term}{Logical. Should the leading "term" column of the return
