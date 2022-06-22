@@ -203,7 +203,7 @@ ggiplot =
 		iplot_data = function(object, .ci_level = ci_level, .dict = dict) {
 			p = fixest::iplot(object, only.params = TRUE, ci_level = .ci_level, dict = .dict)
 			d = p$prms
-			if (class(object)=='fixest_multi') {
+			if (inherits(object, 'fixest_multi')) {
 				meta = attr(object, "meta")
 				dep_vars = meta$all_names$lhs
 				if (is.null(dep_vars)) {
@@ -231,7 +231,7 @@ ggiplot =
 				}
 				d$dep_var = dep_vars
 			} else {
-				if (class(p$labels)=='integer') p$labels = as.numeric(p$labels) ## catch
+				if (inherits(p$labels, 'integer')) p$labels = as.numeric(p$labels) ## catch
 				if (!identical(d$x, p$labels)) d$x = factor(d$x, labels = p$labels)
 				# d$dep_var = paste(object$call$fml[[2]])
 				d$dep_var = paste(object$fml[[2]])
@@ -240,7 +240,7 @@ ggiplot =
 			return(d)
 		}
 
-		if (class(object) %in% c('fixest', 'fixest_multi')) {
+		if (inherits(object, c('fixest', 'fixest_multi'))) {
 			if (length(ci_level)==1) {
 				data = iplot_data(object)
 			} else {
@@ -249,7 +249,7 @@ ggiplot =
 			}
 
 			data$group = data$id
-			if (class(object)=='fixest_multi') {
+			if (inherits(object, 'fixest_multi')) {
 				if (length(unique(data$dep_var)) > 1) {
 					if (all(data$dep_var==data$id)) {
 						fct_vars = ~ dep_var
@@ -276,7 +276,7 @@ ggiplot =
 		# 	data$group = data$id
 		# }
 
-		if (class(object)=='list') {
+		if (inherits(object, 'list')) {
 			# data = lapply(object, iplot_data)
 			if (length(ci_level)==1) {
 				data = lapply(object, iplot_data)
