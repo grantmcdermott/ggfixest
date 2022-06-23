@@ -4,7 +4,12 @@
 \alias{iplot_data}
 \title{Internal function for grabbing and preparing iplot data}
 \usage{
-iplot_data(object, .ci_level = 0.95, .dict = fixest::getFixest_dict())
+iplot_data(
+  object,
+  .ci_level = 0.95,
+  .dict = fixest::getFixest_dict(),
+  .aggr_es = c("none", "post", "pre", "both")
+)
 }
 \arguments{
 \item{object}{A model object of class \code{fixest} or \code{fixest_multi}, where
@@ -18,6 +23,11 @@ level, Defaults to 0.95.}
 Used for changing coefficient names. Defaults to the values in
 \code{getFixest_dict()}. See the \code{?fixest::iplot} documentation for more
 information.}
+
+\item{.aggr_es}{A character string indicating whether the aggregated mean
+post- (and/or pre-) treatment effect should be added as a column to the
+returned data frame. Passed to \code{aggr_es(..., aggregation = "mean")} and
+should be one of "none" (the default), "post", "pre", or "both".}
 }
 \value{
 A ggplot2 object.
@@ -49,5 +59,5 @@ iplot_data(est_split)                # The wrapper provided by this package
 
 }
 \seealso{
-\code{\link[fixest:coefplot]{fixest::iplot()}}.
+\code{\link[fixest:coefplot]{fixest::iplot()}}, \code{\link[=aggr_es]{aggr_es()}}.
 }

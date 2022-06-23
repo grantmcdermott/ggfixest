@@ -11,6 +11,12 @@
 #'   describing the preferred geometric representation of the coefficients.
 #' @param multi_style Character string. One of `c('dodge', 'facet')`, defining
 #'   how multi-model objects should be presented.
+#' @param aggr_eff A character string indicating whether the aggregated mean
+#'   post- (and/or pre-) treatment effect should be plotted alongside the
+#'   individual period effects. Should be one of "none" (the default), "post",
+#'   "pre", or "both".
+#' @param aggr_eff.par List. Parameters of the aggregated treatment effect line,
+#'   if plotted. The default values are `col = 'gray50'`, `lwd = 1`, `lty = 1`.
 #' @param facet_args A list of arguments passed down to `ggplot::fact_wrap()`.
 #'   E.g. `facet_args = list(ncol = 2, scales = 'free_y')`. Only used if
 #'   `multi_style = 'facet'`.
@@ -76,8 +82,14 @@
 #' ggiplot(est_did, geom_style = 'ribbon')
 #' ggiplot(est_did, geom_style = 'ribbon', col = 'orange')
 #'
-#' # Unlike iplot, multiple confidence interval levels are supported
+#' # Unlike base iplot, multiple confidence interval levels are supported
 #' ggiplot(est_did, ci_level = c(.8, .95))
+#'
+#' # Another new feature (i.e. unsupported in base iplot) is adding aggregated
+#' # post- and/or pre-treatment effects to your plots. Here's an example that
+#' # builds on the previous plot, by adding the mean post-treatment effect.
+#' ggiplot(est_did, ci_level = c(.8, .95),
+#'         aggr_eff = "post", aggr_eff.par = list(col="orange")) # default is grey
 #'
 #' #
 #' # Example 2: Multiple estimation (i)
@@ -172,12 +184,17 @@ ggiplot =
 	function(object,
 					 geom_style = c('pointrange', 'errorbar', 'ribbon'),
 					 multi_style = c('dodge', 'facet'),
+					 aggr_eff = c('none', 'post', 'pre', 'both'),
+					 aggr_eff.par = list(col = 'grey50', lwd = 1, lty = 1),
 					 facet_args = NULL,
 					 theme = NULL,
 					 ...) {
 
 		geom_style = match.arg(geom_style)
 		multi_style = match.arg(multi_style)
+		aggr_eff = match.arg(aggr_eff)
+		aggr_eff.par = utils::modifyList(list(col = 'grey50', lwd = 1, lty = 1),
+																		 aggr_eff.par)
 
 		dots = list(...)
 		## Defaults
@@ -205,9 +222,10 @@ ggiplot =
 
 		if (inherits(object, c('fixest', 'fixest_multi'))) {
 			if (length(ci_level)==1) {
-				data = iplot_data(object, .ci_level = ci_level, .dict = dict)
+				data = iplot_data(object, .ci_level = ci_level, .dict = dict, .aggr_es = aggr_eff)
 			} else {
-				data = lapply(ci_level, function(ci_l) iplot_data(object, .ci_level = ci_l, .dict = dict))
+				data = lapply(ci_level, function(ci_l) iplot_data(object, .ci_level = ci_l,
+																													.dict = dict, .aggr_es = aggr_eff))
 				data = do.call("rbind", data)
 			}
 
@@ -232,9 +250,10 @@ ggiplot =
 		if (inherits(object, 'list')) {
 			# data = lapply(object, iplot_data)
 			if (length(ci_level)==1) {
-				data = lapply(object, iplot_data, .ci_level = ci_level, .dict = dict)
+				data = lapply(object, iplot_data, .ci_level = ci_level, .dict = dict, .aggr_es = aggr_eff)
 			} else {
-				data = lapply(ci_level, function(ci_l) lapply(object, iplot_data, .ci_level = ci_l, .dict = dict))
+				data = lapply(ci_level, function(ci_l) lapply(object, iplot_data, .ci_level = ci_l,
+																											.dict = dict, .aggr_es = aggr_eff))
 				data = do.call(function(...) Map("rbind", ...), data)
 			}
 			nms = names(object)
@@ -319,6 +338,10 @@ ggiplot =
 				if (zero) {
 					geom_hline(yintercept=0, col=zero.par$col, lwd=zero.par$lwd, lty=zero.par$lty)
 				}
+			} +			{
+				if (aggr_eff!='none') {
+					geom_line(aes(y = aggr_eff), col=aggr_eff.par$col, lwd=aggr_eff.par$lwd, lty=aggr_eff.par$lty)
+				}
 			} +
 			{
 				if (geom_style %in% c('pointrange', 'errorbar') & multi_style %in% c('none', 'facet')) {
@@ -387,11 +410,11 @@ ggiplot =
 				if (geom_style=='ribbon' || pt.join) {
 					if (multi_style=='dodge') {
 						if (length(ci_level)==1) {
-							geom_line(aes(group = paste0(group, id)),
+							geom_line(aes(group = paste0(.data$group, .data$id)),
 												position = position_dodge(width = ci.width))
 						} else {
 							geom_line(data = ~subset(.x, ci_level==max(ci_level)),
-												aes(group = paste0(group, id)),
+												aes(group = paste0(.data$group, .data$id)),
 												position = position_dodge2(width = ci.width, padding = ci.width))
 						}
 
