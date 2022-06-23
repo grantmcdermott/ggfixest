@@ -77,7 +77,7 @@ aggr_es = function(object,
 			coefs2 = coefs[idx[[i]]]
 			period2 = names(idx)[i]
 			hypothesis = paste(paste0("`", coefs2, "`"), collapse = " + ")
-			if (aggregation=="mean") hypothesis = paste0("(", hypothesis, ")/", length(coefs))
+			if (aggregation=="mean") hypothesis = paste0("(", hypothesis, ")/", length(coefs2))
 			hypothesis = paste(hypothesis, "=", rhs)
 			ret = marginaleffects::deltamethod(object, hypothesis = hypothesis, ...)
 			if (abbr_term) ret$term = paste0(period2, "-treatment (", aggregation, ")")
