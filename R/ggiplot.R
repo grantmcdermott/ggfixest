@@ -11,6 +11,12 @@
 #'   describing the preferred geometric representation of the coefficients.
 #' @param multi_style Character string. One of `c('dodge', 'facet')`, defining
 #'   how multi-model objects should be presented.
+#' @param aggr_eff A character string indicating whether the aggregated mean
+#'   post- (and/or pre-) treatment effect should be plotted alongside the
+#'   individual period effects. Should be one of "none" (the default), "post",
+#'   "pre", or "both".
+#' @param aggr_eff.par List. Parameters of the aggregated treatment effect line,
+#'   if plotted. The default values are `col = 'gray50'`, `lwd = 1`, `lty = 1`.
 #' @param facet_args A list of arguments passed down to `ggplot::fact_wrap()`.
 #'   E.g. `facet_args = list(ncol = 2, scales = 'free_y')`. Only used if
 #'   `multi_style = 'facet'`.
@@ -76,10 +82,14 @@
 #' ggiplot(est_did, geom_style = 'ribbon')
 #' ggiplot(est_did, geom_style = 'ribbon', col = 'orange')
 #'
-#' # Multiple confidence interval levels are supported, but the geom_style
-#' # argument should be set to either "errorbar" or "ribbon" for these to be
-#' # visible. (The "pointrange" default doesn't make the differences clear.)
-#' ggiplot(est_did, geom_style = 'errorbar', ci_level = c(.8, .95))
+#' # Unlike base iplot, multiple confidence interval levels are supported
+#' ggiplot(est_did, ci_level = c(.8, .95))
+#'
+#' # Another new feature (i.e. unsupported in base iplot) is adding aggregated
+#' # post- and/or pre-treatment effects to your plots. Here's an example that
+#' # builds on the previous plot, by adding the mean post-treatment effect.
+#' ggiplot(est_did, ci_level = c(.8, .95),
+#'         aggr_eff = "post", aggr_eff.par = list(col="orange")) # default is grey
 #'
 #' #
 #' # Example 2: Multiple estimation (i)
@@ -174,19 +184,24 @@ ggiplot =
 	function(object,
 					 geom_style = c('pointrange', 'errorbar', 'ribbon'),
 					 multi_style = c('dodge', 'facet'),
+					 aggr_eff = c('none', 'post', 'pre', 'both'),
+					 aggr_eff.par = list(col = 'grey50', lwd = 1, lty = 1),
 					 facet_args = NULL,
 					 theme = NULL,
 					 ...) {
 
 		geom_style = match.arg(geom_style)
 		multi_style = match.arg(multi_style)
+		aggr_eff = match.arg(aggr_eff)
+		aggr_eff.par = utils::modifyList(list(col = 'grey50', lwd = 1, lty = 1),
+																		 aggr_eff.par)
 
 		dots = list(...)
 		## Defaults
 		ci_level     = if (!is.null(dots[['ci_level']])) dots[['ci_level']] else 0.95
 		ci.width     = if (!is.null(dots[['ci.width']])) dots[['ci.width']] else 0.2
 		ci.fill.par  = list(col = 'lightgray', alpha = 0.3) ## Note: The col arg is going be ignored anyway
-		if (!is.null(dots[['ci.fill.par']])) ci.fill.par = modifyList(ci.fill.par, dots[['ci.fill.par']])
+		if (!is.null(dots[['ci.fill.par']])) ci.fill.par = utils::modifyList(ci.fill.par, dots[['ci.fill.par']])
 		main         = if (!is.null(dots[['main']])) dots[['main']] else NULL
 		xlab         = if (!is.null(dots[['xlab']])) dots[['xlab']] else NULL
 		ylab         = if (!is.null(dots[['ylab']])) dots[['ylab']] else NULL
@@ -196,62 +211,26 @@ ggiplot =
 		pt.join      = if (!is.null(dots[['pt.join']])) dots[['pt.join']] else FALSE
 		zero         = if (!is.null(dots[['zero']])) dots[['zero']] else TRUE
 		zero.par = list(col = 'black', lty = 1, lwd = 0.3)
-		if (!is.null(dots[['zero.par']])) zero.par = modifyList(zero.par, dots[['zero.par']])
+		if (!is.null(dots[['zero.par']])) zero.par = utils::modifyList(zero.par, dots[['zero.par']])
 		ref.line     = if (!is.null(dots[['ref.line']])) dots$ref.line else 'auto'
 		ref.line.par = list(col = 'black', lty = 2,lwd = 0.3)
-		if (!is.null(dots[['ref.line.par']])) ref.line.par = modifyList(ref.line.par, dots[['ref.line.par']])
+		if (!is.null(dots[['ref.line.par']])) ref.line.par = utils::modifyList(ref.line.par, dots[['ref.line.par']])
 
-		## Internal function for grabbing the iplot data
-		iplot_data = function(object, .ci_level = ci_level, .dict = dict) {
-			p = fixest::iplot(object, only.params = TRUE, ci_level = .ci_level, dict = .dict)
-			d = p$prms
-			if (class(object)=='fixest_multi') {
-				meta = attr(object, "meta")
-				dep_vars = meta$all_names$lhs
-				if (is.null(dep_vars)) {
-					# dep_vars = unique(as.character(lapply(object, function(m) paste(m$call$fml[[2]]))))
-					dep_vars = unique(as.character(lapply(object, function(m) paste(m$fml[[2]]))))
-				}
-				## Need to do a bit of finicky work, depending on whether the fixest_multi
-				## object is just a multi-LHS object.
-				# if (all.equal(dep_vars, names(object))) {
-				if (!is.null(meta$all_names$lhs)) {
-					if (any(c("rhs", "sample") %in% colnames(meta$tree))) {
-						d$x = rep(p$labels, each = length(object)*length(dep_vars))
-						if (!is.null(meta$all_names$rhs)) {
-							d$id = factor(d$id, labels = rep(meta$all_names$rhs, each = length(dep_vars)))
-						} else {
-							d$id = factor(d$id, labels = rep(names(object), each = length(dep_vars)))
-						}
-					} else {
-						d$x = rep(p$labels, each = length(object))
-				  	d$id = factor(d$id, labels = names(object))
-					}
-				} else {
-					d$x = rep(p$labels, each = length(object)*length(dep_vars))
-					d$id = factor(d$id, labels = rep(names(object), each = length(dep_vars)))
-				}
-				d$dep_var = dep_vars
-			} else {
-				if (class(p$labels)=='integer') p$labels = as.numeric(p$labels) ## catch
-				if (!identical(d$x, p$labels)) d$x = factor(d$x, labels = p$labels)
-				# d$dep_var = paste(object$call$fml[[2]])
-				d$dep_var = paste(object$fml[[2]])
-			}
-			d$ci_level = .ci_level
-			return(d)
-		}
+		# The next few blocks grab the underlying iplot data, contingent on the
+		# object that was passed into the function (i.e. fixest, fixest_multi, or
+		# list)
 
-		if (class(object) %in% c('fixest', 'fixest_multi')) {
+		if (inherits(object, c('fixest', 'fixest_multi'))) {
 			if (length(ci_level)==1) {
-				data = iplot_data(object)
+				data = iplot_data(object, .ci_level = ci_level, .dict = dict, .aggr_es = aggr_eff)
 			} else {
-				data = lapply(ci_level, function(ci_l) iplot_data(object, .ci_level = ci_l))
+				data = lapply(ci_level, function(ci_l) iplot_data(object, .ci_level = ci_l,
+																													.dict = dict, .aggr_es = aggr_eff))
 				data = do.call("rbind", data)
 			}
 
 			data$group = data$id
-			if (class(object)=='fixest_multi') {
+			if (inherits(object, 'fixest_multi')) {
 				if (length(unique(data$dep_var)) > 1) {
 					if (all(data$dep_var==data$id)) {
 						fct_vars = ~ dep_var
@@ -267,23 +246,14 @@ ggiplot =
 				multi_style = 'none'
 			}
 		}
-		# if (class(object) %in% c('fixest', 'fixest_multi')) {
-		# 	if (class(object)=='fixest_multi') {
-		# 		data = do.call('rbind', lapply(object, iplot_data))
-		# 		fct_vars = ~ id
-		# 	} else {
-		# 		data = iplot_data(object)
-		# 		multi_style = 'none'
-		# 	}
-		# 	data$group = data$id
-		# }
 
-		if (class(object)=='list') {
+		if (inherits(object, 'list')) {
 			# data = lapply(object, iplot_data)
 			if (length(ci_level)==1) {
-				data = lapply(object, iplot_data)
+				data = lapply(object, iplot_data, .ci_level = ci_level, .dict = dict, .aggr_es = aggr_eff)
 			} else {
-				data = lapply(ci_level, function(ci_l) lapply(object, iplot_data, .ci_level = ci_l))
+				data = lapply(ci_level, function(ci_l) lapply(object, iplot_data, .ci_level = ci_l,
+																											.dict = dict, .aggr_es = aggr_eff))
 				data = do.call(function(...) Map("rbind", ...), data)
 			}
 			nms = names(object)
@@ -368,6 +338,10 @@ ggiplot =
 				if (zero) {
 					geom_hline(yintercept=0, col=zero.par$col, lwd=zero.par$lwd, lty=zero.par$lty)
 				}
+			} +			{
+				if (aggr_eff!='none') {
+					geom_line(aes(y = aggr_eff), col=aggr_eff.par$col, lwd=aggr_eff.par$lwd, lty=aggr_eff.par$lty)
+				}
 			} +
 			{
 				if (geom_style %in% c('pointrange', 'errorbar') & multi_style %in% c('none', 'facet')) {
@@ -436,11 +410,11 @@ ggiplot =
 				if (geom_style=='ribbon' || pt.join) {
 					if (multi_style=='dodge') {
 						if (length(ci_level)==1) {
-							geom_line(aes(group = paste0(group, id)),
+							geom_line(aes(group = paste0(.data$group, .data$id)),
 												position = position_dodge(width = ci.width))
 						} else {
 							geom_line(data = ~subset(.x, ci_level==max(ci_level)),
-												aes(group = paste0(group, id)),
+												aes(group = paste0(.data$group, .data$id)),
 												position = position_dodge2(width = ci.width, padding = ci.width))
 						}
 

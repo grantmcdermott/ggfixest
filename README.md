@@ -28,8 +28,8 @@ Here follow some examples that draw on the **fixest** [introductory
 vignette](https://lrberge.github.io/fixest/articles/fixest_walkthrough.html),
 as well as the `iplot()` help documentation.
 
-As we’ll see, the package essentially consists of a single function —
-**`ggiplot()`** — that tries to closely mimic it base compatriot.
+As we’ll see, the primary function in this package is the eponymous
+**`ggiplot()`**, which tries to closely mimic it base compatriot.
 However, by leveraging the **ggplot2** API and infrastructure, it also
 offers some additional functionality.
 
@@ -116,13 +116,25 @@ ggiplot(est_did, geom_style = 'ribbon', pt.pch = NA, col = 'orange')
 
 <img src="man/figures/README-est_did_ribbon-3.png" width="100%" />
 
-Unlike `iplot()`, multiple confidence interval levels are supported.
+Unlike base `iplot`, multiple confidence interval levels are supported.
 
 ``` r
 ggiplot(est_did, ci_level = c(.8, .95))
 ```
 
 <img src="man/figures/README-est_did_ci_multi-1.png" width="100%" />
+
+Another new feature (i.e. unsupported in base `iplot`) is adding
+aggregated post- and/or pre-treatment effects to your plots. Here’s an
+example that builds on the previous plot, by adding the mean
+post-treatment effect.
+
+``` r
+ggiplot(est_did, ci_level = c(.8, .95), 
+                aggr_eff = "post", aggr_eff.par = list(col = "orange")) # default col is grey
+```
+
+<img src="man/figures/README-est_did_aggr_eff-1.png" width="100%" />
 
 ### Example 2: Multiple estimation (i)
 

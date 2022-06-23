@@ -8,6 +8,8 @@ ggiplot(
   object,
   geom_style = c("pointrange", "errorbar", "ribbon"),
   multi_style = c("dodge", "facet"),
+  aggr_eff = c("none", "post", "pre", "both"),
+  aggr_eff.par = list(col = "grey50", lwd = 1, lty = 1),
   facet_args = NULL,
   theme = NULL,
   ...
@@ -22,6 +24,14 @@ describing the preferred geometric representation of the coefficients.}
 
 \item{multi_style}{Character string. One of \code{c('dodge', 'facet')}, defining
 how multi-model objects should be presented.}
+
+\item{aggr_eff}{A character string indicating whether the aggregated mean
+post- (and/or pre-) treatment effect should be plotted alongside the
+individual period effects. Should be one of "none" (the default), "post",
+"pre", or "both".}
+
+\item{aggr_eff.par}{List. Parameters of the aggregated treatment effect line,
+if plotted. The default values are \code{col = 'gray50'}, \code{lwd = 1}, \code{lty = 1}.}
 
 \item{facet_args}{A list of arguments passed down to \code{ggplot::fact_wrap()}.
 E.g. \code{facet_args = list(ncol = 2, scales = 'free_y')}. Only used if
@@ -101,10 +111,14 @@ ggiplot(est_did, pt.join = TRUE, geom_style = 'errorbar')
 ggiplot(est_did, geom_style = 'ribbon')
 ggiplot(est_did, geom_style = 'ribbon', col = 'orange')
 
-# Multiple confidence interval levels are supported, but the geom_style
-# argument should be set to either "errorbar" or "ribbon" for these to be
-# visible. (The "pointrange" default doesn't make the differences clear.)
-ggiplot(est_did, geom_style = 'errorbar', ci_level = c(.8, .95))
+# Unlike base iplot, multiple confidence interval levels are supported
+ggiplot(est_did, ci_level = c(.8, .95))
+
+# Another new feature (i.e. unsupported in base iplot) is adding aggregated
+# post- and/or pre-treatment effects to your plots. Here's an example that
+# builds on the previous plot, by adding the mean post-treatment effect.
+ggiplot(est_did, ci_level = c(.8, .95),
+        aggr_eff = "post", aggr_eff.par = list(col="orange")) # default is grey
 
 #
 # Example 2: Multiple estimation (i)
