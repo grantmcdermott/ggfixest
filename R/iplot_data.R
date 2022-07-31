@@ -41,9 +41,9 @@
 #' iplot_data(est_split)                # The wrapper provided by this package
 #'
 iplot_data = function(object,
-											.ci_level = 0.95,
-											.dict = fixest::getFixest_dict(),
-											.aggr_es = c("none", "post", "pre", "both")) {
+                      .ci_level = 0.95,
+					  .dict = fixest::getFixest_dict(),
+					  .aggr_es = c("none", "post", "pre", "both")) {
 	.aggr_es = match.arg(.aggr_es)
 	p = fixest::iplot(object, only.params = TRUE, ci_level = .ci_level, dict = .dict)
 	d = p$prms
