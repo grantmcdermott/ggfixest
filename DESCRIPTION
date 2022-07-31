@@ -23,6 +23,9 @@ Depends:
 Imports: 
     fixest (>= 0.9.0),
     scales
+    utils,
+    scales,
+    marginaleffects (>= 0.6.0)
 Suggests: 
     tinytest,
     tinyviztest
