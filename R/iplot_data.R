@@ -20,7 +20,9 @@
 #' to better facilitate plotting with `ggplot2` and handling of complex object
 #' types (e.g. lists of fixest_multi models)
 #' @seealso [fixest::iplot()], [aggr_es()].
-#' @return A ggplot2 object.
+#' @return A data frame consisting of estimate values, confidence intervals,
+#' relative x-axis positions, and other aesthetic information needed to draw 
+#' a ggplot2 object.
 #' @import ggplot2
 #' @export
 #' @examples
