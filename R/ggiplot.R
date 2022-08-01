@@ -264,10 +264,10 @@ ggiplot =
 					nms = paste('Group', seq_along(object))
 				}
 			}
-
-			nms = as.character(mapply(rep, nms, sapply(data, nrow)))
+			for(z in 1:length(data)){
+				data[[z]]$group = nms[[z]]
+			}
 			data = do.call('rbind', data)
-			data$group = nms
 			rownames(data) = NULL
 			if (length(unique(data$id))==1) {
 				fct_vars = ~ group
