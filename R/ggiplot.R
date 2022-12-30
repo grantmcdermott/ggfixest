@@ -366,7 +366,7 @@ ggiplot =
 						if (length(ci_level)==1) {
 							geom_linerange(position = position_dodge2(width = ci.width, padding = ci.width))
 						} else {
-							if (class(object)=='list' & length(object)>1) {
+							if (inherits(object, 'list') & length(object)>1) {
 								list(geom_linerange(data = ~subset(.x, ci_level==max(ci_level)),
 																		position = position_dodge2(width = ci.width, padding = ci.width)),
 										 geom_errorbar(data = ~subset(.x, ci_level!=max(ci_level)),
