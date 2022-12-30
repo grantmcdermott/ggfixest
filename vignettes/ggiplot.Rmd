@@ -92,7 +92,7 @@ on the previous plot, by adding the mean post-treatment effect.
 ```{r est_did_aggr_eff}
 ggiplot(
 	est_did, ci_level = c(.8, .95),
-	_eff = "post", aggr_eff.par = list(col = "orange") # default col is grey
+	aggr_eff = "post", aggr_eff.par = list(col = "orange") # default col is grey
 	)
 ```
 
