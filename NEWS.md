@@ -1,3 +1,13 @@
+# ggiplot 0.0.1.9000 (development version)
+
+## Bug fixes
+
+- Fix naming mismatch in multiple estimation with different time periods (#10). Thanks @brockmwilson.
+
+## Internals
+
+- Add a (visual) test suite (#12). Thanks to @vincentarelbundock for tinyviztest!
+
 # ggiplot 0.0.1
 
 * Tweaks to plot output, including integer breaks on x-axis (where appropriate)
