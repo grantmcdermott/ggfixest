@@ -264,9 +264,10 @@ ggiplot =
 					nms = paste('Group', seq_along(object))
 				}
 			}
-			for(z in 1:length(data)){
-				data[[z]]$group = nms[[z]]
+			for(zz in 1:length(data)){
+				data[[zz]]$group = nms[[zz]]
 			}
+			rm(zz)
 			data = do.call('rbind', data)
 			rownames(data) = NULL
 			if (length(unique(data$id))==1) {
