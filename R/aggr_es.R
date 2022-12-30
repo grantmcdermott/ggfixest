@@ -46,11 +46,11 @@
 #' # Etc.
 #'
 aggr_es = function(object,
-									 rhs = 0,
-									 period = c("post", "pre", "both"),
-									 aggregation = c("mean", "cumulative"),
-									 abbr_term = TRUE,
-									 ...) {
+                   rhs = 0,
+                   period = c("post", "pre", "both"),
+                   aggregation = c("mean", "cumulative"),
+                   abbr_term = TRUE,
+                   ...) {
 	aggregation = match.arg(aggregation)
 	period = match.arg(period)
 	fixest_obj = inherits(object, 'fixest')

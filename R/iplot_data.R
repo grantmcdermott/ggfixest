@@ -20,7 +20,9 @@
 #' to better facilitate plotting with `ggplot2` and handling of complex object
 #' types (e.g. lists of fixest_multi models)
 #' @seealso [fixest::iplot()], [aggr_es()].
-#' @return A ggplot2 object.
+#' @return A data frame consisting of estimate values, confidence intervals,
+#' relative x-axis positions, and other aesthetic information needed to draw 
+#' a ggplot2 object.
 #' @import ggplot2
 #' @export
 #' @examples
@@ -39,9 +41,9 @@
 #' iplot_data(est_split)                # The wrapper provided by this package
 #'
 iplot_data = function(object,
-											.ci_level = 0.95,
-											.dict = fixest::getFixest_dict(),
-											.aggr_es = c("none", "post", "pre", "both")) {
+                      .ci_level = 0.95,
+					  .dict = fixest::getFixest_dict(),
+					  .aggr_es = c("none", "post", "pre", "both")) {
 	.aggr_es = match.arg(.aggr_es)
 	p = fixest::iplot(object, only.params = TRUE, ci_level = .ci_level, dict = .dict)
 	d = p$prms

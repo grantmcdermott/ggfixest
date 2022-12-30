@@ -30,7 +30,9 @@ returned data frame. Passed to \code{aggr_es(..., aggregation = "mean")} and
 should be one of "none" (the default), "post", "pre", or "both".}
 }
 \value{
-A ggplot2 object.
+A data frame consisting of estimate values, confidence intervals,
+relative x-axis positions, and other aesthetic information needed to draw
+a ggplot2 object.
 }
 \description{
 Grabs the underlying data used to construct \code{fixest::iplot},

@@ -181,14 +181,14 @@
 #' setFixest_dict() # reset
 #'
 ggiplot =
-	function(object,
-					 geom_style = c('pointrange', 'errorbar', 'ribbon'),
-					 multi_style = c('dodge', 'facet'),
-					 aggr_eff = c('none', 'post', 'pre', 'both'),
-					 aggr_eff.par = list(col = 'grey50', lwd = 1, lty = 1),
-					 facet_args = NULL,
-					 theme = NULL,
-					 ...) {
+   function(object,
+            geom_style = c('pointrange', 'errorbar', 'ribbon'),
+            multi_style = c('dodge', 'facet'),
+            aggr_eff = c('none', 'post', 'pre', 'both'),
+            aggr_eff.par = list(col = 'grey50', lwd = 1, lty = 1),
+            facet_args = NULL,
+            theme = NULL,
+            ...) {
 
 		geom_style = match.arg(geom_style)
 		multi_style = match.arg(multi_style)
@@ -366,7 +366,7 @@ ggiplot =
 						if (length(ci_level)==1) {
 							geom_linerange(position = position_dodge2(width = ci.width, padding = ci.width))
 						} else {
-							if (class(object)=='list' & length(object)>1) {
+							if (inherits(object, 'list') & length(object)>1) {
 								list(geom_linerange(data = ~subset(.x, ci_level==max(ci_level)),
 																		position = position_dodge2(width = ci.width, padding = ci.width)),
 										 geom_errorbar(data = ~subset(.x, ci_level!=max(ci_level)),
