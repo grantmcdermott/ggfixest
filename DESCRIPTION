@@ -19,7 +19,7 @@ RoxygenNote: 7.2.1
 URL: http://grantmcdermott.com/ggiplot/
 BugReports: https://github.com/grantmcdermott/ggiplot/issues
 Depends: 
-    ggplot2 (>= 2.0.0)
+    ggplot2 (>= 2.2.0)
 Imports: 
     fixest (>= 0.9.0),
     scales,

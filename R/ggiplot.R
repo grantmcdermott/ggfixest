@@ -487,7 +487,6 @@ ggiplot =
 																						 shrink = facet_args$shrink,
 																						 labeller = facet_args$labeller,
 																						 as.table = facet_args$as.table,
-																						 switch = facet_args$switch,
 																						 drop = facet_args$drop,
 																						 dir = facet_args$dir,
 																						 strip.position = facet_args$strip.position)
