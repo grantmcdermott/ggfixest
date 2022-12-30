@@ -29,5 +29,5 @@ Suggests:
     tinytest (>= 1.4.0),
     tinyviztest
 Remotes:
-		markvanderloo/tinytest/pkg,
+    markvanderloo/tinytest/tree/master/pkg,
     vincentarelbundock/tinyviztest
