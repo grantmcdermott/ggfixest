@@ -4,6 +4,8 @@
 # ggiplot
 
 <!-- badges: start -->
+
+[![Docs](https://img.shields.io/badge/docs-homepage-blue.svg)](https://grantmcdermott.com/ggiplot/index.html)
 <!-- badges: end -->
 
 This package provides a **ggplot2** equivalent of the base
@@ -22,9 +24,11 @@ remotes::install_github("grantmcdermott/ggiplot")
 
 ## Quickstart
 
-A detailed introductory vignette with many examples is provided on the
-package homepage. But here are a few quickstart examples to whet your
-appetite. First, a basic event study plot.
+A detailed [introductory
+vignette](http://grantmcdermott.com/ggiplot/articles/ggiplot.html) with
+many examples is provided on the package homepage (or, by typing
+`vignette("ggiplot")` in your R console). But here are a few quickstart
+examples to whet your appetite. First, a basic event study plot.
 
 ``` r
 library(ggiplot)
