@@ -26,8 +26,11 @@ Imports:
     utils,
     marginaleffects (>= 0.6.0)
 Suggests: 
+    knitr,
+    rmarkdown,
     tinytest (>= 1.4.0),
     tinyviztest
-Remotes:  
+Remotes: 
     markvanderloo/tinytest/pkg,
     vincentarelbundock/tinyviztest
+VignetteBuilder: knitr
