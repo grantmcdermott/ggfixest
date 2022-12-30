@@ -79,6 +79,7 @@ ggiplot(est_did, geom_style = 'ribbon', pt.pch = NA, col = 'orange')
 ```
 
 Unlike base `iplot`, multiple confidence interval levels are supported.
+This works for ribbons too.
 
 ```{r est_did_ci_multi}
 ggiplot(est_did, ci_level = c(.8, .95))
@@ -91,13 +92,14 @@ on the previous plot, by adding the mean post-treatment effect.
 ```{r est_did_aggr_eff}
 ggiplot(
 	est_did, ci_level = c(.8, .95),
-	ggr_eff = "post", aggr_eff.par = list(col = "orange") # default col is grey
+	r_eff = "post", aggr_eff.par = list(col = "orange") # default col is grey
 	)
 ```
 
 ### Example 2: Multiple estimation (i)
 
-We'll demonstrate using the staggered treatment example from the **fixest**
+We'll demonstrate multiple estimation functionality using the staggered treatment example
+(comparing vanilla TWFE with the Sun-Abraham estimator) from the **fixest**
 introductory vignette.
 
 ```{r base_stagg}
@@ -213,7 +215,7 @@ ggiplot(
 ```
 
 ... but is even better when we use faceting instead of dodged errorbars.
-Let's use this an opportunity to construct a fancy plot that invokes some
+Let's use this as an opportunity to construct a fancy plot that invokes some
 additional arguments and ggplot theming.
 
 ```{r stagg_grp_multi_ggiplot_fancy}
