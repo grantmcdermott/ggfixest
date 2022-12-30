@@ -28,6 +28,6 @@ Imports:
 Suggests: 
     tinytest (>= 1.4.0),
     tinyviztest
-Remotes:
-    markvanderloo/tinytest/tree/master/pkg,
+Remotes:  
+    markvanderloo/tinytest/pkg,
     vincentarelbundock/tinyviztest
