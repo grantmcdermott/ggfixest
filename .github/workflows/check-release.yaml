@@ -27,4 +27,10 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
 
+      - name: tinytest dev
+        run: Rscript -e "remotes::install_github('markvanderloo/tinytest/pkg')"
+
+      - name: tinyviztest dev
+        run: Rscript -e "remotes::install_github('vincentarelbundock/tinyviztest')"
+
       - uses: r-lib/actions/check-r-package@v2
