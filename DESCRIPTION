@@ -27,6 +27,7 @@ Imports:
     marginaleffects (>= 0.6.0)
 Suggests: 
     knitr,
+    remotes,
     rmarkdown,
     tinytest (>= 1.4.0),
     tinyviztest

@@ -5,5 +5,5 @@
 .DS_Store
 .Renviron
 docs
-inst/tinytest/_tinyviztest_review/
 inst/doc
+inst/tinytest/_tinyviztest_review
