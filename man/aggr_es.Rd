@@ -31,7 +31,7 @@ column will retain the full hypothesis test string as per usual with
 \code{marginaleffects()}. Note that this information is retained as an attribute
 of the return object, regardless.}
 
-\item{...}{Additional arguments passed to \code{marginaleffects::deltamethod()}.}
+\item{...}{Additional arguments passed to \code{marginaleffects::hypotheses()}.}
 }
 \value{
 A "tidy" data frame of aggregated (pre and/or post) treatment
@@ -48,7 +48,7 @@ of models. By default, the function will return the average post-treatment
 effect (i.e. across multiple periods). However, it can also return the
 cumulative post-treatment effect and can be used to aggregate pre-treatment
 effects too. At its heart, \code{aggr_es()} is a convenience wrapper around
-\code{marginaleffects::deltamethod()}, which is used to perform the underlying
+\code{marginaleffects::hypotheses()}, which is used to perform the underlying
 joint hypothesis test.
 }
 \examples{
@@ -69,5 +69,5 @@ aggr_es(est, rhs = -1, period = "pre")
 
 }
 \seealso{
-\code{\link[marginaleffects:deltamethod]{marginaleffects::deltamethod()}}
+\code{\link[marginaleffects:hypotheses]{marginaleffects::hypotheses()}}
 }

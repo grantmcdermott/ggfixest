@@ -8,7 +8,7 @@
 #' effect (i.e. across multiple periods). However, it can also return the
 #' cumulative post-treatment effect and can be used to aggregate pre-treatment
 #' effects too. At its heart, `aggr_es()` is a convenience wrapper around
-#' `marginaleffects::deltamethod()`, which is used to perform the underlying
+#' `marginaleffects::hypotheses()`, which is used to perform the underlying
 #' joint hypothesis test.
 #' @param object A model object of class `fixest`, where the `i()` operator has
 #' been used to facilitate an "event-study" DiD design. See Examples.
@@ -22,8 +22,8 @@
 #' column will retain the full hypothesis test string as per usual with
 #' `marginaleffects()`. Note that this information is retained as an attribute
 #' of the return object, regardless.
-#' @param ... Additional arguments passed to `marginaleffects::deltamethod()`.
-#' @seealso [marginaleffects::deltamethod()]
+#' @param ... Additional arguments passed to `marginaleffects::hypotheses()`.
+#' @seealso [marginaleffects::hypotheses()]
 #' @return A "tidy" data frame of aggregated (pre and/or post) treatment
 #' effects, plus inferential information about standard errors, confidence
 #' intervals, etc. Potentially useful information about the underlying
@@ -79,7 +79,7 @@ aggr_es = function(object,
 			hypothesis = paste(paste0("`", coefs2, "`"), collapse = " + ")
 			if (aggregation=="mean") hypothesis = paste0("(", hypothesis, ")/", length(coefs2))
 			hypothesis = paste(hypothesis, "=", rhs)
-			ret = marginaleffects::deltamethod(object, hypothesis = hypothesis, ...)
+			ret = marginaleffects::hypotheses(object, hypothesis = hypothesis, ...)
 			if (abbr_term) ret$term = paste0(period2, "-treatment (", aggregation, ")")
 			attr(ret, "hypothesis") = hypothesis
 			return(ret)
