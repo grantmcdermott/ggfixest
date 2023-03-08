@@ -80,6 +80,7 @@ ggiplot(list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
         xlab = 'Time to treatment',
         multi_style = 'facet',
         geom_style = 'ribbon',
+                facet_args = list(labeller = labeller(id = \(x) gsub(".*: ", "", x))),
         theme = theme_minimal() +
                     theme(
                         text = element_text(family = 'HersheySans'),
