@@ -1,4 +1,4 @@
-# ggiplot 0.0.1.9001 (development version)
+# ggiplot 0.0.1.9002 (development version)
 
 ## Bug fixes
 
@@ -8,6 +8,9 @@
 
 - Add a (visual) test suite (#12). Thanks to @vincentarelbundock for 
 ~~tinyviztest~~ [tinysnapshot](https://github.com/vincentarelbundock/tinysnapshot)!
+- Switch to `marginaleffects::hypotheses()` internally for `aggr_es()` to match
+the upstream changes in **marginaleffects**.
+- Minor documentation improvements.
 
 # ggiplot 0.0.1
 
