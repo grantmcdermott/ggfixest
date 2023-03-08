@@ -1,5 +1,6 @@
+library(ggiplot)
 library("tinytest")
-using("tinyviztest")
+using("tinysnapshot")
 
 #
 # Datasets and models ----
@@ -43,12 +44,12 @@ p3 = ggiplot(est, geom_style = "ribbon", pt.pch = NA)
 p4 = ggiplot(est, ci_level = c(.8,.95))
 p5 = ggiplot(est, ci_level = c(.8,.95), geom_style = 'ribbon', pt.pch = NA)
 p6 = ggiplot(list(est))
-expect_vdiff(p1, label = "ggiplot_simple")
-expect_vdiff(p2, label = "ggiplot_simple_errorbar")
-expect_vdiff(p3, label = "ggiplot_simple_ribbon")
-expect_vdiff(p4, label = "ggiplot_simple_mci")
-expect_vdiff(p5, label = "ggiplot_simple_mci_ribbon")
-expect_vdiff(p6, label = "ggiplot_list")
+expect_snapshot_plot(p1, label = "ggiplot_simple")
+expect_snapshot_plot(p2, label = "ggiplot_simple_errorbar")
+expect_snapshot_plot(p3, label = "ggiplot_simple_ribbon")
+expect_snapshot_plot(p4, label = "ggiplot_simple_mci")
+expect_snapshot_plot(p5, label = "ggiplot_simple_mci_ribbon")
+expect_snapshot_plot(p6, label = "ggiplot_list")
 
 #
 ## Staggered treatment DiD (common use-case) ----
@@ -64,8 +65,8 @@ p8 = ggiplot(
     geom_style = "ribbon", pt.pch = NA,
     ci_level = c(.8,.95)
     )
-expect_vdiff(p7, label = "ggiplot_stagg_mci")
-expect_vdiff(p8, label = "ggiplot_stagg_mci_ribbon")
+expect_snapshot_plot(p7, label = "ggiplot_stagg_mci")
+expect_snapshot_plot(p8, label = "ggiplot_stagg_mci_ribbon")
 
 #
 # Multi plots (single panel) ----
@@ -95,11 +96,11 @@ p13 = ggiplot(
     main = 'Staggered treatment', ref.line = -1, pt.join = TRUE,
     ci_level = c(.8, .95), geom_style = 'ribbon'
     )
-expect_vdiff(p9,  label = "ggiplot_multi_single")
-expect_vdiff(p10, label = "ggiplot_multi_single_unnamed")
-expect_vdiff(p11, label = "ggiplot_multi_single_ribbon")
-expect_vdiff(p12, label = "ggiplot_multi_single_kitchen")
-expect_vdiff(p13, label = "ggiplot_multi_single_kitchen_ribbon")
+expect_snapshot_plot(p9,  label = "ggiplot_multi_single")
+expect_snapshot_plot(p10, label = "ggiplot_multi_single_unnamed")
+expect_snapshot_plot(p11, label = "ggiplot_multi_single_ribbon")
+expect_snapshot_plot(p12, label = "ggiplot_multi_single_kitchen")
+expect_snapshot_plot(p13, label = "ggiplot_multi_single_kitchen_ribbon")
 
 #
 # Multi plots (facetted) ----
@@ -115,8 +116,8 @@ p15 = ggiplot(
     ci_level = c(.8, .95), multi_style = 'facet',
     geom_style = 'ribbon'
     )
-expect_vdiff(p14, label = "ggiplot_multi_facet")
-expect_vdiff(p15, label = "ggiplot_multi_facet_ribbon")
+expect_snapshot_plot(p14, label = "ggiplot_multi_facet")
+expect_snapshot_plot(p15, label = "ggiplot_multi_facet_ribbon")
 
 #
 # Multi plots and split samples (complex) ----
@@ -146,6 +147,6 @@ p18 = ggiplot(
         legend.position = 'none'
         )
     )
-expect_vdiff(p16, label = "ggiplot_multi_complex")
-expect_vdiff(p17, label = "ggiplot_multi_complex_mci")
-expect_vdiff(p18, label = "ggiplot_multi_complex_kitchen")
+expect_snapshot_plot(p16, label = "ggiplot_multi_complex")
+expect_snapshot_plot(p17, label = "ggiplot_multi_complex_mci")
+expect_snapshot_plot(p18, label = "ggiplot_multi_complex_kitchen")

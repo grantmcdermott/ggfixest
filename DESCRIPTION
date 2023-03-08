@@ -15,7 +15,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 URL: http://grantmcdermott.com/ggiplot/
 BugReports: https://github.com/grantmcdermott/ggiplot/issues
 Depends: 
@@ -24,14 +24,13 @@ Imports:
     fixest (>= 0.9.0),
     scales,
     utils,
-    marginaleffects (>= 0.6.0)
+    marginaleffects (>= 0.10.0)
 Suggests: 
     knitr,
     remotes,
     rmarkdown,
-    tinytest (>= 1.4.0),
+    tinytest (>= 1.4.1),
     tinyviztest
 Remotes: 
-    markvanderloo/tinytest/pkg,
-    vincentarelbundock/tinyviztest
+    https://github.com/vincentarelbundock/tinysnapshot
 VignetteBuilder: knitr
