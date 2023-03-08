@@ -1,4 +1,4 @@
-# ggiplot 0.0.1.9000 (development version)
+# ggiplot 0.0.1.9001 (development version)
 
 ## Bug fixes
 
@@ -6,7 +6,8 @@
 
 ## Internals
 
-- Add a (visual) test suite (#12). Thanks to @vincentarelbundock for tinyviztest!
+- Add a (visual) test suite (#12). Thanks to @vincentarelbundock for 
+~~tinyviztest~~ [tinysnapshot](https://github.com/vincentarelbundock/tinysnapshot)!
 
 # ggiplot 0.0.1
 
