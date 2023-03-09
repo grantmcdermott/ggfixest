@@ -8,7 +8,6 @@
 [![R-CMD-check](https://github.com/grantmcdermott/ggiplot/actions/workflows/check-release.yaml/badge.svg)](https://github.com/grantmcdermott/ggiplot/actions/workflows/check-release.yaml)
 [![R-universe status
 badge](https://grantmcdermott.r-universe.dev/badges/ggiplot)](https://grantmcdermott.r-universe.dev)
-
 [![Docs](https://img.shields.io/badge/docs-homepage-blue.svg)](https://grantmcdermott.com/ggiplot/index.html)
 <!-- badges: end -->
 
