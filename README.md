@@ -18,10 +18,11 @@ event study plots.
 
 ## Installation
 
-The package is not yet on CRAN, but can be installed from R-universe:
+The package is not yet on CRAN, but can be installed from GitHub:
 
 ``` r
-install.packages("ggiplot", repos = "https://grantmcdermott.r-universe.dev")
+# install.packages("remotes")
+remotes::install_github("grantmcdermott/ggiplot")
 ```
 
 ## Quickstart
