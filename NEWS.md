@@ -1,4 +1,4 @@
-# ggiplot 0.0.1.9002 (development version)
+# ggiplot 0.0.1.9003 (development version)
 
 ## Bug fixes
 
