@@ -180,21 +180,20 @@
 #'
 #' setFixest_dict() # reset
 #'
-ggiplot =
-   function(object,
-            geom_style = c('pointrange', 'errorbar', 'ribbon'),
-            multi_style = c('dodge', 'facet'),
-            aggr_eff = c('none', 'post', 'pre', 'both'),
-            aggr_eff.par = list(col = 'grey50', lwd = 1, lty = 1),
-            facet_args = NULL,
-            theme = NULL,
-            ...) {
+ggiplot = function(
+	object,
+	geom_style = c('pointrange', 'errorbar', 'ribbon'),
+	multi_style = c('dodge', 'facet'),
+	aggr_eff = c('none', 'post', 'pre', 'both'),
+	aggr_eff.par = list(col = 'grey50', lwd = 1, lty = 1),
+	facet_args = NULL,
+	theme = NULL,
+	...) {
 
 		geom_style = match.arg(geom_style)
 		multi_style = match.arg(multi_style)
 		aggr_eff = match.arg(aggr_eff)
-		aggr_eff.par = utils::modifyList(list(col = 'grey50', lwd = 1, lty = 1),
-																		 aggr_eff.par)
+		aggr_eff.par = utils::modifyList(list(col = 'grey50', lwd = 1, lty = 1), aggr_eff.par)
 
 		dots = list(...)
 		## Defaults
@@ -246,43 +245,48 @@ ggiplot =
 				multi_style = 'none'
 			}
 		}
-
-		if (inherits(object, 'list')) {
+		
+		if (inherits(object, "list")) {
 			# data = lapply(object, iplot_data)
-			if (length(ci_level)==1) {
-				data = lapply(object, iplot_data, .ci_level = ci_level, .dict = dict, .aggr_es = aggr_eff)
-			} else {
-				data = lapply(ci_level, function(ci_l) lapply(object, iplot_data, .ci_level = ci_l,
-																											.dict = dict, .aggr_es = aggr_eff))
-				data = do.call(function(...) Map("rbind", ...), data)
-			}
-			nms = names(object)
-			if (is.null(nms)) {
-				if ('fixest' %in% unlist(lapply(object, class))) {
-					nms = paste('Model', seq_along(object))
-				} else {
-					nms = paste('Group', seq_along(object))
-				}
-			}
-			for(zz in 1:length(data)){
-				data[[zz]]$group = nms[[zz]]
-			}
-			rm(zz)
-			data = do.call('rbind', data)
-			rownames(data) = NULL
-			if (length(unique(data$id))==1) {
-				fct_vars = ~ group
-				n_fcts = length(unique(data$group))
-			} else {
-				fct_vars = ~ id + group
-				n_fcts = length(unique(data$group)) * length(unique(data$id))
-			}
-			if (length(unique(data$dep_var)) > 1) {
-				fct_vars = stats::update(fct_vars, ~ dep_var + .)
-				n_fcts = n_fcts * length(unique(data$dep_var))
-			}
-			if (is.null(facet_args$ncol)) facet_args$ncol = length(unique(data$group))
+			if (length(ci_level) == 1) {
+			data = lapply(object, iplot_data, .ci_level = ci_level, .dict = dict, .aggr_es = aggr_eff)
+		} else {
+			data = lapply(ci_level, function(ci_l) {
+				lapply(object, iplot_data,
+					.ci_level = ci_l,
+					.dict = dict, .aggr_es = aggr_eff
+				)
+			})
+			data = do.call(function(...) Map("rbind", ...), data)
 		}
+		nms = names(object)
+		if (is.null(nms)) {
+			if ("fixest" %in% unlist(lapply(object, class))) {
+				nms = paste("Model", seq_along(object))
+			} else {
+				nms = paste("Group", seq_along(object))
+			}
+		}
+		for (zz in 1:length(data)) {
+			data[[zz]]$group = nms[[zz]]
+		}
+		rm(zz)
+		data = do.call("rbind", data)
+		rownames(data) = NULL
+		if (length(unique(data$id)) == 1) {
+			fct_vars = ~group
+			n_fcts = length(unique(data$group))
+		} else {
+			fct_vars = ~ id + group
+			n_fcts = length(unique(data$group)) * length(unique(data$id))
+		}
+		if (length(unique(data$dep_var)) > 1) {
+			fct_vars = stats::update(fct_vars, ~ dep_var + .)
+			n_fcts = n_fcts * length(unique(data$dep_var))
+		}
+		if (is.null(facet_args$ncol)) facet_args$ncol = length(unique(data$group))
+	}
+
 
 		if (multi_style=='dodge') ci.width = ci.width * n_fcts ## TEST
 
@@ -318,18 +322,33 @@ ggiplot =
 
 		if (multi_style=='none') {
 			if (is.null(col)) {
-				gg = ggplot(data, aes(x = .data$x, y = .data$estimate,
-															ymin = .data$ci_low, ymax = .data$ci_high))
+				gg = ggplot(
+					data, 
+					aes(
+						x = .data$x, y = .data$estimate,
+						ymin = .data$ci_low, ymax = .data$ci_high
+					)
+				)
 			} else {
-				gg = ggplot(data, aes(x = .data$x, y = .data$estimate,
-															ymin = .data$ci_low, ymax = .data$ci_high,
-															col = col, fill = col))
+				gg = ggplot(
+					data,
+					aes(
+						x = .data$x, y = .data$estimate,
+						ymin = .data$ci_low, ymax = .data$ci_high,
+						col = col, fill = col
+					)
+				)
 			}
 			} else {
-				gg = ggplot(data, aes(x = .data$x, y = .data$estimate,
-															ymin = .data$ci_low, ymax = .data$ci_high,
-															fill = .data$group, col = .data$group,
-															shape = .data$group))
+				gg = ggplot(
+					data,
+					aes(
+						x = .data$x, y = .data$estimate,
+						ymin = .data$ci_low, ymax = .data$ci_high,
+						fill = .data$group, col = .data$group,
+						shape = .data$group
+					)
+				)
 			}
 
 		gg =
@@ -350,9 +369,10 @@ ggiplot =
 						if (length(ci_level)==1) {
 							geom_linerange()
 						} else {
-							list(geom_linerange(data = ~subset(.x, ci_level==max(ci_level))),
-									 geom_errorbar(data = ~subset(.x, ci_level!=max(ci_level)),
-									 							width = ci.width))
+							list(
+								geom_linerange(data = ~ subset(.x, ci_level == max(ci_level))),
+								geom_errorbar(data = ~ subset(.x, ci_level != max(ci_level)), width = ci.width)
+							)
 						}
 					} else if (multi_style=='facet') {
 						geom_errorbar(width = ci.width*n_fcts)
@@ -368,16 +388,28 @@ ggiplot =
 							geom_linerange(position = position_dodge2(width = ci.width, padding = ci.width))
 						} else {
 							if (inherits(object, 'list') & length(object)>1) {
-								list(geom_linerange(data = ~subset(.x, ci_level==max(ci_level)),
-																		position = position_dodge2(width = ci.width, padding = ci.width)),
-										 geom_errorbar(data = ~subset(.x, ci_level!=max(ci_level)),
-										 							width = ci.width,
-										 							position = position_dodge2(width = ci.width, padding = ci.width)))
+								list(
+									geom_linerange(
+										data = ~ subset(.x, ci_level == max(ci_level)),
+										position = position_dodge2(width = ci.width, padding = ci.width)
+									),
+									geom_errorbar(
+										data = ~ subset(.x, ci_level != max(ci_level)),
+										width = ci.width,
+										position = position_dodge2(width = ci.width, padding = ci.width)
+									)
+								)
 							} else {
-								list(geom_linerange(data = ~subset(.x, ci_level==max(ci_level)),
-																		position = position_dodge2(width = ci.width, padding = ci.width)),
-										 geom_errorbar(data = ~subset(.x, ci_level!=max(ci_level)),
-										 							width = ci.width, position = position_dodge(width = ci.width)))
+								list(
+									geom_linerange(
+										data = ~ subset(.x, ci_level == max(ci_level)),
+										position = position_dodge2(width = ci.width, padding = ci.width)
+									),
+									geom_errorbar(
+										data = ~ subset(.x, ci_level != max(ci_level)),
+										width = ci.width, position = position_dodge(width = ci.width)
+									)
+								)
 							}
 						}
 					} else {
@@ -389,20 +421,29 @@ ggiplot =
 				if (geom_style=='ribbon') {
 					if (multi_style=='dodge') {
 						if (length(ci_level)==1) {
-							geom_ribbon(alpha = ci.fill.par[['alpha']], col = NA,
-													position = position_dodge2(width = ci.width, padding = ci.width))
+							geom_ribbon(
+								alpha = ci.fill.par[["alpha"]], col = NA,
+								position = position_dodge2(width = ci.width, padding = ci.width)
+							)
 						} else {
-							lapply(ci_level,
-										 function(ci) geom_ribbon(data = ~subset(.x, ci_level==ci),
-										 												 alpha = ci.fill.par[['alpha']], col = NA,
-										 												 position = position_dodge2(width = ci.width, padding = ci.width)))
+							lapply(
+								ci_level,
+								function(ci) {
+									geom_ribbon(
+										data = ~ subset(.x, ci_level == ci),
+										alpha = ci.fill.par[["alpha"]], col = NA,
+										position = position_dodge2(width = ci.width, padding = ci.width)
+									)
+								}
+							)
 						}
 					} else {
 						if (length(ci_level)==1) {
 							geom_ribbon(alpha = ci.fill.par[['alpha']], col = NA)
 						} else {
-							geom_ribbon(alpha = ci.fill.par[['alpha']], col = NA,
-													aes(group = .data$ci_level))
+							geom_ribbon(
+								alpha = ci.fill.par[["alpha"]], col = NA, aes(group = .data$ci_level)
+							)
 						}
 					}
 				}
@@ -411,14 +452,18 @@ ggiplot =
 				if (geom_style=='ribbon' || pt.join) {
 					if (multi_style=='dodge') {
 						if (length(ci_level)==1) {
-							geom_line(aes(group = paste0(.data$group, .data$id)),
-												position = position_dodge(width = ci.width))
+							geom_line(
+								aes(group = paste0(.data$group, .data$id)),
+								position = position_dodge(width = ci.width)
+							)
 						} else {
-							geom_line(data = ~subset(.x, ci_level==max(ci_level)),
-												aes(group = paste0(.data$group, .data$id)),
-												position = position_dodge2(width = ci.width, padding = ci.width))
+							geom_line(
+								data = ~ subset(.x, ci_level == max(ci_level)),
+								aes(group = paste0(.data$group, .data$id)),
+								position = position_dodge2(width = ci.width, padding = ci.width)
+							)
 						}
-
+						
 					} else {
 						if (length(ci_level)==1) {
 							geom_line()
@@ -434,10 +479,16 @@ ggiplot =
 					if (multi_style=='none' && !is.null(pt.pch)) {
 						if (multi_style=='dodge') {
 							if (length(ci_level)==1) {
-								geom_point(shape = pt.pch, size = ptsize, position = position_dodge2(width = ci.width, padding = ci.width))
+								geom_point(
+									shape = pt.pch, size = ptsize, 
+									position = position_dodge2(width = ci.width, padding = ci.width)
+								)
 							} else {
-								geom_point(data = ~subset(.x, ci_level==max(ci_level)),
-													 shape = pt.pch, size = ptsize, position = position_dodge2(width = ci.width, padding = ci.width))
+								geom_point(
+									data = ~ subset(.x, ci_level == max(ci_level)),
+									shape = pt.pch, size = ptsize, 
+									position = position_dodge2(width = ci.width, padding = ci.width)
+								)
 							}
 						} else {
 							geom_point(shape = pt.pch, size = ptsize)
@@ -445,10 +496,16 @@ ggiplot =
 					} else {
 						if (multi_style=='dodge') {
 							if (length(ci_level)==1) {
-								geom_point(size = ptsize, position = position_dodge2(width = ci.width, padding = ci.width))
+								geom_point(
+									size = ptsize, 
+									position = position_dodge2(width = ci.width, padding = ci.width)
+								)
 							} else {
-								geom_point(data = ~subset(.x, ci_level==max(ci_level)),
-													 size = ptsize, position = position_dodge2(width = ci.width, padding = ci.width))
+								geom_point(
+									data = ~ subset(.x, ci_level == max(ci_level)),
+									size = ptsize,
+									position = position_dodge2(width = ci.width, padding = ci.width)
+								)
 							}
 						} else {
 							geom_point(size = ptsize)
@@ -460,8 +517,10 @@ ggiplot =
 			{
 				if (!is.null(col)) {
 					if (multi_style=='none') {
-						list(scale_colour_manual(values = col, aesthetics = c('colour', 'fill')),
-								 guides(col = 'none', fill = 'none'))
+						list(
+							scale_colour_manual(values = col, aesthetics = c("colour", "fill")),
+							guides(col = "none", fill = "none")
+						)
 					} else {
 						scale_colour_manual(values = col, aesthetics = c('colour', 'fill'))
 					}
@@ -481,30 +540,33 @@ ggiplot =
 			} +
 			labs(x = xlab, y = ylab, title = main) +
 			{
-				if (multi_style=='facet') facet_wrap(facets = facet_args$facets,
-																						 nrow = facet_args$nrow,
-																						 ncol = facet_args$ncol,
-																						 scales = facet_args$scales,
-																						 shrink = facet_args$shrink,
-																						 labeller = facet_args$labeller,
-																						 as.table = facet_args$as.table,
-																						 drop = facet_args$drop,
-																						 dir = facet_args$dir,
-																						 strip.position = facet_args$strip.position)
+				if (multi_style == "facet") {
+					facet_wrap(
+						facets = facet_args$facets,
+						nrow = facet_args$nrow,
+						ncol = facet_args$ncol,
+						scales = facet_args$scales,
+						shrink = facet_args$shrink,
+						labeller = facet_args$labeller,
+						as.table = facet_args$as.table,
+						drop = facet_args$drop,
+						dir = facet_args$dir,
+						strip.position = facet_args$strip.position
+					)
+				}
 			}
 
 		if (!is.null(theme)) {
-			gg =
-				gg +
-				theme
+			gg = gg + theme
 
 		} else {
 			gg =
 				gg +
 				theme_linedraw() +
-				theme(#panel.grid.minor = element_blank(),
+				theme(
 					plot.title = element_text(hjust = 0.5),
-					legend.position = 'bottom', legend.title = element_blank())
+					legend.position = "bottom", legend.title = element_blank()
+				)
 		}
 
 		return(gg)

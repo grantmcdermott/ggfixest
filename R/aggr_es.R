@@ -51,48 +51,52 @@ aggr_es = function(object,
                    aggregation = c("mean", "cumulative"),
                    abbr_term = TRUE,
                    ...) {
-	aggregation = match.arg(aggregation)
-	period = match.arg(period)
-	fixest_obj = inherits(object, 'fixest')
-	if (!fixest_obj) stop("Please provide a valid fixest object.")
-	mm = object$model_matrix_info[[1]]
-	if (is.null(mm)) stop ("This function only works with fixest objects that were ",
-												 "created with the i() operator. See `?fixest::i()`.")
-	coefs = mm$coef_names_full
-	ref_id = mm$ref_id[1]
-	## Store our periods in a list to make the below lapply call easier
-	if (period=="post") {
-		idx = list("post" = (ref_id+1):length(coefs))
-	} else if (period=="pre") { ## still need to handle the "both" option
-		idx = list("pre" = 1:(ref_id-1)) # ref period is dropped from the model
-	} else {
-		idx = list('pre' = 1:(ref_id-1), 'post' = (ref_id+1):length(coefs))
-	}
-	## We're doing a bit more work than we need to here with the lapply call and
-	## binding afterwards. But this allows us to handle the "both" aggregation
-	## case.
-	res = lapply(
-		seq_along(idx),
-		function(i) {
-			coefs2 = coefs[idx[[i]]]
-			period2 = names(idx)[i]
-			hypothesis = paste(paste0("`", coefs2, "`"), collapse = " + ")
-			if (aggregation=="mean") hypothesis = paste0("(", hypothesis, ")/", length(coefs2))
-			hypothesis = paste(hypothesis, "=", rhs)
-			ret = marginaleffects::hypotheses(object, hypothesis = hypothesis, ...)
-			if (abbr_term) ret$term = paste0(period2, "-treatment (", aggregation, ")")
-			attr(ret, "hypothesis") = hypothesis
-			return(ret)
-		}
-	)
-	## Bind together and capture/re-assign and the hypothesis attribute (again,
-	## mostly for the "both" case)
-	hyp_attr = sapply(res, \(x) attributes(x)["hypothesis"])
-	res = do.call("rbind", res)
-	row.names(res) = NULL
-	if (period=="both") {
-		attributes(res) = utils::modifyList(attributes(res), hyp_attr)
-		attributes(res)["hypothesis"] = NULL
-	}
-	return(res)
+    aggregation = match.arg(aggregation)
+    period = match.arg(period)
+    fixest_obj = inherits(object, "fixest")
+    if (!fixest_obj) stop("Please provide a valid fixest object.")
+    mm = object$model_matrix_info[[1]]
+    if (is.null(mm)) {
+        stop(
+            "This function only works with fixest objects that were ",
+            "created with the i() operator. See `?fixest::i()`."
+        )
+    }
+    coefs = mm$coef_names_full
+    ref_id = mm$ref_id[1]
+    ## Store our periods in a list to make the below lapply call easier
+    if (period == "post") {
+        idx = list("post" = (ref_id + 1):length(coefs))
+    } else if (period == "pre") { ## still need to handle the "both" option
+        idx = list("pre" = 1:(ref_id - 1)) # ref period is dropped from the model
+    } else {
+        idx = list("pre" = 1:(ref_id - 1), "post" = (ref_id + 1):length(coefs))
+    }
+    ## We're doing a bit more work than we need to here with the lapply call and
+    ## binding afterwards. But this allows us to handle the "both" aggregation
+    ## case.
+    res = lapply(
+        seq_along(idx),
+        function(i) {
+            coefs2 = coefs[idx[[i]]]
+            period2 = names(idx)[i]
+            hypothesis = paste(paste0("`", coefs2, "`"), collapse = " + ")
+            if (aggregation == "mean") hypothesis = paste0("(", hypothesis, ")/", length(coefs2))
+            hypothesis = paste(hypothesis, "=", rhs)
+            ret = marginaleffects::hypotheses(object, hypothesis = hypothesis, ...)
+            if (abbr_term) ret$term = paste0(period2, "-treatment (", aggregation, ")")
+            attr(ret, "hypothesis") = hypothesis
+            return(ret)
+        }
+    )
+    ## Bind together and capture/re-assign and the hypothesis attribute (again,
+    ## mostly for the "both" case)
+    hyp_attr = sapply(res, \(x) attributes(x)["hypothesis"])
+    res = do.call("rbind", res)
+    row.names(res) = NULL
+    if (period == "both") {
+        attributes(res) = utils::modifyList(attributes(res), hyp_attr)
+        attributes(res)["hypothesis"] = NULL
+    }
+    return(res)
 }

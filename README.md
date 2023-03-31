@@ -57,7 +57,7 @@ ggiplot(
     est_did,
     ci_level = c(.8, .95),
     aggr_eff = "post", aggr_eff.par = list(col = "orange")
-    )
+)
 ```
 
 <img src="man/figures/README-example2-1.png" width="100%" />
@@ -72,27 +72,28 @@ base_stagg_grp$grp = ifelse(base_stagg_grp$id %% 2 == 0, 'Evens', 'Odds')
 est_twfe_grp = feols(
     y ~ x1 + i(time_to_treatment, treated, ref = c(-1, -1000)) | id + year,
     data = base_stagg_grp, split = ~grp
-    )
+)
 
 est_sa20_grp = feols(
-    y ~ x1 + sunab(year_treated, year) | id + year, 
+    y ~ x1 + sunab(year_treated, year) | id + year,
     data = base_stagg_grp, split = ~grp
-    )
+)
 
-ggiplot(list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
-        ref.line = -1,
-        main = 'Staggered treatment: Split mutli-sample',
-        xlab = 'Time to treatment',
-        multi_style = 'facet',
-        geom_style = 'ribbon',
-                facet_args = list(labeller = labeller(id = \(x) gsub(".*: ", "", x))),
-        theme = theme_minimal() +
-                    theme(
-                        text = element_text(family = 'HersheySans'),
-                        plot.title = element_text(hjust = 0.5),
-                        legend.position = 'none'
-                        )
-                )
+ggiplot(
+    list("TWFE" = est_twfe_grp, "Sun & Abraham (2020)" = est_sa20_grp),
+    ref.line = -1,
+    main = "Staggered treatment: Split mutli-sample",
+    xlab = "Time to treatment",
+    multi_style = "facet",
+    geom_style = "ribbon",
+    facet_args = list(labeller = labeller(id = \(x) gsub(".*: ", "", x))),
+    theme = theme_minimal() +
+        theme(
+            text = element_text(family = "HersheySans"),
+            plot.title = element_text(hjust = 0.5),
+            legend.position = "none"
+        )
+)
 #> Warning: The `switch` argument of `facet_wrap()` is deprecated as of ggplot2 2.2.0.
 #> ℹ Please use the `strip.position` argument instead.
 #> ℹ The deprecated feature was likely used in the ggiplot package.

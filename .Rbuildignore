@@ -1,6 +1,7 @@
 ^ggiplot\.Rproj$
 ^\.Rproj\.user$
 ^README\.Rmd$
+^README\.html$
 ^LICENSE\.md$
 ^_pkgdown\.yml$
 ^docs$
