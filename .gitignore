@@ -6,4 +6,5 @@
 .Renviron
 docs
 inst/doc
-inst/tinytest/_tinyviztest_review
+inst/tinytest/_tinysnapshot_review
+README.html
