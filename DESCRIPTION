@@ -31,5 +31,6 @@ Suggests:
     rmarkdown,
     tinytest (>= 1.4.1),
     tinysnapshot (>= 0.0.2),
+    rsvg,
     svglite
 VignetteBuilder: knitr
