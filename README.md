@@ -9,12 +9,14 @@
 [![R-universe status
 badge](https://grantmcdermott.r-universe.dev/badges/ggiplot)](https://grantmcdermott.r-universe.dev)
 [![Docs](https://img.shields.io/badge/docs-homepage-blue.svg)](https://grantmcdermott.com/ggiplot/index.html)
+[![R-CMD-check](https://github.com/grantmcdermott/ggiplot/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/grantmcdermott/ggiplot/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 This package provides a **ggplot2** equivalent of the base
 [`fixest::iplot()`](https://lrberge.github.io/fixest/reference/coefplot.html)
-function. The primary goal of the package is to produce nice looking
-event study plots.
+function. The primary goal of **ggiplot** is convenient and
+aesthetically-pleasing [event
+study](https://theeffectbook.net/ch-EventStudies.html) plots.
 
 ## Installation
 
@@ -91,6 +93,11 @@ ggiplot(list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
                         legend.position = 'none'
                         )
                 )
+#> Warning: The `switch` argument of `facet_wrap()` is deprecated as of ggplot2 2.2.0.
+#> ℹ Please use the `strip.position` argument instead.
+#> ℹ The deprecated feature was likely used in the ggiplot package.
+#>   Please report the issue at
+#>   <https://github.com/grantmcdermott/ggiplot/issues>.
 ```
 
 <img src="man/figures/README-example3-1.png" width="100%" />

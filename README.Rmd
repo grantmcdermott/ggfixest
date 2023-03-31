@@ -19,12 +19,14 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/grantmcdermott/ggiplot/actions/workflows/check-release.yaml/badge.svg)](https://github.com/grantmcdermott/ggiplot/actions/workflows/check-release.yaml)
 [![R-universe status badge](https://grantmcdermott.r-universe.dev/badges/ggiplot)](https://grantmcdermott.r-universe.dev)
 [![Docs](https://img.shields.io/badge/docs-homepage-blue.svg)](https://grantmcdermott.com/ggiplot/index.html)
+[![R-CMD-check](https://github.com/grantmcdermott/ggiplot/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/grantmcdermott/ggiplot/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 This package provides a **ggplot2** equivalent of the base 
 [`fixest::iplot()`](https://lrberge.github.io/fixest/reference/coefplot.html)
-function. The primary goal of the package is to produce nice looking event study
-plots.
+function. The primary goal of **ggiplot** is convenient and
+aesthetically-pleasing 
+[event study](https://theeffectbook.net/ch-EventStudies.html) plots.
 
 ## Installation
 
