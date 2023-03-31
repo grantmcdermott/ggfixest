@@ -1,6 +1,6 @@
 Package: ggiplot
 Title: ggplot2 Equivalents of fixest::iplot()
-Version: 0.0.1.9003
+Version: 0.0.1.9004
 Authors@R: 
     person(given = "Grant",
            family = "McDermott",
@@ -30,6 +30,6 @@ Suggests:
     remotes,
     rmarkdown,
     tinytest (>= 1.4.1),
-    tinysnapshot,
-    rsvg
+    tinysnapshot (>= 0.0.2),
+    svglite
 VignetteBuilder: knitr
