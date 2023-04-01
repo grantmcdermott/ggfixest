@@ -1,11 +1,11 @@
-# ggiplot 0.0.1.9005 (development version)
+# ggiplot 0.0.1.9006 (development version)
 
 ## Bug fixes and breaking changes
 
 - Fix naming mismatch in multiple estimation with different time periods (#10).
 Thanks @brockmwilson.
 - Slight tweak to default theme, which now uses dotted grid lines to more
-closely match `iplot()`.
+closely match `iplot()` (#e5cf0b0).
 
 ## Internals
 

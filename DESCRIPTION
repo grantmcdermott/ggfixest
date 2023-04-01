@@ -1,16 +1,16 @@
 Package: ggiplot
 Title: ggplot2 Equivalents of fixest::iplot()
-Version: 0.0.1.9005
+Version: 0.0.1.9006
 Authors@R: 
     person(given = "Grant",
            family = "McDermott",
            role = c("aut", "cre"),
            email = "grantmcd@uoregon.edu",
            comment = c(ORCID = "0000-0001-7883-8573"))
-Description: Provides ggplot2 equivalents of fixest::iplot(). Enables some
-	additional functionality and convenience features, including grouped 
-	mutli_fixest object facetting and programatic updating of existing plots
-	(e.g. themes and aesthetics).
+Description: Provides ggplot2 equivalents of fixest::iplot() for producing
+    "event study" plots. Enables some additional functionality and convenience
+    features, including grouped mutli_fixest object facetting and programatic
+    updating of existing plots (e.g. themes and aesthetics).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -30,7 +30,9 @@ Suggests:
     remotes,
     rmarkdown,
     tinytest (>= 1.4.1),
-    tinysnapshot (>= 0.0.2),
+    tinysnapshot (>= 0.0.2.9000),
     rsvg,
     svglite
+Remotes:
+    vincentarelbundock/tinysnapshot
 VignetteBuilder: knitr

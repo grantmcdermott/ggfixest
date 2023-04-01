@@ -1,6 +1,7 @@
 library(ggiplot)
 library("tinytest")
 using("tinysnapshot")
+options(tinysnapshot_os = "Linux")
 options(tinysnapshot_device = "svglite")
 
 #
