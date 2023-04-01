@@ -5,7 +5,6 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/grantmcdermott/ggiplot/actions/workflows/check-release.yaml/badge.svg)](https://github.com/grantmcdermott/ggiplot/actions/workflows/check-release.yaml)
 [![R-universe status
 badge](https://grantmcdermott.r-universe.dev/badges/ggiplot)](https://grantmcdermott.r-universe.dev)
 [![Docs](https://img.shields.io/badge/docs-homepage-blue.svg)](https://grantmcdermott.com/ggiplot/index.html)
@@ -94,11 +93,6 @@ ggiplot(
             legend.position = "none"
         )
 )
-#> Warning: The `switch` argument of `facet_wrap()` is deprecated as of ggplot2 2.2.0.
-#> ℹ Please use the `strip.position` argument instead.
-#> ℹ The deprecated feature was likely used in the ggiplot package.
-#>   Please report the issue at
-#>   <https://github.com/grantmcdermott/ggiplot/issues>.
 ```
 
 <img src="man/figures/README-example3-1.png" width="100%" />
