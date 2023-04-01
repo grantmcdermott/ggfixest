@@ -564,6 +564,8 @@ ggiplot = function(
 				gg +
 				theme_linedraw() +
 				theme(
+					panel.grid.minor = element_line(linetype = "22", colour = "lightgray", linewidth = 0.3),
+					panel.grid.major = element_line(linetype = "22", colour = "lightgray", linewidth = 0.3),
 					plot.title = element_text(hjust = 0.5),
 					legend.position = "bottom", legend.title = element_blank()
 				)
