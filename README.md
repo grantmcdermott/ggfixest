@@ -13,17 +13,16 @@ badge](https://grantmcdermott.r-universe.dev/badges/ggiplot)](https://grantmcder
 
 This package provides a **ggplot2** equivalent of the base
 [`fixest::iplot()`](https://lrberge.github.io/fixest/reference/coefplot.html)
-function. The primary goal of **ggiplot** is convenient and
-aesthetically-pleasing [event
-study](https://theeffectbook.net/ch-EventStudies.html) plots.
+function. The goal of **ggiplot** is to produce nice [event
+study](https://theeffectbook.net/ch-EventStudies.html) plots with
+minimal effort, but with lots of scope for further customization.
 
 ## Installation
 
-The package is not yet on CRAN, but can be installed from GitHub:
+The package is not yet on CRAN, but can be installed from R-universe:
 
 ``` r
-# install.packages("remotes")
-remotes::install_github("grantmcdermott/ggiplot")
+install.packages("ggiplot", repos = "https://grantmcdermott.r-universe.dev")
 ```
 
 ## Quickstart
@@ -96,8 +95,3 @@ ggiplot(
 ```
 
 <img src="man/figures/README-example3-1.png" width="100%" />
-
-## License
-
-The material in this repository is made available under the [MIT
-license](http://opensource.org/licenses/mit-license.php).
