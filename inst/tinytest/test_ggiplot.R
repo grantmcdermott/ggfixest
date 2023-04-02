@@ -1,5 +1,5 @@
 library(ggiplot)
-library("tinytest")
+library(tinytest)
 using("tinysnapshot")
 options(tinysnapshot_os = "Darwin")
 options(tinysnapshot_device = "svglite")

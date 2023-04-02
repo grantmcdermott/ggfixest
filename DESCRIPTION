@@ -21,7 +21,7 @@ BugReports: https://github.com/grantmcdermott/ggiplot/issues
 Depends: 
     ggplot2 (>= 2.2.0)
 Imports: 
-    fixest (>= 0.9.0),
+    fixest (>= 0.11.0),
     scales,
     utils,
     marginaleffects (>= 0.10.0)
