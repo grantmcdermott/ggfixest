@@ -1,4 +1,4 @@
-# ggiplot 0.0.1.9006 (development version)
+# ggiplot 0.0.1.9007 (development version)
 
 ## Bug fixes and breaking changes
 
@@ -14,6 +14,7 @@ closely match `iplot()` (#e5cf0b0).
 [tinysnapshot](https://github.com/vincentarelbundock/tinysnapshot)!
 - Switch to `marginaleffects::hypotheses()` internally for `aggr_es()` to match
 the upstream changes in **marginaleffects**.
+- Simplify multi_fixest object parsing (#19).
 - Minor documentation improvements.
 
 # ggiplot 0.0.1
