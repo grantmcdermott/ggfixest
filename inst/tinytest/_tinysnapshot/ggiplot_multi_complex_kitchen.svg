@@ -258,7 +258,7 @@
 </defs>
 <g clip-path='url(#cpMzEuMzB8MjAwLjMxfDI1MC41NHwyODQuNTk=)'>
 <rect x='31.30' y='250.54' width='169.01' height='17.03' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' />
-<text x='115.81' y='262.21' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";' textLength='119.80px' lengthAdjust='spacingAndGlyphs'>sample.var: grp; sample: Odds</text>
+<text x='115.81' y='262.21' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";' textLength='54.28px' lengthAdjust='spacingAndGlyphs'>sample: Odds</text>
 <rect x='31.30' y='267.57' width='169.01' height='17.03' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' />
 <text x='115.81' y='279.23' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";' textLength='90.01px' lengthAdjust='spacingAndGlyphs'>Sun &amp; Abraham (2020)</text>
 </g>
@@ -271,7 +271,7 @@
 </defs>
 <g clip-path='url(#cpMjA1Ljc5fDM3NC43OXwyNTAuNTR8Mjg0LjU5)'>
 <rect x='205.79' y='250.54' width='169.01' height='17.03' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' />
-<text x='290.29' y='262.21' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";' textLength='119.80px' lengthAdjust='spacingAndGlyphs'>sample.var: grp; sample: Odds</text>
+<text x='290.29' y='262.21' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";' textLength='54.28px' lengthAdjust='spacingAndGlyphs'>sample: Odds</text>
 <rect x='205.79' y='267.57' width='169.01' height='17.03' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' />
 <text x='290.29' y='279.23' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";' textLength='24.91px' lengthAdjust='spacingAndGlyphs'>TWFE</text>
 </g>
@@ -284,7 +284,7 @@
 </defs>
 <g clip-path='url(#cpMzEuMzB8MjAwLjMxfDIzLjM0fDU3LjM5)'>
 <rect x='31.30' y='23.34' width='169.01' height='17.03' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' />
-<text x='115.81' y='35.00' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";' textLength='123.23px' lengthAdjust='spacingAndGlyphs'>sample.var: grp; sample: Evens</text>
+<text x='115.81' y='35.00' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";' textLength='57.71px' lengthAdjust='spacingAndGlyphs'>sample: Evens</text>
 <rect x='31.30' y='40.36' width='169.01' height='17.03' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' />
 <text x='115.81' y='52.03' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";' textLength='90.01px' lengthAdjust='spacingAndGlyphs'>Sun &amp; Abraham (2020)</text>
 </g>
@@ -297,7 +297,7 @@
 </defs>
 <g clip-path='url(#cpMjA1Ljc5fDM3NC43OXwyMy4zNHw1Ny4zOQ==)'>
 <rect x='205.79' y='23.34' width='169.01' height='17.03' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' />
-<text x='290.29' y='35.00' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";' textLength='123.23px' lengthAdjust='spacingAndGlyphs'>sample.var: grp; sample: Evens</text>
+<text x='290.29' y='35.00' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";' textLength='57.71px' lengthAdjust='spacingAndGlyphs'>sample: Evens</text>
 <rect x='205.79' y='40.36' width='169.01' height='17.03' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' />
 <text x='290.29' y='52.03' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";' textLength='24.91px' lengthAdjust='spacingAndGlyphs'>TWFE</text>
 </g>
