@@ -236,7 +236,7 @@ ggiplot = function(
 
       data$group = data$id
       if (inherits(object, "fixest_multi")) {
-          fct_vars = colnames(models(object)[, -1, drop = FALSE]) # drop id col
+          fct_vars = colnames(fixest::models(object)[, -1, drop = FALSE]) # drop id col
           fct_vars = setdiff(fct_vars, "sample.var") # also drop sample.var col
           fct_vars = reformulate(fct_vars)
           n_fcts = length(unique(data$id))

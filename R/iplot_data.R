@@ -51,7 +51,7 @@ iplot_data = function(
   d = p$prms
 
   if (inherits(object, "fixest_multi")) {
-      meta = models(object)
+      meta = fixest::models(object)
       # Drop the sample.var column if it exists (not needed for plotting)
       if ("sample.var" %in% colnames(meta)) {
           meta = meta[, -which(colnames(meta) == "sample.var")]
