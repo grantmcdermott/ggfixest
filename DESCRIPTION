@@ -30,9 +30,7 @@ Suggests:
     remotes,
     rmarkdown,
     tinytest (>= 1.4.1),
-    tinysnapshot (>= 0.0.2.9000),
+    tinysnapshot (>= 0.0.3),
     rsvg,
     svglite
-Remotes:
-    vincentarelbundock/tinysnapshot
 VignetteBuilder: knitr
