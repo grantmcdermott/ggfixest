@@ -21,7 +21,7 @@
 #' types (e.g. lists of fixest_multi models)
 #' @seealso [fixest::iplot()], [aggr_es()].
 #' @return A data frame consisting of estimate values, confidence intervals,
-#' relative x-axis positions, and other aesthetic information needed to draw 
+#' relative x-axis positions, and other aesthetic information needed to draw
 #' a ggplot2 object.
 #' @import ggplot2
 #' @export
@@ -81,17 +81,17 @@ iplot_data = function(
 
       d = merge(d, meta, on = "id")
       d$id = factor(d$id, labels = gsub("sample\\.var: \\w+; ", "", names(object))) ## again, don't need sample.var
-  
+
   } else {
 
 	if (inherits(p$labels, "integer")) p$labels = as.numeric(p$labels) ## catch (for geom_ribbon)
     if (!identical(d$x, p$labels)) d$x = factor(d$x, labels = p$labels)
-    d$lhs = paste(object$fml[[2]])
+    d$lhs = deparse1(object$fml[[2]])
 
   }
-  
+
   d$ci_level = .ci_level
-  
+
   if (.aggr_es != "none") {
       ea = aggr_es(object, period = .aggr_es)
       ref_idx = which(d$is_ref)
