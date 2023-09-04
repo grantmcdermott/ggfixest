@@ -18,6 +18,9 @@ est_log = fixest::feols(
 )
 
 
+iplot_data_est = iplot_data(est)
+iplot_data_est_log = iplot_data(est_log)
+
 #
 # Known output ----
 
@@ -65,6 +68,6 @@ tol = 1e-6
 
 for (col in c("estimate", "ci_low", "ci_high", "estimate_names",
 							"estimate_names_raw", "is_ref", "x", "id", "y", "lhs", "ci_level")) {
-	expect_equivalent(est[[col]], iplot_data_est_known[[col]], tolerance = tol)
-	expect_equivalent(est_log[[col]], iplot_data_est_log_known[[col]], tolerance = tol)
+	expect_equivalent(iplot_data_est[[col]], iplot_data_est_known[[col]], tolerance = tol)
+	expect_equivalent(iplot_data_est_log[[col]], iplot_data_est_log_known[[col]], tolerance = tol)
 }
