@@ -1,4 +1,4 @@
-# ggiplot 0.0.1.9007 (development version)
+# ggiplot 0.0.1.9008 (development version)
 
 ## Bug fixes and breaking changes
 
@@ -6,6 +6,8 @@
 Thanks @brockmwilson.
 - Slight tweak to default theme, which now uses dotted grid lines to more
 closely match `iplot()` (#e5cf0b0).
+- Correctly parse formula-transformed dependent variable names, e.g. `log(y`
+(#20).
 
 ## Internals
 
