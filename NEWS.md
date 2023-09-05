@@ -1,4 +1,8 @@
-# ggiplot 0.0.1.9008 (development version)
+# ggiplot 0.0.1.9009 (development version)
+
+## New features
+
+- Support `keep` and `drop` arguments for subsetting coefficients (#22).
 
 ## Bug fixes and breaking changes
 
