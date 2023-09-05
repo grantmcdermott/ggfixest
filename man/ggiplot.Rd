@@ -45,6 +45,7 @@ existing ggiplot object to redefine theme elements. See examples.}
 \code{fixest::iplot()} arguments. Note that some of these require list objects.
 Currently used are:
 \itemize{
+\item \code{keep} and \code{drop} for subsetting variables using regular expressions.
 \item \code{main}, \code{xlab}, and \code{ylab} for setting the plot title, x- and y-axis labels, respectively.
 \item \code{zero} and \code{zero.par} for defining or adjusting the zero line. For
 example, \code{zero.par = list(col = 'orange')}.

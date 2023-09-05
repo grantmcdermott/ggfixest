@@ -7,6 +7,8 @@
 iplot_data(
   object,
   .ci_level = 0.95,
+  .keep = NULL,
+  .drop = NULL,
   .dict = fixest::getFixest_dict(),
   .aggr_es = c("none", "post", "pre", "both")
 )
@@ -18,6 +20,14 @@ interactions.}
 
 \item{.ci_level}{A number between 0 and 1 indicating the desired confidence
 level, Defaults to 0.95.}
+
+\item{.keep}{Character vector used to subset the coefficients of interest.
+Passed down to \code{fixest::iplot(..., keep = .keep)} and should take the form of
+an acceptable regular expression.}
+
+\item{.drop}{Character vector used to subset the coefficients of interest
+(complement of \code{.keep}). Passed down to \code{fixest::iplot(..., drop = .drop)}
+and should take the form of an acceptable regular expression.}
 
 \item{.dict}{A dictionary (i.e. named character vector or a logical scalar).
 Used for changing coefficient names. Defaults to the values in
