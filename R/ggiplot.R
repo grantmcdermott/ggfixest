@@ -5,6 +5,7 @@
 #'   This function plots the results of estimations (coefficients and confidence
 #'   intervals). The function restricts the output to variables created with
 #'   `i`, either interactions with factors or raw factors.
+#' @md
 #' @param object A model object of class `fixest` or `fixest_multi`, or a list
 #'   thereof.
 #' @param geom_style Character string. One of `c('pointrange', 'errorbar', 'ribbon')`
@@ -26,6 +27,7 @@
 #' @param ... Arguments passed down, or equivalent, to the corresponding
 #'   `fixest::iplot()` arguments. Note that some of these require list objects.
 #'   Currently used are:
+#'   * `keep` and `drop` for subsetting variables using regular expressions.
 #'   * `main`, `xlab`, and `ylab` for setting the plot title, x- and y-axis labels, respectively.
 #'   * `zero` and `zero.par` for defining or adjusting the zero line. For
 #'   example, `zero.par = list(col = 'orange')`.
@@ -195,9 +197,11 @@ ggiplot = function(
   multi_style = match.arg(multi_style)
   aggr_eff = match.arg(aggr_eff)
   aggr_eff.par = utils::modifyList(list(col = "grey50", lwd = 1, lty = 1), aggr_eff.par)
- 
+
   dots = list(...)
   ## Defaults
+  keep = if (!is.null(dots[["keep"]])) dots[["keep"]] else NULL
+  drop = if (!is.null(dots[["drop"]])) dots[["drop"]] else NULL
   ci_level = if (!is.null(dots[["ci_level"]])) dots[["ci_level"]] else 0.95
   ci.width = if (!is.null(dots[["ci.width"]])) dots[["ci.width"]] else 0.2
   ci.fill.par  = list(col = 'lightgray', alpha = 0.3) ## Note: The col arg is going be ignored anyway
@@ -214,9 +218,9 @@ ggiplot = function(
   if (!is.null(dots[['zero.par']])) zero.par = utils::modifyList(zero.par, dots[['zero.par']])
   ref.line     = if (!is.null(dots[['ref.line']])) dots$ref.line else 'auto'
   ref.line.par = list(col = "black", lty = 2, lwd = 0.3)
-  
+
   if (!is.null(dots[["ref.line.par"]])) ref.line.par = utils::modifyList(ref.line.par, dots[["ref.line.par"]])
-  
+
 
   # The next few blocks grab the underlying iplot data, contingent on the
   # object that was passed into the function (i.e. fixest, fixest_multi, or
@@ -225,11 +229,11 @@ ggiplot = function(
   if (inherits(object, c("fixest", "fixest_multi"))) {
 
       if (length(ci_level) == 1) {
-          data = iplot_data(object, .ci_level = ci_level, .dict = dict, .aggr_es = aggr_eff)
+          data = iplot_data(object, .ci_level = ci_level, .dict = dict, .aggr_es = aggr_eff, .keep = keep, .drop = drop)
       } else {
           data = lapply(
               ci_level,
-              function(ci_l) iplot_data(object, .ci_level = ci_l, .dict = dict, .aggr_es = aggr_eff)
+              function(ci_l) iplot_data(object, .ci_level = ci_l, .dict = dict, .aggr_es = aggr_eff, .keep = keep, .drop = drop)
           )
           data = do.call("rbind", data)
       }
@@ -244,7 +248,7 @@ ggiplot = function(
           multi_style = "none"
       }
   }
-  
+
   if (inherits(object, "list")) {
       if (length(ci_level) == 1) {
           data = lapply(
@@ -288,16 +292,16 @@ ggiplot = function(
       }
       if (is.null(facet_args$ncol)) facet_args$ncol = length(unique(data$group))
   }
-  
+
   if (multi_style == "dodge") ci.width = ci.width * n_fcts
-  
+
   if (is.null(xlab)) xlab = sub("::.*", "", data$estimate_names_raw[1])
   if (!is.null(ref.line)) {
       if (ref.line == "auto") ref.line = data$x[which(data$is_ref)[1]]
   }
   if (is.null(ylab)) ylab = paste0("Estimate and ", oxford(paste0(ci_level * 100, "%")), " Conf. Int.")
   if (is.null(main)) main = paste0("Effect on ", oxford(unique(data$lhs)))
-  
+
   if (multi_style == "facet") {
       facet_defaults = formals(facet_wrap)
       facet_defaults$facets = fct_vars
@@ -307,19 +311,19 @@ ggiplot = function(
       }
       facet_args = facet_defaults
   }
-  
+
   if (!is.null(pt.pch)) {
       ugroups = unique(data$group)
       pt_values_df = data.frame(group = ugroups, values = pt.pch)[seq_along(ugroups), ]
       pt_values = pt_values_df$values
       names(pt_values) = pt_values_df$group
   }
-  
+
   ptsize = 2.5
   if (multi_style == "facet") {
       ptsize = ptsize - 0.25 * n_fcts
   }
-  
+
   if (multi_style == "none") {
       if (is.null(col)) {
           gg = ggplot(
@@ -512,7 +516,7 @@ ggiplot = function(
                }
            }
        }
-   } + 
+   } +
    scale_color_brewer(palette = "Set2", aesthetics = c("colour", "fill")) +
    {
 	   if (!is.null(col)) {

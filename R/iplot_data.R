@@ -7,6 +7,12 @@
 #' interactions.
 #' @param .ci_level A number between 0 and 1 indicating the desired confidence
 #' level, Defaults to 0.95.
+#' @param .keep Character vector used to subset the coefficients of interest.
+#' Passed down to `fixest::iplot(..., keep = .keep)` and should take the form of
+#' an acceptable regular expression.
+#' @param .drop Character vector used to subset the coefficients of interest
+#' (complement of `.keep`). Passed down to `fixest::iplot(..., drop = .drop)`
+#' and should take the form of an acceptable regular expression.
 #' @param .dict A dictionary (i.e. named character vector or a logical scalar).
 #' Used for changing coefficient names. Defaults to the values in
 #' `getFixest_dict()`. See the `?fixest::iplot` documentation for more
@@ -43,11 +49,13 @@
 iplot_data = function(
 	object,
 	.ci_level = 0.95,
+	.keep = NULL,
+	.drop = NULL,
 	.dict = fixest::getFixest_dict(),
 	.aggr_es = c("none", "post", "pre", "both")
 	) {
   .aggr_es = match.arg(.aggr_es)
-  p = fixest::iplot(object, only.params = TRUE, ci_level = .ci_level, dict = .dict)
+  p = fixest::iplot(object, only.params = TRUE, ci_level = .ci_level, dict = .dict, keep = .keep, drop = .drop)
   d = p$prms
 
   if (inherits(object, "fixest_multi")) {
