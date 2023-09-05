@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   ggiplot: ggiplot.html
-last_built: 2023-09-04T17:50Z
+last_built: 2023-09-05T05:44Z
 urls:
   reference: http://grantmcdermott.com/ggiplot/reference
   article: http://grantmcdermott.com/ggiplot/articles

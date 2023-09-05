@@ -18,7 +18,7 @@ i, either interactions with factors or raw factors."><!-- mathjax --><script src
     
     <a class="navbar-brand me-2" href="../index.html">ggiplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9008</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9009</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -122,7 +122,8 @@ existing ggiplot object to redefine theme elements. See examples.</p></dd>
 <dt>...</dt>
 <dd><p>Arguments passed down, or equivalent, to the corresponding
 <code><a href="https://lrberge.github.io/fixest/reference/coefplot.html" class="external-link">fixest::iplot()</a></code> arguments. Note that some of these require list objects.
-Currently used are:</p><ul><li><p><code>main</code>, <code>xlab</code>, and <code>ylab</code> for setting the plot title, x- and y-axis labels, respectively.</p></li>
+Currently used are:</p><ul><li><p><code>keep</code> and <code>drop</code> for subsetting variables using regular expressions.</p></li>
+<li><p><code>main</code>, <code>xlab</code>, and <code>ylab</code> for setting the plot title, x- and y-axis labels, respectively.</p></li>
 <li><p><code>zero</code> and <code>zero.par</code> for defining or adjusting the zero line. For
 example, <code>zero.par = list(col = 'orange')</code>.</p></li>
 <li><p><code>ref.line</code> and <code>ref.line.par</code> for defining or adjusting the vertical

@@ -28,7 +28,7 @@ joint hypothesis test.'><!-- mathjax --><script src="https://cdnjs.cloudflare.co
     
     <a class="navbar-brand me-2" href="../index.html">ggiplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9008</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9009</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -147,7 +147,7 @@ hypothesis test is also provided as an attribute. See Examples.</p>
 <span class="r-in"><span><span class="co"># Default hypothesis test is a null mean post-treatment effect</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">post_mean</span> <span class="op">=</span> <span class="fu">aggr_es</span><span class="op">(</span><span class="va">est</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     term estimate std.error statistic      p.value s.value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: post-treatment (mean) 3.906554 0.8598576  4.543257 5.539156e-06 17.4619</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: post-treatment (mean) 3.906554 0.8598576  4.543257 5.539159e-06 17.4619</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    conf.low conf.high</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: 2.221264  5.591844</span>
 <span class="r-in"><span><span class="co"># The underlying hypothesis is saved as an attribute</span></span></span>
@@ -159,13 +159,13 @@ hypothesis test is also provided as an attribute. See Examples.</p>
 <span class="r-in"><span><span class="co"># Other hypothesis and aggregation options</span></span></span>
 <span class="r-in"><span><span class="fu">aggr_es</span><span class="op">(</span><span class="va">est</span>, aggregation <span class="op">=</span> <span class="st">"cumulative"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                           term estimate std.error statistic      p.value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: post-treatment (cumulative) 19.53277  4.299288  4.543257 5.539157e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: post-treatment (cumulative) 19.53277  4.299288  4.543257 5.539158e-06</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    s.value conf.low conf.high</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: 17.4619 11.10632  27.95922</span>
 <span class="r-in"><span><span class="fu">aggr_es</span><span class="op">(</span><span class="va">est</span>, period <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     term  estimate std.error statistic      p.value   s.value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:  pre-treatment (mean) -1.179871 0.8561964 -1.378037 1.681917e-01  2.571821</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2: post-treatment (mean)  3.906554 0.8598576  4.543257 5.539156e-06 17.461902</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2: post-treatment (mean)  3.906554 0.8598576  4.543257 5.539159e-06 17.461902</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     conf.low conf.high</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: -2.857985 0.4982434</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:  2.221264 5.5918440</span>
