@@ -24,7 +24,8 @@ Imports:
     fixest (>= 0.11.0),
     scales,
     utils,
-    marginaleffects (>= 0.10.0)
+    marginaleffects (>= 0.10.0),
+    stats
 Suggests: 
     knitr,
     remotes,
