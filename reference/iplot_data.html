@@ -12,7 +12,7 @@ with some added functionality and tweaks for the ggiplot equivalents."><!-- math
     
     <a class="navbar-brand me-2" href="../index.html">ggiplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9010</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -135,16 +135,16 @@ types (e.g. lists of fixest_multi models)</p>
 <span class="r-in"><span><span class="fu"><a href="https://lrberge.github.io/fixest/reference/coefplot.html" class="external-link">iplot</a></span><span class="op">(</span><span class="va">est_did</span>, only.params <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># The "base" version</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $prms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     estimate    ci_low   ci_high estimate_names estimate_names_raw is_ref  x id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  -1.403045 -3.579128 0.7730371              1    period::1:treat  FALSE  1  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  -1.247511 -3.390035 0.8950132              2    period::2:treat  FALSE  2  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  -0.273206 -2.442759 1.8963469              3    period::3:treat  FALSE  3  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  -1.795721 -3.928110 0.3366688              4    period::4:treat  FALSE  4  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  -1.403045 -3.604020 0.7979286              1    period::1:treat  FALSE  1  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  -1.247511 -3.414542 0.9195208              2    period::2:treat  FALSE  2  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  -0.273206 -2.467576 1.9211637              3    period::3:treat  FALSE  3  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  -1.795721 -3.952502 0.3610605              4    period::4:treat  FALSE  4  1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5   0.000000  0.000000 0.0000000              5    period::5:treat   TRUE  5  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   0.784452 -1.231152 2.8000556              6    period::6:treat  FALSE  6  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   3.598897  1.439873 5.7579220              7    period::7:treat  FALSE  7  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   3.811766  1.366707 6.2568251              8    period::8:treat  FALSE  8  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   4.731426  2.581125 6.8817275              9    period::9:treat  FALSE  9  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  6.606229  4.410100 8.8023573             10   period::10:treat  FALSE 10  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   0.784452 -1.254207 2.8231114              6    period::6:treat  FALSE  6  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   3.598897  1.415176 5.7826183              7    period::7:treat  FALSE  7  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   3.811766  1.338739 6.2847934              8    period::8:treat  FALSE  8  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   4.731426  2.556528 6.9063241              9    period::9:treat  FALSE  9  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  6.606229  4.384980 8.8274781             10   period::10:treat  FALSE 10  1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            y</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  -1.403045</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  -1.247511</span>
@@ -168,16 +168,16 @@ types (e.g. lists of fixest_multi models)</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">iplot_data</span><span class="op">(</span><span class="va">est_did</span><span class="op">)</span>                <span class="co"># The wrapper provided by this package</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     estimate    ci_low   ci_high estimate_names estimate_names_raw is_ref  x id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  -1.403045 -3.579128 0.7730371              1    period::1:treat  FALSE  1  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  -1.247511 -3.390035 0.8950132              2    period::2:treat  FALSE  2  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  -0.273206 -2.442759 1.8963469              3    period::3:treat  FALSE  3  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  -1.795721 -3.928110 0.3366688              4    period::4:treat  FALSE  4  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  -1.403045 -3.604020 0.7979286              1    period::1:treat  FALSE  1  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  -1.247511 -3.414542 0.9195208              2    period::2:treat  FALSE  2  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  -0.273206 -2.467576 1.9211637              3    period::3:treat  FALSE  3  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  -1.795721 -3.952502 0.3610605              4    period::4:treat  FALSE  4  1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5   0.000000  0.000000 0.0000000              5    period::5:treat   TRUE  5  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   0.784452 -1.231152 2.8000556              6    period::6:treat  FALSE  6  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   3.598897  1.439873 5.7579220              7    period::7:treat  FALSE  7  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   3.811766  1.366707 6.2568251              8    period::8:treat  FALSE  8  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   4.731426  2.581125 6.8817275              9    period::9:treat  FALSE  9  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  6.606229  4.410100 8.8023573             10   period::10:treat  FALSE 10  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   0.784452 -1.254207 2.8231114              6    period::6:treat  FALSE  6  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   3.598897  1.415176 5.7826183              7    period::7:treat  FALSE  7  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   3.811766  1.338739 6.2847934              8    period::8:treat  FALSE  8  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   4.731426  2.556528 6.9063241              9    period::9:treat  FALSE  9  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  6.606229  4.384980 8.8274781             10   period::10:treat  FALSE 10  1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            y lhs ci_level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  -1.403045   y     0.95</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  -1.247511   y     0.95</span>
@@ -197,26 +197,26 @@ types (e.g. lists of fixest_multi models)</p>
 <span class="r-in"><span><span class="fu"><a href="https://lrberge.github.io/fixest/reference/coefplot.html" class="external-link">iplot</a></span><span class="op">(</span><span class="va">est_split</span>, only.params <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># The "base" version</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $prms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      estimate     ci_low    ci_high    x id estimate_names estimate_names_raw</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1.4239576 -1.2422952  4.0902104  0.9  1              1    period::1:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  -4.1291547 -7.3973098 -0.8609996  1.1  2              1    period::1:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1.6931989 -1.1310149  4.5174127  1.9  1              2    period::2:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  -4.1353019 -7.2460773 -1.0245265  2.1  2              2    period::2:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   3.0439521  0.3506812  5.7372230  2.9  1              3    period::3:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  -3.4897091 -6.5504723 -0.4289459  3.1  2              3    period::3:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  -0.8667871 -3.8315352  2.0979611  3.9  1              4    period::4:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  -2.6458897 -5.7093088  0.4175294  4.1  2              4    period::4:treat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1.4239576 -1.3045751  4.1524903  0.9  1              1    period::1:treat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  -4.1291547 -7.4736493 -0.7846601  1.1  2              1    period::1:treat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1.6931989 -1.1969846  4.5833824  1.9  1              2    period::2:treat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  -4.1353019 -7.3187406 -0.9518632  2.1  2              2    period::2:treat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   3.0439521  0.2877701  5.8001340  2.9  1              3    period::3:treat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  -3.4897091 -6.6219675 -0.3574507  3.1  2              3    period::3:treat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  -0.8667871 -3.9007876  2.1672135  3.9  1              4    period::4:treat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  -2.6458897 -5.7808659  0.4890866  4.1  2              4    period::4:treat</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9   0.0000000  0.0000000  0.0000000  4.9  1              5    period::5:treat</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10  0.0000000  0.0000000  0.0000000  5.1  2              5    period::5:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11  3.8181620  0.9644230  6.6719010  5.9  1              6    period::6:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 -2.2626440 -4.9448774  0.4195895  6.1  2              6    period::6:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13  5.1642678  2.1084814  8.2200543  6.9  1              7    period::7:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14  2.0828305 -0.9816140  5.1472751  7.1  2              7    period::7:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15  5.2338735  2.0448159  8.4229311  7.9  1              8    period::8:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16  2.4826394 -1.2053985  6.1706773  8.1  2              8    period::8:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17  7.0979736  3.9704919 10.2254553  8.9  1              9    period::9:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18  2.4385390 -0.2928821  5.1699601  9.1  2              9    period::9:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19  9.5453455  6.3977727 12.6929184  9.9  1             10   period::10:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20  3.6267443  0.6409795  6.6125091 10.1  2             10   period::10:treat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  3.8181620  0.8977637  6.7385603  5.9  1              6    period::6:treat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 -2.2626440 -5.0075306  0.4822427  6.1  2              6    period::6:treat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  5.1642678  2.0371025  8.2914332  6.9  1              7    period::7:treat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  2.0828305 -1.0531952  5.2188562  7.1  2              7    period::7:treat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  5.2338735  1.9703239  8.4974231  7.9  1              8    period::8:treat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  2.4826394 -1.2915459  6.2568247  8.1  2              8    period::8:treat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17  7.0979736  3.8974384 10.2985089  8.9  1              9    period::9:treat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18  2.4385390 -0.3566843  5.2337622  9.1  2              9    period::9:treat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19  9.5453455  6.3242498 12.7664413  9.9  1             10   period::10:treat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20  3.6267443  0.5712362  6.6822524 10.1  2             10   period::10:treat</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    is_ref          y</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   FALSE  1.4239576</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   FALSE -4.1291547</span>
@@ -250,26 +250,26 @@ types (e.g. lists of fixest_multi models)</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">iplot_data</span><span class="op">(</span><span class="va">est_split</span><span class="op">)</span>                <span class="co"># The wrapper provided by this package</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                              id   estimate     ci_low    ci_high  x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  sample.var: id%%2; sample: 0  1.4239576 -1.2422952  4.0902104  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  sample.var: id%%2; sample: 0  1.6931989 -1.1310149  4.5174127  2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  sample.var: id%%2; sample: 0  3.0439521  0.3506812  5.7372230  3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  sample.var: id%%2; sample: 0 -0.8667871 -3.8315352  2.0979611  4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  sample.var: id%%2; sample: 0  1.4239576 -1.3045751  4.1524903  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  sample.var: id%%2; sample: 0  1.6931989 -1.1969846  4.5833824  2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  sample.var: id%%2; sample: 0  3.0439521  0.2877701  5.8001340  3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  sample.var: id%%2; sample: 0 -0.8667871 -3.9007876  2.1672135  4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5  sample.var: id%%2; sample: 0  0.0000000  0.0000000  0.0000000  5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  sample.var: id%%2; sample: 0  3.8181620  0.9644230  6.6719010  6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  sample.var: id%%2; sample: 0  5.1642678  2.1084814  8.2200543  7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  sample.var: id%%2; sample: 0  5.2338735  2.0448159  8.4229311  8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  sample.var: id%%2; sample: 0  7.0979736  3.9704919 10.2254553  9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 sample.var: id%%2; sample: 0  9.5453455  6.3977727 12.6929184 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 sample.var: id%%2; sample: 1 -4.1291547 -7.3973098 -0.8609996  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 sample.var: id%%2; sample: 1 -4.1353019 -7.2460773 -1.0245265  2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 sample.var: id%%2; sample: 1 -3.4897091 -6.5504723 -0.4289459  3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 sample.var: id%%2; sample: 1 -2.6458897 -5.7093088  0.4175294  4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  sample.var: id%%2; sample: 0  3.8181620  0.8977637  6.7385603  6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  sample.var: id%%2; sample: 0  5.1642678  2.0371025  8.2914332  7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  sample.var: id%%2; sample: 0  5.2338735  1.9703239  8.4974231  8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  sample.var: id%%2; sample: 0  7.0979736  3.8974384 10.2985089  9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 sample.var: id%%2; sample: 0  9.5453455  6.3242498 12.7664413 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 sample.var: id%%2; sample: 1 -4.1291547 -7.4736493 -0.7846601  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 sample.var: id%%2; sample: 1 -4.1353019 -7.3187406 -0.9518632  2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 sample.var: id%%2; sample: 1 -3.4897091 -6.6219675 -0.3574507  3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 sample.var: id%%2; sample: 1 -2.6458897 -5.7808659  0.4890866  4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15 sample.var: id%%2; sample: 1  0.0000000  0.0000000  0.0000000  5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 sample.var: id%%2; sample: 1 -2.2626440 -4.9448774  0.4195895  6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 sample.var: id%%2; sample: 1  2.0828305 -0.9816140  5.1472751  7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 sample.var: id%%2; sample: 1  2.4826394 -1.2053985  6.1706773  8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 sample.var: id%%2; sample: 1  2.4385390 -0.2928821  5.1699601  9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 sample.var: id%%2; sample: 1  3.6267443  0.6409795  6.6125091 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 sample.var: id%%2; sample: 1 -2.2626440 -5.0075306  0.4822427  6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 sample.var: id%%2; sample: 1  2.0828305 -1.0531952  5.2188562  7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 sample.var: id%%2; sample: 1  2.4826394 -1.2915459  6.2568247  8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 sample.var: id%%2; sample: 1  2.4385390 -0.3566843  5.2337622  9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 sample.var: id%%2; sample: 1  3.6267443  0.5712362  6.6822524 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    estimate_names estimate_names_raw is_ref          y lhs sample ci_level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1               1    period::1:treat  FALSE  1.4239576   y      0     0.95</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2               2    period::2:treat  FALSE  1.6931989   y      0     0.95</span>
