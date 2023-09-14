@@ -1,4 +1,4 @@
-# ggiplot 0.0.1.9009 (development version)
+# ggiplot 0.0.1.9010 (development version)
 
 ## New features
 
@@ -12,6 +12,9 @@ Thanks @brockmwilson.
 closely match `iplot()` (#e5cf0b0).
 - Correctly parse formula-transformed dependent variable names, e.g. `log(y`
 (#20).
+- The confidence intervals for some figures may be slightly wider due to
+upstream changes in fixest (#25; see also
+https://github.com/lrberge/fixest/pull/408).
 
 ## Internals
 

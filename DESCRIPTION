@@ -1,6 +1,6 @@
 Package: ggiplot
 Title: ggplot2 Equivalents of fixest::iplot()
-Version: 0.0.1.9009
+Version: 0.0.1.9010
 Authors@R: 
     person(given = "Grant",
            family = "McDermott",
@@ -18,6 +18,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 URL: http://grantmcdermott.com/ggiplot/
 BugReports: https://github.com/grantmcdermott/ggiplot/issues
+Remotes: lrberge/fixest
 Depends: 
     ggplot2 (>= 2.2.0)
 Imports: 
@@ -33,5 +34,6 @@ Suggests:
     tinytest (>= 1.4.1),
     tinysnapshot (>= 0.0.3),
     rsvg,
-    svglite
+    svglite,
+    fontquiver
 VignetteBuilder: knitr

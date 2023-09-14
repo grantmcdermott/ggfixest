@@ -1,8 +1,9 @@
+source("tinysnapshot_helpers.R")
+using("tinysnapshot")
+if (Sys.info()["sysname"] != "Linux") exit_file("Linux snapshots")
+
 library(ggiplot)
 library(tinytest)
-using("tinysnapshot")
-options(tinysnapshot_os = "Darwin")
-options(tinysnapshot_device = "svglite")
 
 #
 # Datasets and models ----
