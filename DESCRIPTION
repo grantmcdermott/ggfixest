@@ -34,5 +34,6 @@ Suggests:
     tinytest (>= 1.4.1),
     tinysnapshot (>= 0.0.3),
     rsvg,
-    svglite
+    svglite,
+    fontquiver
 VignetteBuilder: knitr
