@@ -33,7 +33,7 @@
 #'   example, `zero.par = list(col = 'orange')`.
 #'   * `ref.line` and `ref.line.par` for defining or adjusting the vertical
 #'   reference line. For example, `ref.line.par = list(col = 'red', lty = 4)`.
-#'   * `pt.pch` and `pt.join` for overriding the default point estimate shapes and joining them, respectively.
+#'   * `pt.pch`, `pt.size`, and `pt.join` for overriding the default point estimate shapes, size, and joining them, respectively.
 #'   * `col` for manually defining line, point, and ribbon colours.
 #'   * `ci_level` for changing the desired confidence level (default = 0.95).
 #'   Note that multiple levels are allowed, e.g. `ci_level = c(0.8, 0.95)`.
@@ -212,6 +212,7 @@ ggiplot = function(
   dict         = if (!is.null(dots[['dict']])) dots[['dict']] else fixest::getFixest_dict()
   col          = if (!is.null(dots[['col']])) dots[['col']] else NULL
   pt.pch       = if (!is.null(dots[['pt.pch']])) dots[['pt.pch']] else NULL
+  pt.size      = if (!is.null(dots[['pt.size']])) dots[['pt.size']] else GeomPoint$default_aes$size
   pt.join      = if (!is.null(dots[['pt.join']])) dots[['pt.join']] else FALSE
   zero         = if (!is.null(dots[['zero']])) dots[['zero']] else TRUE
   zero.par = list(col = 'black', lty = 1, lwd = 0.3)
@@ -319,9 +320,9 @@ ggiplot = function(
       names(pt_values) = pt_values_df$group
   }
 
-  ptsize = 2.5
+
   if (multi_style == "facet") {
-      ptsize = ptsize - 0.25 * n_fcts
+      pt.size = pt.size - 0.25 * n_fcts
   }
 
   if (multi_style == "none") {
@@ -484,35 +485,35 @@ ggiplot = function(
                if (multi_style == "dodge") {
                    if (length(ci_level) == 1) {
                        geom_point(
-                           shape = pt.pch, size = ptsize,
+                           shape = pt.pch, size = pt.size,
                            position = position_dodge2(width = ci.width, padding = ci.width)
                        )
                    } else {
                        geom_point(
                            data = ~ subset(.x, ci_level == max(ci_level)),
-                           shape = pt.pch, size = ptsize,
+                           shape = pt.pch, size = pt.size,
                            position = position_dodge2(width = ci.width, padding = ci.width)
                        )
                    }
                } else {
-                   geom_point(shape = pt.pch, size = ptsize)
+                   geom_point(shape = pt.pch, size = pt.size)
                }
            } else {
                if (multi_style == "dodge") {
                    if (length(ci_level) == 1) {
                        geom_point(
-                           size = ptsize,
+                           size = pt.size,
                            position = position_dodge2(width = ci.width, padding = ci.width)
                        )
                    } else {
                        geom_point(
                            data = ~ subset(.x, ci_level == max(ci_level)),
-                           size = ptsize,
+                           size = pt.size,
                            position = position_dodge2(width = ci.width, padding = ci.width)
                        )
                    }
                } else {
-                   geom_point(size = ptsize)
+                   geom_point(size = pt.size)
                }
            }
        }
