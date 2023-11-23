@@ -2,17 +2,15 @@ Package: ggiplot
 Title: ggplot2 Equivalents of fixest::iplot()
 Version: 0.0.1.9010
 Authors@R: 
-    c(
-    person(given   = "Grant",
-           family  = "McDermott",
-           role    = c("aut", "cre"),
-           email   = "gmcd@amazon.com",
-           comment = c(ORCID = "0000-0001-7883-8573")),
-           
-    person(given   = "Laurent",
-           family  = "Berge",
-           role    = "ctb",
-           email   = "laurent.berge@u-bordeaux.fr")
+    c(person(given   = "Grant",
+             family  = "McDermott",
+             role    = c("aut", "cre"),
+             email   = "gmcd@amazon.com",
+             comment = c(ORCID = "0000-0001-7883-8573")),
+      person(given   = "Laurent",
+            family  = "Berge",
+            role    = "ctb",
+            email   = "laurent.berge@u-bordeaux.fr")
     )
 Description: Provides ggplot2 equivalents of fixest::coefplot and fixest::iplot()
     for producing nice coefficient and "event study" plots, respectiely. Enables 
