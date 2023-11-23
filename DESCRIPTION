@@ -2,11 +2,18 @@ Package: ggiplot
 Title: ggplot2 Equivalents of fixest::iplot()
 Version: 0.0.1.9010
 Authors@R: 
-    person(given = "Grant",
-           family = "McDermott",
-           role = c("aut", "cre"),
-           email = "grantmcd@uoregon.edu",
-           comment = c(ORCID = "0000-0001-7883-8573"))
+    c(
+    person(given   = "Grant",
+           family  = "McDermott",
+           role    = c("aut", "cre"),
+           email   = "grantmcd@uoregon.edu",
+           comment = c(ORCID = "0000-0001-7883-8573")),
+           
+    person(given   = "Laurent",
+           family  = "Berge",
+           role    = "ctb",
+           email   = "laurent.berge@u-bordeaux.fr")
+    )
 Description: Provides ggplot2 equivalents of fixest::iplot() for producing
     "event study" plots. Enables some additional functionality and convenience
     features, including grouped mutli_fixest object facetting and programatic
