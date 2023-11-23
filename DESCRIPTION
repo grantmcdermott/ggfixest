@@ -1,5 +1,5 @@
 Package: ggiplot
-Title: ggplot2 Equivalents of fixest::iplot()
+Title: ggplot2 equivalents of fixest's iplot() and coefplot() functions.
 Version: 0.0.1.9010
 Authors@R: 
     c(person(given   = "Grant",
@@ -12,8 +12,8 @@ Authors@R:
             role    = "ctb",
             email   = "laurent.berge@u-bordeaux.fr")
     )
-Description: Provides ggplot2 equivalents of fixest::coefplot and fixest::iplot()
-    for producing nice coefficient and "event study" plots, respectiely. Enables 
+Description: Provides ggplot2 equivalents of fixest::iplot() and fixest::coefplot
+    for producing nice "event study" and coefficient plots, respectiely. Enables 
     some additional functionality and convenience features, including grouped
     multi-fixest object facetting and programatic updating of existing plots
     (e.g. themes and aesthetics).
@@ -28,7 +28,7 @@ Remotes: lrberge/fixest
 Depends: 
     ggplot2 (>= 2.2.0)
 Imports: 
-    fixest (>= 0.11.0),
+    fixest (>= 0.11.2),
     dreamerr,
     ggh4x,
     scales,
