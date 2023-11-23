@@ -14,10 +14,11 @@ Authors@R:
            role    = "ctb",
            email   = "laurent.berge@u-bordeaux.fr")
     )
-Description: Provides ggplot2 equivalents of fixest::iplot() for producing
-    "event study" plots. Enables some additional functionality and convenience
-    features, including grouped mutli_fixest object facetting and programatic
-    updating of existing plots (e.g. themes and aesthetics).
+Description: Provides ggplot2 equivalents of fixest::coefplot and fixest::iplot()
+    for producing nice coefficient and "event study" plots, respectiely. Enables 
+    some additional functionality and convenience features, including grouped
+    multi-fixest object facetting and programatic updating of existing plots
+    (e.g. themes and aesthetics).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
