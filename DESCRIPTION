@@ -23,6 +23,8 @@ Depends:
     ggplot2 (>= 2.2.0)
 Imports: 
     fixest (>= 0.11.0),
+    dreamerr,
+    ggh4x,
     scales,
     utils,
     marginaleffects (>= 0.10.0),

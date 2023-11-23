@@ -1,10 +1,11 @@
 #' @title ggplots confidence intervals and point estimates
 #'
-#' @description Plots the `ggplot2` equivalent of `fixest::iplot()`. Many of the
-#'   arguments are the same. As per the latter's description:
-#'   This function plots the results of estimations (coefficients and confidence
-#'   intervals). The function restricts the output to variables created with
-#'   `i`, either interactions with factors or raw factors.
+#' @description Draws the `ggplot2` equivalents of `fixest::coefplot()` or
+#'   `fixest::ifplot()`. Many of the arguments are the same. As per the
+#'   latter's description: This function plots the results of estimations
+#'   (coefficients and confidence intervals). The function restricts the output
+#'   to variables created with `i`, either interactions with factors or raw
+#'   factors.
 #' @md
 #' @param object A model object of class `fixest` or `fixest_multi`, or a list
 #'   thereof.
@@ -28,6 +29,7 @@
 #'   `fixest::iplot()` arguments. Note that some of these require list objects.
 #'   Currently used are:
 #'   * `keep` and `drop` for subsetting variables using regular expressions.
+#'   * `group` a list indicating variables to group over. Each element of the list reports the coefficients to be grouped while the name of the element is the group name. Each element of the list can be either: i) a character vector of length 1, ii) of length 2, or ii) a numeric vector. Special patterns such as "^^var_start" can be used to more appealing plotting, where group labels are separated from their subsidiary labels. This can be especially usefull for plotting interaction terms. See the Details section of `fixest::coefplot` for more information.
 #'   * `main`, `xlab`, and `ylab` for setting the plot title, x- and y-axis labels, respectively.
 #'   * `zero` and `zero.par` for defining or adjusting the zero line. For
 #'   example, `zero.par = list(col = 'orange')`.
@@ -45,12 +47,13 @@
 #'   channel. For example, we can make the CI band lighter with
 #'   `ci.fill.par = list(alpha = 0.2)` (the default alpha is 0.3).
 #'   * `dict` a dictionary for overriding coefficient names.
-#' @details This function generally tries to mimic the functionality and (where
-#'   appropriate) arguments of `fixest::iplot()` as closely as possible.
-#'   However, by leveraging the ggplot2 API and infrastructure, it is able to
-#'   support some more complex plot arrangements out-of-the-box that would be
-#'   more difficult to achieve using the base `iplot()` alternative.
-#' @seealso [fixest::iplot()].
+#' @details These functions generally try to mimic the functionality and (where
+#'   appropriate) arguments of `fixest::coefplot()` and `fixest::iplot()` as
+#'   closely as possible. However, by leveraging the ggplot2 API and
+#'   infrastructure, it is able to support some more complex plot arrangements
+#'   out-of-the-box that would be more difficult to achieve using the base
+#'   `coefplot()`/`iplot()` alternative.
+#' @seealso [fixest::coefplot()], [fixest::iplot()].
 #' @return A ggplot2 object.
 #' @import ggplot2
 #' @export
@@ -200,6 +203,8 @@ ggiplot = function(
 
   dots = list(...)
   ## Defaults
+  is_iplot = if (!is.null(dots[["is_iplot"]])) dots[["is_iplot"]] else TRUE
+  group = if (!is.null(dots[["group"]])) dots[["group"]] else "auto"
   keep = if (!is.null(dots[["keep"]])) dots[["keep"]] else NULL
   drop = if (!is.null(dots[["drop"]])) dots[["drop"]] else NULL
   ci_level = if (!is.null(dots[["ci_level"]])) dots[["ci_level"]] else 0.95
@@ -213,27 +218,28 @@ ggiplot = function(
   col          = if (!is.null(dots[['col']])) dots[['col']] else NULL
   pt.pch       = if (!is.null(dots[['pt.pch']])) dots[['pt.pch']] else NULL
   pt.join      = if (!is.null(dots[['pt.join']])) dots[['pt.join']] else FALSE
-  zero         = if (!is.null(dots[['zero']])) dots[['zero']] else TRUE
-  zero.par = list(col = 'black', lty = 1, lwd = 0.3)
-  if (!is.null(dots[['zero.par']])) zero.par = utils::modifyList(zero.par, dots[['zero.par']])
+  ## hold off deciding zero line until we have seen the data
+  # zero         = if (!is.null(dots[['zero']])) dots[['zero']] else TRUE
+  # zero.par = list(col = 'black', lty = 1, lwd = 0.3)i
+  # if (!is.null(dots[['zero.par']])) zero.par = utils::modifyList(zero.par, dots[['zero.par']])
   ref.line     = if (!is.null(dots[['ref.line']])) dots$ref.line else 'auto'
   ref.line.par = list(col = "black", lty = 2, lwd = 0.3)
-
   if (!is.null(dots[["ref.line.par"]])) ref.line.par = utils::modifyList(ref.line.par, dots[["ref.line.par"]])
 
 
-  # The next few blocks grab the underlying iplot data, contingent on the
+  # The next few blocks grab the underlying iplot/coefplot data, contingent on the
   # object that was passed into the function (i.e. fixest, fixest_multi, or
   # list)
+  iplot_data_func = ifelse(isTRUE(is_iplot), iplot_data, coefplot_data)
 
   if (inherits(object, c("fixest", "fixest_multi"))) {
 
       if (length(ci_level) == 1) {
-          data = iplot_data(object, .ci_level = ci_level, .dict = dict, .aggr_es = aggr_eff, .keep = keep, .drop = drop)
+          data = iplot_data_func(object, .ci_level = ci_level, .dict = dict, .aggr_es = aggr_eff, .keep = keep, .drop = drop, .group = group)
       } else {
           data = lapply(
               ci_level,
-              function(ci_l) iplot_data(object, .ci_level = ci_l, .dict = dict, .aggr_es = aggr_eff, .keep = keep, .drop = drop)
+              function(ci_l) iplot_data_func(object, .ci_level = ci_l, .dict = dict, .aggr_es = aggr_eff, .keep = keep, .drop = drop, .group = group)
           )
           data = do.call("rbind", data)
       }
@@ -252,14 +258,14 @@ ggiplot = function(
   if (inherits(object, "list")) {
       if (length(ci_level) == 1) {
           data = lapply(
-              object, iplot_data,
-              .ci_level = ci_level, .dict = dict, .aggr_es = aggr_eff
+              object, iplot_data_func,
+              .ci_level = ci_level, .dict = dict, .aggr_es = aggr_eff, .group = group
           )
       } else {
           data = lapply(ci_level, function(ci_l) {
-              lapply(object, iplot_data,
+              lapply(object, iplot_data_func,
                   .ci_level = ci_l,
-                  .dict = dict, .aggr_es = aggr_eff
+                  .dict = dict, .aggr_es = aggr_eff, .group = group
               )
           })
           data = do.call(function(...) Map("rbind", ...), data)
@@ -293,11 +299,35 @@ ggiplot = function(
       if (is.null(facet_args$ncol)) facet_args$ncol = length(unique(data$group))
   }
 
+  # Prep data for nested grouping
+  has_groups = (!is.null(attributes(data)[["has_groups"]]) && isTRUE(attributes(data)[["has_groups"]]))
+  if (isTRUE(has_groups)) {
+  	data[["x"]] = interaction(
+  		data[["x"]], data[["group_var"]],
+  		sep = "___", drop = TRUE#, lex.order = TRUE
+  		)
+  	data[["group_var"]] = NULL
+  }
+
+  yrange = range(c(data[["ci_low"]], data[["ci_high"]]), na.rm = TRUE)
+  spans_zero = any(yrange > 0) && any(yrange < 0)
+  zero = if (!is.null(dots[['zero']])) {
+  	dots[['zero']] }
+  else if (is_iplot || spans_zero) {
+  	TRUE
+  } else {
+  	TRUE
+  }
+  zero.par = list(col = 'black', lty = 1, lwd = 0.3)
+  if (!is.null(dots[['zero.par']])) zero.par = utils::modifyList(zero.par, dots[['zero.par']])
+
+
+
   if (multi_style == "dodge") ci.width = ci.width * n_fcts
 
-  if (is.null(xlab)) xlab = sub("::.*", "", data$estimate_names_raw[1])
+  if (is.null(xlab) & isTRUE(is_iplot)) xlab = sub("::.*", "", data$estimate_names_raw[1])
   if (!is.null(ref.line)) {
-      if (ref.line == "auto") ref.line = data$x[which(data$is_ref)[1]]
+      if (ref.line == "auto" && isTRUE(is_iplot)) ref.line = data$x[which(data$is_ref)[1]]
   }
   if (is.null(ylab)) ylab = paste0("Estimate and ", oxford(paste0(ci_level * 100, "%")), " Conf. Int.")
   if (is.null(main)) main = paste0("Effect on ", oxford(unique(data$lhs)))
@@ -549,6 +579,11 @@ ggiplot = function(
        }
    } +
    labs(x = xlab, y = ylab, title = main) + {
+   	if (has_groups) {
+   		scale_x_discrete(guide = ggh4x::guide_axis_nested(delim = "___"))
+   	}
+   } +
+   {
        if (multi_style == "facet") {
            facet_wrap(
                facets = facet_args$facets,
@@ -579,6 +614,38 @@ ggiplot = function(
           )
   }
 
+  if (has_groups) {
+  	gg = gg +
+  		theme(ggh4x.axis.nestline = element_line(linewidth = 0.5))
+  }
+
   return(gg)
 
 }
+
+
+ggcoefplot = function(
+		object,
+		geom_style = c('pointrange', 'errorbar', 'ribbon'),
+		multi_style = c('dodge', 'facet'),
+		# aggr_eff = c('none', 'post', 'pre', 'both'),
+		# aggr_eff.par = list(col = 'grey50', lwd = 1, lty = 1),
+		facet_args = NULL,
+		theme = NULL,
+		...
+		) {
+
+	ggiplot(
+		object = object,
+		geom_style = geom_style,
+		multi_style = multi_style,
+		facet_args = facet_args,
+		theme = theme,
+		is_iplot = FALSE,
+		...
+		)
+
+
+
+
+	}
