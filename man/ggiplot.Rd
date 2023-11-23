@@ -46,6 +46,7 @@ existing ggiplot object to redefine theme elements. See examples.}
 Currently used are:
 \itemize{
 \item \code{keep} and \code{drop} for subsetting variables using regular expressions.
+\item \code{group} a list indicating variables to group over. Each element of the list reports the coefficients to be grouped while the name of the element is the group name. Each element of the list can be either: i) a character vector of length 1, ii) of length 2, or ii) a numeric vector. Special patterns such as "^^var_start" can be used to more appealing plotting, where group labels are separated from their subsidiary labels. This can be especially usefull for plotting interaction terms. See the Details section of \code{fixest::coefplot} for more information.
 \item \code{main}, \code{xlab}, and \code{ylab} for setting the plot title, x- and y-axis labels, respectively.
 \item \code{zero} and \code{zero.par} for defining or adjusting the zero line. For
 example, \code{zero.par = list(col = 'orange')}.
@@ -69,18 +70,20 @@ channel. For example, we can make the CI band lighter with
 A ggplot2 object.
 }
 \description{
-Plots the \code{ggplot2} equivalent of \code{fixest::iplot()}. Many of the
-arguments are the same. As per the latter's description:
-This function plots the results of estimations (coefficients and confidence
-intervals). The function restricts the output to variables created with
-\code{i}, either interactions with factors or raw factors.
+Draws the \code{ggplot2} equivalents of \code{fixest::coefplot()} or
+\code{fixest::ifplot()}. Many of the arguments are the same. As per the
+latter's description: This function plots the results of estimations
+(coefficients and confidence intervals). The function restricts the output
+to variables created with \code{i}, either interactions with factors or raw
+factors.
 }
 \details{
-This function generally tries to mimic the functionality and (where
-appropriate) arguments of \code{fixest::iplot()} as closely as possible.
-However, by leveraging the ggplot2 API and infrastructure, it is able to
-support some more complex plot arrangements out-of-the-box that would be
-more difficult to achieve using the base \code{iplot()} alternative.
+These functions generally try to mimic the functionality and (where
+appropriate) arguments of \code{fixest::coefplot()} and \code{fixest::iplot()} as
+closely as possible. However, by leveraging the ggplot2 API and
+infrastructure, it is able to support some more complex plot arrangements
+out-of-the-box that would be more difficult to achieve using the base
+\code{coefplot()}/\code{iplot()} alternative.
 }
 \examples{
 # We'll also load fixest to estimate the actual models that we're plottig.
@@ -212,5 +215,5 @@ setFixest_dict() # reset
 
 }
 \seealso{
-\code{\link[fixest:coefplot]{fixest::iplot()}}.
+\code{\link[fixest:coefplot]{fixest::coefplot()}}, \code{\link[fixest:coefplot]{fixest::iplot()}}.
 }

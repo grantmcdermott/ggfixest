@@ -2,6 +2,7 @@
 % Please edit documentation in R/iplot_data.R
 \name{iplot_data}
 \alias{iplot_data}
+\alias{coefplot_data}
 \title{Internal function for grabbing and preparing iplot data}
 \usage{
 iplot_data(
@@ -10,7 +11,22 @@ iplot_data(
   .keep = NULL,
   .drop = NULL,
   .dict = fixest::getFixest_dict(),
-  .aggr_es = c("none", "post", "pre", "both")
+  .internal.only.i = TRUE,
+  .i.select = 1,
+  .aggr_es = c("none", "post", "pre", "both"),
+  .group = "auto"
+)
+
+coefplot_data(
+  object,
+  .ci_level = 0.95,
+  .keep = NULL,
+  .drop = NULL,
+  .group = "auto",
+  .dict = fixest::getFixest_dict(),
+  .internal.only.i = FALSE,
+  .i.select = 1,
+  .aggr_es = "none"
 )
 }
 \arguments{
@@ -34,10 +50,28 @@ Used for changing coefficient names. Defaults to the values in
 \code{getFixest_dict()}. See the \code{?fixest::iplot} documentation for more
 information.}
 
+\item{.internal.only.i}{Logical variable used for some internal function
+handling when passing on to coefplot/iplot.}
+
+\item{.i.select}{Integer scalar, default is 1. In (gg)iplot, used to select
+which variable created with i() to select. Only used when there are several
+variables created with i. This is an index, just try increasing numbers to
+hopefully obtain what you want. Passed down to
+\code{fixest::iplot(..., i.select = .i.select)}}
+
 \item{.aggr_es}{A character string indicating whether the aggregated mean
 post- (and/or pre-) treatment effect should be added as a column to the
 returned data frame. Passed to \code{aggr_es(..., aggregation = "mean")} and
 should be one of "none" (the default), "post", "pre", or "both".}
+
+\item{.group}{A list, default is missing. Each element of the list reports
+the coefficients to be grouped while the name of the element is the group
+name. Passed down to \code{fixest::coefplot(..., group = .group)}. Example of
+valid uses:
+⁠group=list(group_name=\"pattern\")⁠,
+⁠group=list(group_name=c(\"var_start\", \"var_end\"))⁠,
+⁠group=list(group_name=1:2))
+See the Details section of \code{?fixest::iplot} for more.}
 }
 \value{
 A data frame consisting of estimate values, confidence intervals,
@@ -54,6 +88,11 @@ This function is a wrapper around
 to better facilitate plotting with \code{ggplot2} and handling of complex object
 types (e.g. lists of fixest_multi models)
 }
+\section{Functions}{
+\itemize{
+\item \code{coefplot_data()}: Internal function for grabbing and preparing coefplot data
+
+}}
 \examples{
 library(fixest)
 
