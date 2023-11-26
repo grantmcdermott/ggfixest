@@ -316,7 +316,7 @@ ggiplot = function(
   else if (is_iplot || spans_zero) {
   	TRUE
   } else {
-  	TRUE
+  	FALSE
   }
   zero.par = list(col = 'black', lty = 1, lwd = 0.3)
   if (!is.null(dots[['zero.par']])) zero.par = utils::modifyList(zero.par, dots[['zero.par']])
@@ -624,6 +624,7 @@ ggiplot = function(
 }
 
 
+#' @describeIn ggiplot This function plots the results of estimations (coefficients and confidence intervals). The function ggiplot restricts the output to variables created with i, either interactions with factors or raw factors.
 ggcoefplot = function(
 		object,
 		geom_style = c('pointrange', 'errorbar', 'ribbon'),
