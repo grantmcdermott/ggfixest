@@ -18,11 +18,10 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 URL: http://grantmcdermott.com/ggiplot/
 BugReports: https://github.com/grantmcdermott/ggiplot/issues
-Remotes: lrberge/fixest
 Depends: 
     ggplot2 (>= 2.2.0)
 Imports: 
-    fixest (>= 0.11.0),
+    fixest (>= 0.11.2),
     scales,
     utils,
     marginaleffects (>= 0.10.0),
