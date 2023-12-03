@@ -20,11 +20,17 @@
 #'   ⁠group=list(group_name=\"pattern\")⁠,
 #'   ⁠group=list(group_name=c(\"var_start\", \"var_end\"))⁠,
 #'   ⁠group=list(group_name=1:2))
-#'   See the Details section of `?fixest::iplot` for more.
+#'   See the Details section of `?fixest::coefplot` for more.
 #' @param .dict A dictionary (i.e. named character vector or a logical scalar).
 #' Used for changing coefficient names. Defaults to the values in
-#' `getFixest_dict()`. See the `?fixest::iplot` documentation for more
-#' information.
+#' `getFixest_dict()`. See the `?fixest::coefplot` documentation for more
+#' information. Note: This argument applies dictionary changes directly to the
+#' return object for `coefplot_data`. However, it is ignored for `iplot_data`,
+#' since we want to preserve the numeric ordering for potential event study
+#' plots. (And imposing an ordered factor would create its own downstream
+#' problems in the case of continuous plot features like ribbons.) Instead, any
+#' dictionary replacement for `ggiplot` is deferred to the actual plot call and
+#' applied directly to the labels.
 #' @param .internal.only.i Logical variable used for some internal function
 #'   handling when passing on to coefplot/iplot.
 #' @param .i.select Integer scalar, default is 1. In (gg)iplot, used to select
@@ -143,7 +149,8 @@ iplot_data = function(
   #
 
   x_labels = d$estimate_names
-  x_labels_raw = d$estimate_names_raw
+  # x_labels_raw = d$estimate_names_raw
+  x_labels_raw = d$estimate_names
   group = .group
   dict = .dict
 
@@ -233,6 +240,13 @@ iplot_data = function(
   			x_labels[qui_select] = substr(x_select, n_max + 1, nchar(x_select) - n_trim)
   		}
   	}
+  	## Skip this iplot dictionary step and defer to actual plotting step.
+  	## Reason: We want to preserve the numeric x labs for correct order in
+  	## later plot (and factors won't work since this makes lines and ribbon
+  	## connections problematic).
+  # } else if (is_iplot) {
+  # 	# apply dictionary to iplot x values
+  # 	d[["x"]] = dict_apply(d[["x"]], dict = dict)
   }
 
   IS_GROUP = !identical(group, "auto") && !missing(group) && !is.null(group) && length(group) > 0 && !is.null(x_labels)
