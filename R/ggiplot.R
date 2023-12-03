@@ -217,14 +217,20 @@
 #' # introductory fixest vignette.
 #'
 #' data(base_stagg)
-#' est_twfe = feols(y ~ x1 + i(time_to_treatment, treated, ref = c(-1, -1000)) |
-#' 								 	id + year, base_stagg)
-#' est_sa20 = feols(y ~ x1 + sunab(year_treated, year) |
-#' 								 	id + year, base_stagg)
+#' est_twfe = feols(
+#'   y ~ x1 + i(time_to_treatment, treated, ref = c(-1, -1000)) | id + year,
+#'   base_stagg
+#' )
+#' est_sa20 = feols(
+#'   y ~ x1 + sunab(year_treated, year) | id + year,
+#'   data = base_stagg
+#' )
 #'
 #' # Plot both regressions in a faceted plot
-#' ggiplot(list('TWFE' = est_twfe, 'Sun & Abraham (2020)' = est_sa20),
-#' 				main = 'Staggered treatment', ref.line = -1, pt.join = TRUE)
+#' ggiplot(
+#'   list('TWFE' = est_twfe, 'Sun & Abraham (2020)' = est_sa20),
+#'   main = 'Staggered treatment', ref.line = -1, pt.join = TRUE
+#' )
 #'
 #' # So far that's no different than base iplot (automatic legend  aside). But an
 #' # area where ggiplot shines is in complex multiple estimation cases, such as
@@ -235,29 +241,37 @@
 #'
 #' # Now re-run our two regressions from earlier, but splitting the sample to
 #' # generate fixest_multi objects.
-#' est_twfe_grp = feols(y ~ x1 + i(time_to_treatment, treated, ref = c(-1, -1000)) |
-#' 										 	id + year, base_stagg_grp, split = ~ grp)
-#' est_sa20_grp = feols(y ~ x1 + sunab(year_treated, year) |
-#' 										 	id + year, base_stagg_grp, split = ~ grp)
+#' est_twfe_grp = feols(
+#'   y ~ x1 + i(time_to_treatment, treated, ref = c(-1, -1000)) | id + year,
+#'   data = base_stagg_grp, split = ~ grp
+#' )
+#' est_sa20_grp = feols(
+#'   y ~ x1 + sunab(year_treated, year) | id + year,
+#'   data = base_stagg_grp, split = ~ grp
+#' )
 #'
 #' # ggiplot combines the list of multi-estimation objects without a problem...
 #' ggiplot(list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
 #' 				ref.line = -1, main = 'Staggered treatment: Split multi-sample')
 #'
-#' # ... but is even better when we use faceting instead of dodged errorbars.
+#' # ... but is even better when we use facets instead of dodged errorbars.
 #' # Let's use this an opportunity to construct a fancy plot that invokes some
 #' # additional arguments and ggplot theming.
-#' ggiplot(list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
-#' 				ref.line = -1,
-#' 				main = 'Staggered treatment: Split multi-sample',
-#' 				xlab = 'Time to treatment',
-#' 				multi_style = 'facet',
-#' 				geom_style = 'ribbon',
-#' 				facet_args = list(labeller = labeller(id = \(x) gsub(".*: ", "", x))),
-#' 				theme = theme_minimal() +
-#' 					theme(text = element_text(family = 'HersheySans'),
-#' 								plot.title = element_text(hjust = 0.5),
-#' 								legend.position = 'none'))
+#' ggiplot(
+#'   list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
+#'   ref.line = -1,
+#'   main = 'Staggered treatment: Split multi-sample',
+#'   xlab = 'Time to treatment',
+#'   multi_style = 'facet',
+#'   geom_style = 'ribbon',
+#'   facet_args = list(labeller = labeller(id = \(x) gsub(".*: ", "", x))),
+#'   theme = theme_minimal() +
+#'     theme(
+#'       text = element_text(family = 'HersheySans'),
+#'       plot.title = element_text(hjust = 0.5),
+#'       legend.position = 'none'
+#'     )
+#' )
 #'
 #' #
 #' # Aside on theming and scale adjustments

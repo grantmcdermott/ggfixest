@@ -2,7 +2,9 @@
 % Please edit documentation in R/ggiplot.R
 \name{ggiplot}
 \alias{ggiplot}
-\title{ggplots confidence intervals and point estimates}
+\alias{ggcoefplot}
+\title{Draw coefficient plots and interaction plots from \code{fixest} regression
+objects.}
 \usage{
 ggiplot(
   object,
@@ -14,13 +16,24 @@ ggiplot(
   theme = NULL,
   ...
 )
+
+ggcoefplot(
+  object,
+  geom_style = c("pointrange", "errorbar"),
+  multi_style = c("dodge", "facet"),
+  facet_args = NULL,
+  theme = NULL,
+  ...
+)
 }
 \arguments{
 \item{object}{A model object of class \code{fixest} or \code{fixest_multi}, or a list
 thereof.}
 
 \item{geom_style}{Character string. One of \code{c('pointrange', 'errorbar', 'ribbon')}
-describing the preferred geometric representation of the coefficients.}
+describing the preferred geometric representation of the coefficients. Note
+that ribbon plots not supported for \code{ggcoefplot}, since we cannot guarantee
+a continuous relationship among the coefficients.}
 
 \item{multi_style}{Character string. One of \code{c('dodge', 'facet')}, defining
 how multi-model objects should be presented.}
@@ -41,12 +54,13 @@ E.g. \code{facet_args = list(ncol = 2, scales = 'free_y')}. Only used if
 adjustments, such as centered plot title. Can also be defined on an
 existing ggiplot object to redefine theme elements. See examples.}
 
-\item{...}{Arguments passed down, or equivalent, to the corresponding
-\code{fixest::iplot()} arguments. Note that some of these require list objects.
-Currently used are:
+\item{...}{Arguments passed down to, or equivalent to, the corresponding
+\code{fixest::coefplot}/\code{fixest::iplot} arguments. Note that some of these
+require list objects. Currently used are:
 \itemize{
-\item \code{keep} and \code{drop} for subsetting variables using regular expressions.
-\item \code{group} a list indicating variables to group over. Each element of the list reports the coefficients to be grouped while the name of the element is the group name. Each element of the list can be either: i) a character vector of length 1, ii) of length 2, or ii) a numeric vector. Special patterns such as "^^var_start" can be used to more appealing plotting, where group labels are separated from their subsidiary labels. This can be especially usefull for plotting interaction terms. See the Details section of \code{fixest::coefplot} for more information.
+\item \code{keep} and \code{drop} for subsetting variables using regular expressions. The \code{fixest::iplot} help page includes more detailed examples, but these should generally work as you expect. One useful regexp trick worth mentioning briefly for event studies with many pre-/post-periods is \code{drop = "[[:digit:]]{2}"}. This will cause the plot to zoom in around single digit pre-/post-periods.
+\item \code{group} a list indicating variables to group over. Each element of the list reports the coefficients to be grouped while the name of the element is the group name. Each element of the list can be either: i) a character vector of length 1, ii) of length 2, or iii) a numeric vector. Special patterns such as "^^var_start" can be used to more appealing plotting, where group labels are separated from their subsidiary labels. This can be especially useful for plotting interaction terms. See the Details section of \code{fixest::coefplot} for more information.
+\item \code{i.select} Integer scalar, default is 1. In \code{ggiplot}, used to select which variable created with \code{i()} to select. Only used when there are several variables created with \code{i}. See the Details section of \code{fixest::iplot} for more information.
 \item \code{main}, \code{xlab}, and \code{ylab} for setting the plot title, x- and y-axis labels, respectively.
 \item \code{zero} and \code{zero.par} for defining or adjusting the zero line. For
 example, \code{zero.par = list(col = 'orange')}.
@@ -70,114 +84,240 @@ channel. For example, we can make the CI band lighter with
 A ggplot2 object.
 }
 \description{
-Draws the \code{ggplot2} equivalents of \code{fixest::coefplot()} or
-\code{fixest::ifplot()}. Many of the arguments are the same. As per the
-latter's description: This function plots the results of estimations
-(coefficients and confidence intervals). The function restricts the output
-to variables created with \code{i}, either interactions with factors or raw
-factors.
+Draws the \code{ggplot2} equivalents of \code{fixest::coefplot} and
+\code{fixest::iplot}. These "gg" versions do their best to recycle the same
+arguments  and plotting logic as their original base counterparts. But they
+also support additional features via the \code{ggplot2} API and infrastructure.
+The overall goal remains the same as the original functions. To wit:
+\code{ggcoefplot} plots the results of estimations (coefficients and confidence
+intervals). The function \code{ggiplot} restricts the output to variables
+created with \code{i}, either interactions with factors or raw factors.
 }
 \details{
 These functions generally try to mimic the functionality and (where
-appropriate) arguments of \code{fixest::coefplot()} and \code{fixest::iplot()} as
+appropriate) arguments of \code{fixest::coefplot} and \code{fixest::iplot} as
 closely as possible. However, by leveraging the ggplot2 API and
-infrastructure, it is able to support some more complex plot arrangements
-out-of-the-box that would be more difficult to achieve using the base
-\code{coefplot()}/\code{iplot()} alternative.
+infrastructure, they are able to support some more complex plot
+arrangements out-of-the-box that would be more difficult to achieve using
+the base \code{coefplot}/\code{iplot} alternatives.
 }
+\section{Functions}{
+\itemize{
+\item \code{ggcoefplot()}: This function plots the results of estimations
+(coefficients and confidence intervals). The function \code{ggiplot} restricts
+the output to variables created with i, either interactions with factors or
+raw factors.
+
+}}
 \examples{
-# We'll also load fixest to estimate the actual models that we're plottig.
+# We'll also load fixest to estimate the actual models that we're plotting.
 library(fixest)
 library(ggiplot)
 
-# These examples borrow from the fixest::iplot() documentation and the
-# introductory package vignette.
+##
+# Author note: The examples that follow deliberately follow the original
+#   examples from the coefplot/iplot help pages. A few "gg-" specific
+#   features are sprinkled within, with the final set of examples in
+#   particular highlighting unique features of this package.
+
 
 #
-## Example 1: Vanilla TWFE
+# Example 1: Basic use and stacking two sets of results on the same graph
 #
+
+# Estimation on Iris data with one fixed-effect (Species)
+est = feols(Petal.Length ~ Petal.Width + Sepal.Length + Sepal.Width | Species, iris)
+
+ggcoefplot(est)
+
+# Show multiple CIs
+ggcoefplot(est, ci_level = c(0.8, 0.95))
+
+# By default, fixest model standard errors are clustered by the first fixed
+# effect (here: Species).
+# But we can easily switch to "regular" standard-errors
+est_std = summary(est, se = "iid")
+
+# You can plot both results at once in the same plot frame...
+ggcoefplot(list("Clustered" = est, "IID" = est_std))
+# ... or as separate facets
+ggcoefplot(list("Clustered" = est, "IID" = est_std), multi_style = "facet") +
+	theme(legend.position = "none")
+
+
+#
+# Example 2: Interactions
+#
+
+
+# Now we estimate and plot the "yearly" treatment effects
 
 data(base_did)
 base_inter = base_did
 
-est_did = feols(y ~ x1 + i(period, treat, 5) | id+period, base_inter)
+# We interact the variable 'period' with the variable 'treat'
+est_did = feols(y ~ x1 + i(period, treat, 5) | id + period, base_inter)
+
+# In the estimation, the variable treat is interacted
+#  with each value of period but 5, set as a reference
+
+# ggcoefplot will show all the coefficients:
+ggcoefplot(est_did)
+
+
+# Note that the grouping of the coefficients is due to 'group = "auto"'
+
+# If you want to keep only the coefficients
+# created with i() (ie the interactions), use ggiplot
 ggiplot(est_did)
 
-# Comparison with iplot defaults
-iplot(est_did)
-ggiplot(est_did, geom = 'errorbar') # closer iplot original
+# We can see that the graph is different from before:
+#  - only interactions are shown,
+#  - the reference is present,
+# => this is fully flexible
 
-# Many of the arguments work the same as in iplot()
-iplot(est_did, pt.join = TRUE)
-ggiplot(est_did, pt.join = TRUE, geom_style = 'errorbar')
+ggiplot(est_did, ci_level = c(0.8, 0.95))
+ggiplot(est_did, ref.line = FALSE, pt.join = TRUE, geom_style = "errorbar")
+ggiplot(est_did, geom_style = "ribbon", col = "orange")
+# etc
 
-# Plots can be customized and tweaked easily
-ggiplot(est_did, geom_style = 'ribbon')
-ggiplot(est_did, geom_style = 'ribbon', col = 'orange')
+# We can also use a dictionary to replace label values. The dicionary should
+# take the form of a named vector or list, e.g. c("old_lab1" = "new_lab1", ...)
 
-# Unlike base iplot, multiple confidence interval levels are supported
-ggiplot(est_did, ci_level = c(.8, .95))
-
-# Another new feature (i.e. unsupported in base iplot) is adding aggregated
-# post- and/or pre-treatment effects to your plots. Here's an example that
-# builds on the previous plot, by adding the mean post-treatment effect.
-ggiplot(est_did, ci_level = c(.8, .95),
-        aggr_eff = "post", aggr_eff.par = list(col="orange")) # default is grey
+# Let's create a "month" variable
+all_months = c("aug", "sept", "oct", "nov", "dec", "jan",
+							 "feb", "mar", "apr", "may", "jun", "jul")
+# Turn into a dictionary by providing the old names
+# Note the implication that treatment occured here in December (5 month in our series)
+dict = all_months; names(dict) = 1:12
+# Pass our new dictionary to our ggiplot call
+ggiplot(est_did, pt.join = TRUE, geom_style = "errorbar", dict = dict)
 
 #
-# Example 2: Multiple estimation (i)
+# What if the interacted variable is not numeric?
+
+# let's re-use our all_months vector from the previous example, but add it
+# directly to the dataset
+base_inter$period_month = all_months[base_inter$period]
+
+# The new estimation
+est = feols(y ~ x1 + i(period_month, treat, "oct") | id+period, base_inter)
+# Since 'period_month' of type character, iplot/coefplot both sort it
+ggiplot(est)
+
+# To respect a plotting order, use a factor
+base_inter$month_factor = factor(base_inter$period_month, levels = all_months)
+est     = feols(y ~ x1 + i(month_factor, treat, "oct") | id + period, base_inter)
+ggiplot(est)
+
+# dict -> c("old_name" = "new_name")
+dict = all_months; names(dict) = 1:12; dict
+ggiplot(est_did, dict = dict)
+
+#
+# Example 3: Setting defaults
+#
+
+# The customization logic of ggcoefplot/ggiplot works differently than the
+# original base fixest counterparts, so we don't have "gg" equivalents of
+# setFixest_coefplot and setFixest_iplot. However, you can still invoke some
+# global fixest settings like setFixest_dict(). SImple example:
+
+base_inter$letter = letters[base_inter$period]
+est_letters = feols(y ~ x1 + i(letter, treat, 'e') | id+letter, base_inter)
+
+# Set global dictionary for capitalising the letters
+dict = LETTERS[1:10]; names(dict) = letters[1:10]
+setFixest_dict(dict)
+
+ggiplot(est_letters)
+
+setFixest_dict() # reset
+
+#
+# Example 4: group + cleaning
+#
+
+# You can use the argument group to group variables
+# You can further use the special character "^^" to clean
+#  the beginning of the coef. name: particularly useful for factors
+
+est = feols(Petal.Length ~ Petal.Width + Sepal.Length +
+							Sepal.Width + Species, iris)
+
+# No grouping:
+ggcoefplot(est)
+
+# now we group by Sepal and Species
+ggcoefplot(est, group = list(Sepal = "Sepal", Species = "Species"))
+
+# now we group + clean the beginning of the names using the special character ^^
+ggcoefplot(est, group = list(Sepal = "^^Sepal.", Species = "^^Species"))
+
+
+#
+# Example 5: Some more ggcoefplot/ggiplot extras
 #
 
 # We'll demonstrate using the staggered treatment example from the
 # introductory fixest vignette.
 
 data(base_stagg)
-est_twfe = feols(y ~ x1 + i(time_to_treatment, treated, ref = c(-1, -1000)) | id + year, base_stagg)
-est_sa20 = feols(y ~ x1 + sunab(year_treated, year) | id + year, base_stagg)
+est_twfe = feols(
+  y ~ x1 + i(time_to_treatment, treated, ref = c(-1, -1000)) | id + year,
+  base_stagg
+)
+est_sa20 = feols(
+  y ~ x1 + sunab(year_treated, year) | id + year,
+  data = base_stagg
+)
 
-ggiplot(list('TWFE' = est_twfe, 'Sun & Abraham (2020)' = est_sa20),
-        main = 'Staggered treatment', ref.line = -1, pt.join = TRUE)
+# Plot both regressions in a faceted plot
+ggiplot(
+  list('TWFE' = est_twfe, 'Sun & Abraham (2020)' = est_sa20),
+  main = 'Staggered treatment', ref.line = -1, pt.join = TRUE
+)
 
-# If you don't like the presentation of 'dodged' models in a single frame,
-# then it easy to facet them instead using multi_style = 'facet'.
-ggiplot(list('TWFE' = est_twfe, 'Sun & Abraham (2020)' = est_sa20),
-        main = 'Staggered treatment', ref.line = -1, pt.join = TRUE,
-        multi_style = 'facet')
-
-#
-# Example 3: Multiple estimation (ii)
-#
-
-# An area where ggiplot shines is in complex multiple estimation cases, such
-# as lists of fixest_multi objects. To illustrate, let's add a split variable
+# So far that's no different than base iplot (automatic legend  aside). But an
+# area where ggiplot shines is in complex multiple estimation cases, such as
+# lists of fixest_multi objects. To illustrate, let's add a split variable
 # (group) to our staggered dataset.
 base_stagg_grp = base_stagg
 base_stagg_grp$grp = ifelse(base_stagg_grp$id \%\% 2 == 0, 'Evens', 'Odds')
 
 # Now re-run our two regressions from earlier, but splitting the sample to
 # generate fixest_multi objects.
-est_twfe_grp = feols(y ~ x1 + i(time_to_treatment, treated, ref = c(-1, -1000)) |
-                     id + year, base_stagg_grp, split = ~ grp)
-est_sa20_grp = feols(y ~ x1 + sunab(year_treated, year) |
-                     id + year, base_stagg_grp, split = ~ grp)
+est_twfe_grp = feols(
+  y ~ x1 + i(time_to_treatment, treated, ref = c(-1, -1000)) | id + year,
+  data = base_stagg_grp, split = ~ grp
+)
+est_sa20_grp = feols(
+  y ~ x1 + sunab(year_treated, year) | id + year,
+  data = base_stagg_grp, split = ~ grp
+)
 
-# ggiplot combines with list of multi-estimation objects without a problem...
+# ggiplot combines the list of multi-estimation objects without a problem...
 ggiplot(list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
-        ref.line = -1, main = 'Staggered treatment: Split multi-sample')
+				ref.line = -1, main = 'Staggered treatment: Split multi-sample')
 
-# ... but is even better when we use faceting instead of dodged errorbars.
+# ... but is even better when we use facets instead of dodged errorbars.
 # Let's use this an opportunity to construct a fancy plot that invokes some
 # additional arguments and ggplot theming.
-ggiplot(list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
-        ref.line = -1,
-        main = 'Staggered treatment: Split multi-sample',
-        xlab = 'Time to treatment',
-        multi_style = 'facet',
-        geom_style = 'ribbon',
-        theme = theme_minimal() +
-           theme(text = element_text(family = 'HersheySans'),
-                 plot.title = element_text(hjust = 0.5),
-                 legend.position = 'none'))
+ggiplot(
+  list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
+  ref.line = -1,
+  main = 'Staggered treatment: Split multi-sample',
+  xlab = 'Time to treatment',
+  multi_style = 'facet',
+  geom_style = 'ribbon',
+  facet_args = list(labeller = labeller(id = \(x) gsub(".*: ", "", x))),
+  theme = theme_minimal() +
+    theme(
+      text = element_text(family = 'HersheySans'),
+      plot.title = element_text(hjust = 0.5),
+      legend.position = 'none'
+    )
+)
 
 #
 # Aside on theming and scale adjustments
@@ -186,32 +326,13 @@ ggiplot(list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
 # Setting the theme inside the `ggiplot()` call is optional and not strictly
 # necessary, since the ggplot2 API allows programmatic updating of existing
 # plots. E.g.
-last_plot() + labs(caption = 'Note: Super fancy plot brought to you by ggiplot')
-last_plot() + theme_void() + scale_colour_brewer(palette = 'Set1')
+last_plot() +
+	labs(caption = 'Note: Super fancy plot brought to you by ggiplot')
+last_plot() +
+	theme_grey() +
+	theme(legend.position = 'none') +
+	scale_fill_brewer(palette = 'Set1', aesthetics = c("colour", "fill"))
 # etc.
-
-#
-# Aside on dictionaries
-#
-
-# Dictionaries work similarly to iplot. Simple example:
-
-base_inter$letter = letters[base_inter$period]
-est_letters = feols(y ~ x1 + i(letter, treat, 'e') | id+letter, base_inter)
-
-ggiplot(est_letters) # No dictionary
-
-# Dictionary for capitalising the letters
-dict = LETTERS[1:10]; names(dict) = letters[1:10]
-
-# You can either set the dictionary directly in the plot call.
-ggiplot(est_letters, dict=dict)
-
-# Or, set it globally using the setFixest_dict macro
-setFixest_dict(dict)
-ggiplot(est_letters)
-
-setFixest_dict() # reset
 
 }
 \seealso{

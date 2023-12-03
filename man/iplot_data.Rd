@@ -47,8 +47,14 @@ and should take the form of an acceptable regular expression.}
 
 \item{.dict}{A dictionary (i.e. named character vector or a logical scalar).
 Used for changing coefficient names. Defaults to the values in
-\code{getFixest_dict()}. See the \code{?fixest::iplot} documentation for more
-information.}
+\code{getFixest_dict()}. See the \code{?fixest::coefplot} documentation for more
+information. Note: This argument applies dictionary changes directly to the
+return object for \code{coefplot_data}. However, it is ignored for \code{iplot_data},
+since we want to preserve the numeric ordering for potential event study
+plots. (And imposing an ordered factor would create its own downstream
+problems in the case of continuous plot features like ribbons.) Instead, any
+dictionary replacement for \code{ggiplot} is deferred to the actual plot call and
+applied directly to the labels.}
 
 \item{.internal.only.i}{Logical variable used for some internal function
 handling when passing on to coefplot/iplot.}
@@ -71,7 +77,7 @@ valid uses:
 ⁠group=list(group_name=\"pattern\")⁠,
 ⁠group=list(group_name=c(\"var_start\", \"var_end\"))⁠,
 ⁠group=list(group_name=1:2))
-See the Details section of \code{?fixest::iplot} for more.}
+See the Details section of \code{?fixest::coefplot} for more.}
 }
 \value{
 A data frame consisting of estimate values, confidence intervals,

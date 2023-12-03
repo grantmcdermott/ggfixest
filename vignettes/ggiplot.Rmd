@@ -1,8 +1,8 @@
 ---
-title: "Comparing ggiplot with fixest::iplot"
+title: "Comparing ggiplot with iplot"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Comparing ggiplot with fixest::iplot}
+  %\VignetteIndexEntry{Comparing ggiplot with iplot}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -252,7 +252,7 @@ last_plot() +
 last_plot() + 
 	theme_grey() + 
 	theme(legend.position = 'none') +
-	scale_colour_brewer(palette = 'Set1', aesthetics = c('colour', 'fill'))
+	scale_fill_brewer(palette = 'Set1', aesthetics = c('colour', 'fill'))
 ```
 
 etc.

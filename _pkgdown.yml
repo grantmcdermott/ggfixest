@@ -2,3 +2,15 @@ url: http://grantmcdermott.com/ggiplot/
 template:
   bootstrap: 5
 
+navbar:
+  type: default
+  left:
+  - text: Vignettes
+    menu:
+    - text: Comparing ggiplot with iplot
+      href: articles/ggiplot.html
+  - text: News
+    href: news/index.html
+  - text: Reference
+    href: reference/index.html
+
