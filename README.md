@@ -11,10 +11,13 @@ badge](https://grantmcdermott.r-universe.dev/badges/ggiplot)](https://grantmcder
 [![R-CMD-check](https://github.com/grantmcdermott/ggiplot/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/grantmcdermott/ggiplot/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-This package provides a **ggplot2** equivalent of the base
-[`fixest::iplot()`](https://lrberge.github.io/fixest/reference/coefplot.html)
-function. The goal of **ggiplot** is to produce nice [event
-study](https://theeffectbook.net/ch-EventStudies.html) plots with
+This package provides **ggplot2** equivalents of the (base)
+[`fixest::coefplot`](https://lrberge.github.io/fixest/reference/coefplot.html)
+and
+[`fixest::iplot`](https://lrberge.github.io/fixest/reference/coefplot.html)
+functions. The goal of **ggiplot** is to produce nice coefficient and
+interaction plots (including [event
+study](https://theeffectbook.net/ch-EventStudies.html) plots) with
 minimal effort, but with lots of scope for further customization.
 
 ## Installation
@@ -27,28 +30,71 @@ install.packages("ggiplot", repos = "https://grantmcdermott.r-universe.dev")
 
 ## Quickstart
 
-A detailed [introductory
-vignette](http://grantmcdermott.com/ggiplot/articles/ggiplot.html) with
-many examples is provided on the package homepage (or, by typing
-`vignette("ggiplot")` in your R console). But here are a few quickstart
-examples to whet your appetite. First, a basic event study plot.
+The \[package website\]([introductory
+vignette](http://grantmcdermott.com/ggiplot) provides a number of
+examples in the help documentation. (Also available by typing
+`?ggcoefplot` or `?ggiplot` in your R console.) But here are a few
+quickstart examples to whet your appetite.
+
+Start by loading the **ggiplot** and **fixest** packages. Note that
+**ggiplot** *only* supports **fixest** model objects, so the latter must
+be loaded alongside the former.
 
 ``` r
-library(ggiplot)
 library(fixest)
+library(ggiplot)
+```
 
+### Coefficient plots
+
+Use `ggcoefplot` to draw basic coefficient plots.
+
+``` r
+est = feols(
+  Petal.Length ~ Petal.Width + Sepal.Length + Sepal.Width + Species, 
+  data = iris
+)
+
+# coefplot(est) ## base version
+ggcoefplot(est) ## this package
+```
+
+<img src="man/figures/README-coefplot1-1.png" width="100%" />
+
+The above plot call and output should look very familiar to regular
+**fixest** users. Like its base equivalent, `ggcoefplot` can be heavily
+customized and contains various shortcuts for common operations. For
+example, we can use regex the control the coefficient grouping logic.
+
+``` r
+ggcoefplot(est, group = list(Sepal = "^^Sepal.", Species = "^^Species"))
+```
+
+<img src="man/figures/README-coefplot2-1.png" width="100%" />
+
+### Event study plots
+
+The `ggiplot` function is a special case of `ggocoefplot` that only
+plots coefficients with factor levels or interactions (specifically,
+those created with the
+[`i()`](https://lrberge.github.io/fixest/reference/i.html) operator).
+This is especially useful for producing event study plots in a
+difference-in-differences (DiD) setup.
+
+``` r
 est_did = feols(y ~ x1 + i(period, treat, 5) | id+period, base_did)
 
 # iplot(est_did) ## base version
 ggiplot(est_did) ## this package
 ```
 
-<img src="man/figures/README-example1-1.png" width="100%" />
+<img src="man/figures/README-es1-1.png" width="100%" />
 
-The above plot call and output should look very familiar to regular
-**fixest** users. But note that `ggiplot()` supports several features
-that are not available in the base `iplot()` version. For example,
-plotting multiple confidence intervals and aggregate treatments effects.
+Again, the above plot call and output should look very familiar to
+regular **fixest** users. But note that `ggiplot` supports several
+features that are not available in the base `iplot` version. For
+example, plotting multiple confidence intervals and aggregate treatments
+effects.
 
 ``` r
 ggiplot(
@@ -58,7 +104,7 @@ ggiplot(
 )
 ```
 
-<img src="man/figures/README-example2-1.png" width="100%" />
+<img src="man/figures/README-es2-1.png" width="100%" />
 
 And you can get quite fancy, combining lists of complex multiple
 estimation objects with custom themes, and so on.
@@ -94,4 +140,10 @@ ggiplot(
 )
 ```
 
-<img src="man/figures/README-example3-1.png" width="100%" />
+<img src="man/figures/README-es3-1.png" width="100%" />
+
+For more `ggiplot` examples and comparisons with its base counterpart,
+see the detailed
+[vignette](http://grantmcdermott.com/ggiplot/articles/ggiplot.html) on
+the package homepage (or, by typing `vignette("ggiplot")` in your R
+console).
