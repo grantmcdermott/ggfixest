@@ -212,7 +212,7 @@ ggiplot = function(
   dict         = if (!is.null(dots[['dict']])) dots[['dict']] else fixest::getFixest_dict()
   col          = if (!is.null(dots[['col']])) dots[['col']] else NULL
   pt.pch       = if (!is.null(dots[['pt.pch']])) dots[['pt.pch']] else NULL
-  pt.size      = if (!is.null(dots[['pt.size']])) dots[['pt.size']] else GeomPoint$default_aes$size
+  pt.size      = if (!is.null(dots[['pt.size']])) dots[['pt.size']] else 2.5    # Hard-coded as 2.5 based on dicussion here: https://github.com/grantmcdermott/ggiplot/pull/27#issuecomment-1837850786
   pt.join      = if (!is.null(dots[['pt.join']])) dots[['pt.join']] else FALSE
   zero         = if (!is.null(dots[['zero']])) dots[['zero']] else TRUE
   zero.par = list(col = 'black', lty = 1, lwd = 0.3)
