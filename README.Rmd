@@ -22,11 +22,14 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/grantmcdermott/ggiplot/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/grantmcdermott/ggiplot/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-This package provides a **ggplot2** equivalent of the base 
-[`fixest::iplot()`](https://lrberge.github.io/fixest/reference/coefplot.html)
-function. The goal of **ggiplot** is to produce nice
-[event study](https://theeffectbook.net/ch-EventStudies.html) plots with minimal
-effort, but with lots of scope for further customization.
+This package provides **ggplot2** equivalents of the (base) 
+[`fixest::coefplot`](https://lrberge.github.io/fixest/reference/coefplot.html)
+and
+[`fixest::iplot`](https://lrberge.github.io/fixest/reference/coefplot.html)
+functions. The goal of **ggiplot** is to produce nice coefficient and
+interaction plots (including
+[event study](https://theeffectbook.net/ch-EventStudies.html) plots) with
+minimal effort, but with lots of scope for further customization.
 
 ## Installation
 
@@ -38,28 +41,64 @@ install.packages("ggiplot", repos = "https://grantmcdermott.r-universe.dev")
 
 ## Quickstart
 
-A detailed
-[introductory vignette](http://grantmcdermott.com/ggiplot/articles/ggiplot.html) 
-with many examples is provided on the package homepage (or, by typing 
-`vignette("ggiplot")` in your R console). But here are a few quickstart examples
-to whet your appetite. First, a basic event study plot.
+The [package website](http://grantmcdermott.com/ggiplot)
+provides a number of examples in the help documentation. (Also available by
+typing `?ggcoefplot` or `?ggiplot` in your R console.)  But here are a few 
+quickstart examples to whet your appetite.
 
-```{r example1, message=FALSE}
-library(ggiplot)
+Start by loading the **ggiplot** and **fixest** packages together. Note that
+**ggiplot** _only_ supports **fixest** model objects, so the latter must be 
+loaded alongside the former.
+
+```{r pkgload, message=FALSE}
 library(fixest)
+library(ggiplot)
+```
 
+### Coefficient plots
+
+Use `ggcoefplot` to draw basic coefficient plots.
+
+```{r coefplot1, message=FALSE}
+est = feols(
+  Petal.Length ~ Petal.Width + Sepal.Length + Sepal.Width + Species, 
+  data = iris
+)
+
+# coefplot(est) ## base version
+ggcoefplot(est) ## this package
+```
+
+The above plot call and output should look very familiar to regular **fixest**
+users. Like its base equivalent, `ggcoefplot` can be heavily customized and
+contains various shortcuts for common operations. For example, we can use regex
+the control the coefficient grouping logic.
+
+```{r coefplot2, message=FALSE}
+ggcoefplot(est, group = list(Sepal = "^^Sepal.", Species = "^^Species"))
+```
+
+### Event study plots
+
+The `ggiplot` function is a special case of `ggocoefplot` that only plots
+coefficients with factor levels or interactions (specifically, those created
+with the [`i()`](https://lrberge.github.io/fixest/reference/i.html)
+operator). This is especially useful for producing event study plots in a
+difference-in-differences (DiD) setup.
+
+```{r es1, message=FALSE}
 est_did = feols(y ~ x1 + i(period, treat, 5) | id+period, base_did)
 
 # iplot(est_did) ## base version
 ggiplot(est_did) ## this package
 ```
 
-The above plot call and output should look very familiar to regular **fixest**
-users. But note that `ggiplot()` supports several features that are not 
-available in the base `iplot()` version. For example, plotting multiple 
+Again, the above plot call and output should look very familiar to regular
+**fixest** users. But note that `ggiplot` supports several features that are
+not available in the base `iplot` version. For example, plotting multiple
 confidence intervals and aggregate treatments effects.
 
-```{r example2}
+```{r es2}
 ggiplot(
     est_did,
     ci_level = c(.8, .95),
@@ -71,7 +110,7 @@ ggiplot(
 And you can get quite fancy, combining lists of complex multiple estimation
 objects with custom themes, and so on.
 
-```{r example3}
+```{r es3}
 base_stagg_grp = base_stagg
 base_stagg_grp$grp = ifelse(base_stagg_grp$id %% 2 == 0, 'Evens', 'Odds')
 
@@ -101,3 +140,7 @@ ggiplot(
         )
 )
 ```
+
+For more `ggiplot` examples and comparisons with its base counterpart, see the
+detailed [vignette](http://grantmcdermott.com/ggiplot/articles/ggiplot.html) on
+the package homepage (or, by typing `vignette("ggiplot")` in your R console).
