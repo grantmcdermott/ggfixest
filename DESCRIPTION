@@ -1,28 +1,36 @@
 Package: ggiplot
-Title: ggplot2 Equivalents of fixest::iplot()
-Version: 0.0.1.9010
+Title: ggplot2 equivalents of fixest's `iplot` and `coefplot` functions
+Version: 0.0.1.9011
 Authors@R: 
-    person(given = "Grant",
-           family = "McDermott",
-           role = c("aut", "cre"),
-           email = "grantmcd@uoregon.edu",
-           comment = c(ORCID = "0000-0001-7883-8573"))
-Description: Provides ggplot2 equivalents of fixest::iplot() for producing
-    "event study" plots. Enables some additional functionality and convenience
-    features, including grouped mutli_fixest object facetting and programatic
-    updating of existing plots (e.g. themes and aesthetics).
+    c(person(given   = "Grant",
+             family  = "McDermott",
+             role    = c("aut", "cre"),
+             email   = "gmcd@amazon.com",
+             comment = c(ORCID = "0000-0001-7883-8573")),
+      person(given   = "Laurent",
+            family  = "Berge",
+            role    = "ctb",
+            email   = "laurent.berge@u-bordeaux.fr")
+    )
+Description: Provides ggplot2 equivalents of fixest::iplot and fixest::coefplot
+    for producing nice "event study" and coefficient plots, respectively. Enables 
+    some additional functionality and convenience features, including grouped
+    multi-fixest object faceting and programatic updating of existing plots
+    (e.g., themes and aesthetics).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.2.3.9000
 URL: http://grantmcdermott.com/ggiplot/
 BugReports: https://github.com/grantmcdermott/ggiplot/issues
 Remotes: lrberge/fixest
 Depends: 
     ggplot2 (>= 2.2.0)
 Imports: 
-    fixest (>= 0.11.0),
+    fixest (>= 0.11.2),
+    dreamerr,
+    ggh4x,
     scales,
     utils,
     marginaleffects (>= 0.10.0),
