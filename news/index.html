@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggiplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9011</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9012</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,21 +51,22 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.1.9011" id="ggiplot-0019011-development-version">ggiplot 0.0.1.9011 (development version)<a class="anchor" aria-label="anchor" href="#ggiplot-0019011-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.0.1.9012" id="ggiplot-0019012-development-version">ggiplot 0.0.1.9012 (development version)<a class="anchor" aria-label="anchor" href="#ggiplot-0019012-development-version"></a></h2>
 <div class="section level3">
-<h3 id="new-features-0-0-1-9011">New features<a class="anchor" aria-label="anchor" href="#new-features-0-0-1-9011"></a></h3>
+<h3 id="new-features-0-0-1-9012">New features<a class="anchor" aria-label="anchor" href="#new-features-0-0-1-9012"></a></h3>
 <ul><li>Support for <code>ggcoefplot</code>, a ggplot equivalent of <code>coefplot</code> (<a href="https://github.com/grantmcdermott/ggiplot/issues/28" class="external-link">#28</a>).</li>
+<li>Support <code>pt.size</code> argument for controlling the size of point markers (<a href="https://github.com/grantmcdermott/ggiplot/issues/27" class="external-link">#27</a>). Thanks <a href="https://github.com/jcvdav" class="external-link">@jcvdav</a>.</li>
 <li>Support <code>keep</code> and <code>drop</code> arguments for subsetting coefficients (<a href="https://github.com/grantmcdermott/ggiplot/issues/22" class="external-link">#22</a>).</li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-and-breaking-changes-0-0-1-9011">Bug fixes and breaking changes<a class="anchor" aria-label="anchor" href="#bug-fixes-and-breaking-changes-0-0-1-9011"></a></h3>
+<h3 id="bug-fixes-and-breaking-changes-0-0-1-9012">Bug fixes and breaking changes<a class="anchor" aria-label="anchor" href="#bug-fixes-and-breaking-changes-0-0-1-9012"></a></h3>
 <ul><li>Fix naming mismatch in multiple estimation with different time periods (<a href="https://github.com/grantmcdermott/ggiplot/issues/10" class="external-link">#10</a>). Thanks <a href="https://github.com/brockmwilson" class="external-link">@brockmwilson</a>.</li>
 <li>Slight tweak to default theme, which now uses dotted grid lines to more closely match <code><a href="https://lrberge.github.io/fixest/reference/coefplot.html" class="external-link">iplot()</a></code> (#e5cf0b0).</li>
 <li>Correctly parse formula-transformed dependent variable names, e.g. <code>log(y</code> (<a href="https://github.com/grantmcdermott/ggiplot/issues/20" class="external-link">#20</a>).</li>
 <li>The confidence intervals for some figures may be slightly wider due to upstream changes in fixest (<a href="https://github.com/grantmcdermott/ggiplot/issues/25" class="external-link">#25</a>; see also <a href="https://github.com/lrberge/fixest/pull/408" class="external-link uri">https://github.com/lrberge/fixest/pull/408</a>).</li>
 </ul></div>
 <div class="section level3">
-<h3 id="internals-0-0-1-9011">Internals<a class="anchor" aria-label="anchor" href="#internals-0-0-1-9011"></a></h3>
+<h3 id="internals-0-0-1-9012">Internals<a class="anchor" aria-label="anchor" href="#internals-0-0-1-9012"></a></h3>
 <ul><li>Add a (visual) test suite (<a href="https://github.com/grantmcdermott/ggiplot/issues/12" class="external-link">#12</a> with several increments thereafter). Thanks to <a href="https://github.com/vincentarelbundock" class="external-link">@vincentarelbundock</a> for <del>tinyviztest</del> <a href="https://github.com/vincentarelbundock/tinysnapshot" class="external-link">tinysnapshot</a>!</li>
 <li>Switch to <code><a href="https://rdrr.io/pkg/marginaleffects/man/hypotheses.html" class="external-link">marginaleffects::hypotheses()</a></code> internally for <code><a href="../reference/aggr_es.html">aggr_es()</a></code> to match the upstream changes in <strong>marginaleffects</strong>.</li>
 <li>Simplify multi_fixest object parsing (<a href="https://github.com/grantmcdermott/ggiplot/issues/19" class="external-link">#19</a>).</li>
