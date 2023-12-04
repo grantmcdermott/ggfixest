@@ -1,7 +1,8 @@
-# ggiplot 0.0.1.9010 (development version)
+# ggiplot 0.0.1.9011 (development version)
 
 ## New features
 
+- Support for `ggcoefplot`, a ggplot equivalent of `coefplot` (#28).
 - Support `keep` and `drop` arguments for subsetting coefficients (#22).
 
 ## Bug fixes and breaking changes
