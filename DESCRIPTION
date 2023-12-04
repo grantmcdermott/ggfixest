@@ -1,6 +1,6 @@
 Package: ggiplot
 Title: ggplot2 equivalents of fixest's `iplot` and `coefplot` functions
-Version: 0.0.1.9011
+Version: 0.0.1.9012
 Authors@R: 
     c(person(given   = "Grant",
              family  = "McDermott",
