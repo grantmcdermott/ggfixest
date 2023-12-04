@@ -30,13 +30,12 @@ install.packages("ggiplot", repos = "https://grantmcdermott.r-universe.dev")
 
 ## Quickstart
 
-The \[package website\]([introductory
-vignette](http://grantmcdermott.com/ggiplot) provides a number of
-examples in the help documentation. (Also available by typing
-`?ggcoefplot` or `?ggiplot` in your R console.) But here are a few
+The [package website](http://grantmcdermott.com/ggiplot)
+provides a number of examples in the help documentation. (Also available by
+typing `?ggcoefplot` or `?ggiplot` in your R console.)  But here are a few 
 quickstart examples to whet your appetite.
 
-Start by loading the **ggiplot** and **fixest** packages. Note that
+Start by loading the **ggiplot** and **fixest** packages together. Note that
 **ggiplot** *only* supports **fixest** model objects, so the latter must
 be loaded alongside the former.
 
