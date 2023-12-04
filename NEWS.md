@@ -1,4 +1,4 @@
-# ggiplot 0.0.1.9012 (development version)
+# ggiplot 0.0.2
 
 ## New features
 
