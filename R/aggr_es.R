@@ -91,7 +91,7 @@ aggr_es = function(object,
     )
     ## Bind together and capture/re-assign and the hypothesis attribute (again,
     ## mostly for the "both" case)
-    hyp_attr = sapply(res, \(x) attributes(x)["hypothesis"])
+    hyp_attr = sapply(res, function(x) {attributes(x)["hypothesis"]})
     res = do.call("rbind", res)
     row.names(res) = NULL
     if (period == "both") {
