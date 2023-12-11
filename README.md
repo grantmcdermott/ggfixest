@@ -1,48 +1,54 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggiplot
+# ggfixest
 
 <!-- badges: start -->
 
 [![R-universe status
-badge](https://grantmcdermott.r-universe.dev/badges/ggiplot)](https://grantmcdermott.r-universe.dev)
-[![Docs](https://img.shields.io/badge/docs-homepage-blue.svg)](https://grantmcdermott.com/ggiplot/index.html)
-[![R-CMD-check](https://github.com/grantmcdermott/ggiplot/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/grantmcdermott/ggiplot/actions/workflows/R-CMD-check.yaml)
+badge](https://grantmcdermott.r-universe.dev/badges/ggfixest)](https://grantmcdermott.r-universe.dev)
+[![Docs](https://img.shields.io/badge/docs-homepage-blue.svg)](https://grantmcdermott.com/ggfixest/index.html)
+[![R-CMD-check](https://github.com/grantmcdermott/ggfixest/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/grantmcdermott/ggfixest/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-This package provides **ggplot2** equivalents of the (base)
-[`fixest::coefplot`](https://lrberge.github.io/fixest/reference/coefplot.html)
-and
-[`fixest::iplot`](https://lrberge.github.io/fixest/reference/coefplot.html)
-functions. The goal of **ggiplot** is to produce nice coefficient and
-interaction plots (including [event
-study](https://theeffectbook.net/ch-EventStudies.html) plots) with
-minimal effort, but with lots of scope for further customization.
+The **ggfixest** package provides dedicated **ggplot2** plotting methods
+for **fixest** objects. Specifically, it provides drop-in “gg”
+equivalents of the latter’s
+[`coefplot`](https://lrberge.github.io/fixest/reference/coefplot.html)
+and [`iplot`](https://lrberge.github.io/fixest/reference/coefplot.html)
+base plotting functions.
+
+The goal of **ggfixest** is to produce nice looking coefficient plots
+and interaction plots—including [event
+study](https://theeffectbook.net/ch-EventStudies.html) plots—with
+minimal effort and scope for further customization.
 
 ## Installation
 
 The package is not yet on CRAN, but can be installed from R-universe:
 
 ``` r
-install.packages("ggiplot", repos = "https://grantmcdermott.r-universe.dev")
+install.packages("ggfixest", repos = "https://grantmcdermott.r-universe.dev")
 ```
 
 ## Quickstart
 
-The [package website](http://grantmcdermott.com/ggiplot)
-provides a number of examples in the help documentation. (Also available by
-typing `?ggcoefplot` or `?ggiplot` in your R console.)  But here are a few 
+The [package website](http://grantmcdermott.com/ggfixest) provides a
+number of examples in the help documentation. (Also available by typing
+`?ggcoefplot` or `?ggiplot` in your R console.) But here are a few
 quickstart examples to whet your appetite.
 
-Start by loading the **ggiplot** and **fixest** packages together. Note that
-**ggiplot** *only* supports **fixest** model objects, so the latter must
-be loaded alongside the former.
+Start by loading the **ggfixest** packages.
 
 ``` r
-library(fixest)
-library(ggiplot)
+library(ggfixest)
+#> Loading required package: ggplot2
+#> Loading required package: fixest
 ```
+
+Note this automatically loaded **ggplot2** and **fixest** too as
+required dependencies. As the package name suggests, **ggfixest** *only*
+supports **fixest** model objects.[^1]
 
 ### Coefficient plots
 
@@ -76,8 +82,8 @@ ggcoefplot(est, group = list(Sepal = "^^Sepal.", Species = "^^Species"))
 The `ggiplot` function is a special case of `ggocoefplot` that only
 plots coefficients with factor levels or interactions (specifically,
 those created with the
-[`i()`](https://lrberge.github.io/fixest/reference/i.html) operator).
-This is especially useful for producing event study plots in a
+[`i`](https://lrberge.github.io/fixest/reference/i.html) operator). This
+is especially useful for producing event study plots in a
 difference-in-differences (DiD) setup.
 
 ``` r
@@ -143,6 +149,13 @@ ggiplot(
 
 For more `ggiplot` examples and comparisons with its base counterpart,
 see the detailed
-[vignette](http://grantmcdermott.com/ggiplot/articles/ggiplot.html) on
+[vignette](http://grantmcdermott.com/ggfixest/articles/ggiplot.html) on
 the package homepage (or, by typing `vignette("ggiplot")` in your R
 console).
+
+[^1]: For other model classes, a more generic visualization package/tool
+    like
+    [**see**](https://easystats.github.io/see/articles/parameters.html)
+    or
+    [**modelsummary**](https://modelsummary.com/vignettes/modelplot.html)
+    would be more appropriate.

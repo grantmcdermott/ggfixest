@@ -1,3 +1,9 @@
+# ggfixest 0.0.3
+
+## Breaking change
+
+- The package name has been changed to **ggfixest** (#29). 
+
 # ggiplot 0.0.2
 
 ## New features

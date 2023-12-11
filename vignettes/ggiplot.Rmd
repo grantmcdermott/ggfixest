@@ -14,23 +14,25 @@ knitr::opts_chunk$set(
 )
 ```
 
-As far as possible, **ggiplot** (`ggiplot()`) tries to mimic the behaviour of 
-its base compatriot (`fixest::iplot`). However, by leveraging the **ggplot2** 
-API and infrastructure, it also offers some additional functionality. This
-vignette will walk you through the key differences and correspondences.
+As far as possible, the **ggfixest** plotting functions try to mimic the
+behaviour of their base compatriots. However, they also offer additional
+functionality thanks to the **ggplot2** API. This vignette will walk you through
+the key differences and correspondences, specifically with regards to
+`ggiplot` versus the original `iplot`.^[The `ggcoefplot` and `coefplot`
+functions share a subset of the differences presented here, so you should be
+aware of those too once you've read this vignette.]
 
-Start by loading **ggiplot** alongside **fixest**. Note that you always have to
-load the latter alongside the former if you actually want to run the underlying
-regressions. (Which, presumably, you do.)
+Start by loading **ggfixest**. This will automatically load **ggplot2** and
+and **fixest** too, as both of these packages are required for this one to
+work.
 
 ```{r setup}
-library(ggiplot)
-library(fixest)
+library(ggfixest)
 ```
 
 In the examples that follow, I'll be drawing on the **fixest** 
 [introductory vignette](https://lrberge.github.io/fixest/articles/fixest_walkthrough.html),
-as well as the `iplot()` help documentation. 
+as well as the `iplot` help documentation. 
 
 ### Example 1: Vanilla TWFE
 
@@ -55,7 +57,7 @@ errorbar(s) rather than (`ggiplot`'s default of) pointrange(s).
 ggiplot(est_did, geom = 'errorbar')
 ```
 
-Many of the arguments for `iplot()` carry over to `ggiplot()` too. This is
+Many of the arguments for `iplot` carry over to `ggiplot` too. This is
 deliberate, since we want to reduce the cognitive overhead of switching between
 the two plotting methods. For example, we can join points using the same 
 `pt.join = TRUE` argument.
@@ -242,7 +244,7 @@ ggiplot(
 
 #### On theming and scale adjustments
 
-Setting the theme inside the `ggiplot()` call is optional and not strictly
+Setting the theme inside the `ggiplot` call is optional and not strictly
 necessary, since the ggplot2 API allows programmatic updating of existing
 plots. E.g.
 
@@ -277,7 +279,7 @@ You can either set the dictionary directly in the plot call...
 ggiplot(est_letters, dict = dict)
 ```
 
-... Or, set it globally using the `setFixest_dict()` macro.
+... Or, set it globally using the `setFixest_dict` macro.
 
 ```{r dict_global}
 setFixest_dict(dict)

@@ -1,4 +1,4 @@
-library(ggiplot)
+library(ggfixest)
 library(tinytest)
 
 #
