@@ -58,7 +58,7 @@ require list objects. Currently used are:
 example, \code{zero.par = list(col = 'orange')}.
 \item \code{ref.line} and \code{ref.line.par} for defining or adjusting the vertical
 reference line. For example, \code{ref.line.par = list(col = 'red', lty = 4)}.
-\item \code{pt.pch} and \code{pt.join} for overriding the default point estimate shapes and joining them, respectively.
+\item \code{pt.pch}, \code{pt.size}, and \code{pt.join} for overriding the default point estimate shapes, size, and joining them, respectively.
 \item \code{col} for manually defining line, point, and ribbon colours.
 \item \code{ci_level} for changing the desired confidence level (default = 0.95).
 Note that multiple levels are allowed, e.g. \code{ci_level = c(0.8, 0.95)}.

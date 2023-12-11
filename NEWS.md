@@ -9,6 +9,8 @@
 ## New features
 
 - Support for `ggcoefplot`, a ggplot equivalent of `coefplot` (#28).
+- Support `pt.size` argument for controlling the size of point markers (#27).
+Thanks @jcvdav.
 - Support `keep` and `drop` arguments for subsetting coefficients (#22).
 
 ## Bug fixes and breaking changes

@@ -37,6 +37,7 @@ ggiplot = function(
   dict         = if (!is.null(dots[['dict']])) dots[['dict']] else fixest::getFixest_dict()
   col          = if (!is.null(dots[['col']])) dots[['col']] else NULL
   pt.pch       = if (!is.null(dots[['pt.pch']])) dots[['pt.pch']] else NULL
+  pt.size      = if (!is.null(dots[['pt.size']])) dots[['pt.size']] else 2.5    # Hard-coded as 2.5 based on dicussion here: https://github.com/grantmcdermott/ggiplot/pull/27#issuecomment-1837850786
   pt.join      = if (!is.null(dots[['pt.join']])) dots[['pt.join']] else FALSE
   ## hold off deciding zero line until we have seen the data
   # zero         = if (!is.null(dots[['zero']])) dots[['zero']] else TRUE
@@ -170,9 +171,9 @@ ggiplot = function(
       names(pt_values) = pt_values_df$group
   }
 
-  ptsize = 2.5
+
   if (multi_style == "facet") {
-      ptsize = ptsize - 0.25 * n_fcts
+      pt.size = pt.size - 0.25 * n_fcts
   }
 
   if (multi_style == "none") {
@@ -335,35 +336,35 @@ ggiplot = function(
                if (multi_style == "dodge") {
                    if (length(ci_level) == 1) {
                        geom_point(
-                           shape = pt.pch, size = ptsize,
+                           shape = pt.pch, size = pt.size,
                            position = position_dodge2(width = ci.width, padding = ci.width)
                        )
                    } else {
                        geom_point(
                            data = ~ subset(.x, ci_level == max(ci_level)),
-                           shape = pt.pch, size = ptsize,
+                           shape = pt.pch, size = pt.size,
                            position = position_dodge2(width = ci.width, padding = ci.width)
                        )
                    }
                } else {
-                   geom_point(shape = pt.pch, size = ptsize)
+                   geom_point(shape = pt.pch, size = pt.size)
                }
            } else {
                if (multi_style == "dodge") {
                    if (length(ci_level) == 1) {
                        geom_point(
-                           size = ptsize,
+                           size = pt.size,
                            position = position_dodge2(width = ci.width, padding = ci.width)
                        )
                    } else {
                        geom_point(
                            data = ~ subset(.x, ci_level == max(ci_level)),
-                           size = ptsize,
+                           size = pt.size,
                            position = position_dodge2(width = ci.width, padding = ci.width)
                        )
                    }
                } else {
-                   geom_point(size = ptsize)
+                   geom_point(size = pt.size)
                }
            }
        }
