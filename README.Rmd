@@ -24,14 +24,14 @@ knitr::opts_chunk$set(
 
 The **ggfixest** package provides dedicated **ggplot2** plotting methods for
 **fixest** objects. Specifically, it provides drop-in "gg" equivalents of the
-(base) [`coefplot`](https://lrberge.github.io/fixest/reference/coefplot.html)
+latter's [`coefplot`](https://lrberge.github.io/fixest/reference/coefplot.html)
 and [`iplot`](https://lrberge.github.io/fixest/reference/coefplot.html)
-functions.
+base plotting functions.
 
 The goal of **ggfixest** is to produce nice looking coefficient plots and
-interaction plots (including
-[event study](https://theeffectbook.net/ch-EventStudies.html) plots) with
-minimal effort, and scope for further customization.
+interaction plots---including
+[event study](https://theeffectbook.net/ch-EventStudies.html)
+plots---with minimal effort and scope for further customization.
 
 ## Installation
 
@@ -50,8 +50,8 @@ quickstart examples to whet your appetite.
 
 Start by loading the **ggfixest** packages.
 
-```{r pkgload, message=FALSE}
-library(fixest)
+```{r pkgload}
+library(ggfixest)
 ```
 
 Note this automatically loaded **ggplot2** and **fixest** too as required
@@ -59,7 +59,7 @@ dependencies. As the package name suggests, **ggfixest** _only_ supports
 **fixest** model objects.^[For other model classes, a more generic visualization
 package/tool like
 [**see**](https://easystats.github.io/see/articles/parameters.html) or
-[**model**](https://modelsummary.com/vignettes/modelplot.html)
+[**modelsummary**](https://modelsummary.com/vignettes/modelplot.html)
 would be more appropriate.]
 
 ### Coefficient plots
