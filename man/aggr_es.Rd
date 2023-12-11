@@ -7,7 +7,7 @@
 aggr_es(
   object,
   rhs = 0,
-  period = c("post", "pre", "both"),
+  period = "post",
   aggregation = c("mean", "cumulative"),
   abbr_term = TRUE,
   ...
@@ -19,8 +19,10 @@ been used to facilitate an "event-study" DiD design. See Examples.}
 
 \item{rhs}{Numeric. The null hypothesis value. Defaults to 0.}
 
-\item{period}{Character string. Which group of periods are we aggregating?
-One of "post" (the default), "prep", or "both".}
+\item{period}{Keyword string or numeric sequence. Which group of periods
+are we aggregating? Can either be one of three convenience strings---i.e.,
+"post" (the default), "prep", or "both"---or a numeric sequence that matches
+a subset of periods in the data (e.g. 6:8).}
 
 \item{aggregation}{Character string. The aggregation type. Either "mean" (the
 default) or "cumulative".}
@@ -62,9 +64,11 @@ est = feols(y ~ x1 + i(period, treat, 5) | id + period, base_did)
 attributes(post_mean)["hypothesis"]
 
 # Other hypothesis and aggregation options
-aggr_es(est, aggregation = "cumulative")
-aggr_es(est, period = "both")
-aggr_es(est, rhs = -1, period = "pre")
+aggr_es(est, aggregation = "cumulative") # cumulative instead of mean effects
+aggr_es(est, period = "pre")             # pre period instead of post
+aggr_es(est, period = "both")            # pre & post periods separately
+aggr_es(est, period = 5:6)               # specific subset of periods
+aggr_es(est, rhs = -1, period = "pre")   # pre period with H0 value of 1
 # Etc.
 
 }

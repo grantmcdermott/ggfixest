@@ -38,10 +38,10 @@
 #'   variables created with i. This is an index, just try increasing numbers to
 #'   hopefully obtain what you want. Passed down to
 #'   `fixest::iplot(..., i.select = .i.select)`
-#' @param .aggr_es A character string indicating whether the aggregated mean
-#' post- (and/or pre-) treatment effect should be added as a column to the
-#' returned data frame. Passed to `aggr_es(..., aggregation = "mean")` and
-#' should be one of "none" (the default), "post", "pre", or "both".
+#' @param .aggr_es A keyword string or numeric sequence indicating whether the
+#' aggregated mean treatment effects for some subset of the model should be
+#' added as a column to the returned data frame. Passed to
+#' `aggr_es(..., aggregation = "mean")`.
 #' @details This function is a wrapper around
 #' `fixest::iplot(..., only.params = TRUE)`, but with various checks and tweaks
 #' to better facilitate plotting with `ggplot2` and handling of complex object
@@ -75,14 +75,16 @@ iplot_data = function(
 		.dict = fixest::getFixest_dict(),
 		.internal.only.i = TRUE,
 		.i.select = 1,
-		.aggr_es = c("none", "post", "pre", "both"),
+		# .aggr_es = c("none", "post", "pre", "both"),
+		.aggr_es = NULL,
 		.group = "auto"
 	) {
 
-	.aggr_es = match.arg(.aggr_es)
+	# .aggr_es = match.arg(.aggr_es)
+	if (is.null(.aggr_es)) .aggr_es = "none"
 	if (isFALSE(.internal.only.i)) {
 		## No pre/post aggregation allowed for coefplot
-		if (.aggr_es!="none") warning("The .aggr_es argument will be ignored with (gg)coefplot calls.\n")
+		if (is.numeric(.aggr_es) || .aggr_es!="none") warning("The .aggr_es argument will be ignored with (gg)coefplot calls.\n")
 		.aggr_es = "none"
 	}
 
@@ -382,7 +384,12 @@ iplot_data = function(
   }
 
 
-  if (.aggr_es != "none") {
+  if (is.numeric(.aggr_es)) {
+  	ea = aggr_es(object, period = .aggr_es)
+  	d$aggr_eff = NA
+  	# d$aggr_eff[match(.aggr_es, )]
+  	d$aggr_eff[match(.aggr_es, d$estimate_names)] = ea$estimate[1]
+  } else if (.aggr_es != "none") {
   	ea = aggr_es(object, period = .aggr_es)
   	ref_idx = which(d$is_ref)
   	d$aggr_eff = 0

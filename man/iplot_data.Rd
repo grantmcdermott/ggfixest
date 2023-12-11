@@ -13,7 +13,7 @@ iplot_data(
   .dict = fixest::getFixest_dict(),
   .internal.only.i = TRUE,
   .i.select = 1,
-  .aggr_es = c("none", "post", "pre", "both"),
+  .aggr_es = NULL,
   .group = "auto"
 )
 
@@ -65,10 +65,10 @@ variables created with i. This is an index, just try increasing numbers to
 hopefully obtain what you want. Passed down to
 \code{fixest::iplot(..., i.select = .i.select)}}
 
-\item{.aggr_es}{A character string indicating whether the aggregated mean
-post- (and/or pre-) treatment effect should be added as a column to the
-returned data frame. Passed to \code{aggr_es(..., aggregation = "mean")} and
-should be one of "none" (the default), "post", "pre", or "both".}
+\item{.aggr_es}{A keyword string or numeric sequence indicating whether the
+aggregated mean treatment effects for some subset of the model should be
+added as a column to the returned data frame. Passed to
+\code{aggr_es(..., aggregation = "mean")}.}
 
 \item{.group}{A list, default is missing. Each element of the list reports
 the coefficients to be grouped while the name of the element is the group
