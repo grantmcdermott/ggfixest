@@ -17,7 +17,7 @@ Description: Provides ggplot2 equivalents of fixest::coefplot and fixest::iplot,
     additional functionality and convenience features, including grouped
     multi-fixest object faceting and programatic updating of existing plots
     (e.g., themes and aesthetics).
-License: MIT + file LICENSE
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
