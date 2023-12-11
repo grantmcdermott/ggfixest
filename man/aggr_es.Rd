@@ -67,7 +67,7 @@ attributes(post_mean)["hypothesis"]
 aggr_es(est, aggregation = "cumulative") # cumulative instead of mean effects
 aggr_es(est, period = "pre")             # pre period instead of post
 aggr_es(est, period = "both")            # pre & post periods separately
-aggr_es(est, period = 5:6)               # specific subset of periods
+aggr_es(est, period = 6:8)               # specific subset of periods
 aggr_es(est, rhs = -1, period = "pre")   # pre period with H0 value of 1
 # Etc.
 
