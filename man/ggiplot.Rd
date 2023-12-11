@@ -110,9 +110,7 @@ raw factors.
 
 }}
 \examples{
-# We'll also load fixest to estimate the actual models that we're plotting.
-library(fixest)
-library(ggiplot)
+library(ggfixest)
 
 ##
 # Author note: The examples that follow deliberately follow the original

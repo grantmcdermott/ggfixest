@@ -61,12 +61,10 @@
 #'   the base `coefplot`/`iplot` alternatives.
 #' @seealso [fixest::coefplot()], [fixest::iplot()].
 #' @return A ggplot2 object.
-#' @import ggplot2
+#' @import ggplot2 fixest
 #' @export
 #' @examples
-#' # We'll also load fixest to estimate the actual models that we're plotting.
-#' library(fixest)
-#' library(ggiplot)
+#' library(ggfixest)
 #'
 #' ##
 #' # Author note: The examples that follow deliberately follow the original
