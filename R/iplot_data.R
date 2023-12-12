@@ -42,6 +42,9 @@
 #' aggregated mean treatment effects for some subset of the model should be
 #' added as a column to the returned data frame. Passed to
 #' `aggr_es(..., aggregation = "mean")`.
+#' @param ... Other arguments passed on to `summary.fixest`, e.g. for
+#' post-estimation VCOV adjustment. Irrelevant arguments will be silently
+#' ignored.
 #' @details This function is a wrapper around
 #' `fixest::iplot(..., only.params = TRUE)`, but with various checks and tweaks
 #' to better facilitate plotting with `ggplot2` and handling of complex object
@@ -51,6 +54,7 @@
 #' relative x-axis positions, and other aesthetic information needed to draw
 #' a ggplot2 object.
 #' @import ggplot2
+#' @importFrom fixest coefplot iplot
 #' @export
 #' @examples
 #' library(fixest)
@@ -77,7 +81,8 @@ iplot_data = function(
 		.i.select = 1,
 		# .aggr_es = c("none", "post", "pre", "both"),
 		.aggr_es = NULL,
-		.group = "auto"
+		.group = "auto",
+		...
 	) {
 
 	# .aggr_es = match.arg(.aggr_es)
@@ -94,7 +99,10 @@ iplot_data = function(
 		.group = NULL
 	}
 
-  p = fixest::coefplot(object, only.params = TRUE, ci_level = .ci_level, dict = .dict, keep = .keep, drop = .drop, internal.only.i = .internal.only.i, i.select = .i.select)
+	# Catch any args pass through ... to summary.fixest (e.g., vcov adjustments)
+	object = summary(object, ...)
+
+  p = coefplot(object, only.params = TRUE, ci_level = .ci_level, dict = .dict, keep = .keep, drop = .drop, internal.only.i = .internal.only.i, i.select = .i.select)
   d = p$prms
 
   if (inherits(object, "fixest_multi")) {
@@ -423,9 +431,10 @@ coefplot_data = function(
 	.dict = fixest::getFixest_dict(),
 	.internal.only.i = FALSE,
 	.i.select = 1,
-	.aggr_es = "none"
+	.aggr_es = "none",
+	...
 ) {
 
-	iplot_data(object, .ci_level = .ci_level, .dict = .dict, .keep = .keep, .drop = .drop, .internal.only.i = .internal.only.i, .group = .group)
+	iplot_data(object, .ci_level = .ci_level, .dict = .dict, .keep = .keep, .drop = .drop, .internal.only.i = .internal.only.i, .group = .group, ...)
 
 	}

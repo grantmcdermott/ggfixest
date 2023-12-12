@@ -49,7 +49,6 @@ ggiplot = function(
   ref.line.par = list(col = "black", lty = 2, lwd = 0.3)
   if (!is.null(dots[["ref.line.par"]])) ref.line.par = utils::modifyList(ref.line.par, dots[["ref.line.par"]])
 
-
   # The next few blocks grab the underlying iplot/coefplot data, contingent on the
   # object that was passed into the function (i.e. fixest, fixest_multi, or
   # list)
@@ -58,11 +57,11 @@ ggiplot = function(
   if (inherits(object, c("fixest", "fixest_multi"))) {
 
       if (length(ci_level) == 1) {
-          data = iplot_data_func(object, .ci_level = ci_level, .dict = dict, .aggr_es = aggr_eff, .keep = keep, .drop = drop, .group = group, .i.select = i.select)
+          data = iplot_data_func(object, .ci_level = ci_level, .dict = dict, .aggr_es = aggr_eff, .keep = keep, .drop = drop, .group = group, .i.select = i.select, ...)
       } else {
           data = lapply(
               ci_level,
-              function(ci_l) iplot_data_func(object, .ci_level = ci_l, .dict = dict, .aggr_es = aggr_eff, .keep = keep, .drop = drop, .group = group, .i.select = i.select)
+              function(ci_l) iplot_data_func(object, .ci_level = ci_l, .dict = dict, .aggr_es = aggr_eff, .keep = keep, .drop = drop, .group = group, .i.select = i.select, ...)
           )
           data = do.call("rbind", data)
       }
@@ -82,13 +81,13 @@ ggiplot = function(
       if (length(ci_level) == 1) {
           data = lapply(
               object, iplot_data_func,
-              .ci_level = ci_level, .dict = dict, .aggr_es = aggr_eff, .group = group, .i.select = i.select
+              .ci_level = ci_level, .dict = dict, .aggr_es = aggr_eff, .group = group, .i.select = i.select, ...
           )
       } else {
           data = lapply(ci_level, function(ci_l) {
               lapply(object, iplot_data_func,
                   .ci_level = ci_l,
-                  .dict = dict, .aggr_es = aggr_eff, .group = group, .i.select = i.select
+                  .dict = dict, .aggr_es = aggr_eff, .group = group, .i.select = i.select, ...
               )
           })
           data = do.call(function(...) Map("rbind", ...), data)

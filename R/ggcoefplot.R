@@ -55,6 +55,9 @@
 #'   channel. For example, we can make the CI band lighter with
 #'   `ci.fill.par = list(alpha = 0.2)` (the default alpha is 0.3).
 #'   * `dict` a dictionary for overriding coefficient names.
+#'   * All other `...` arguments are passed to `summary.fixest` before plotting
+#'   (e.g., for on-the-fly VCOV adjustment) and will be silently ignored if
+#'   not relevant.
 #' @details These functions generally try to mimic the functionality and (where
 #'   appropriate) arguments of `fixest::coefplot` and `fixest::iplot` as
 #'   closely as possible. However, by leveraging the ggplot2 API and

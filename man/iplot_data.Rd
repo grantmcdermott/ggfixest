@@ -14,7 +14,8 @@ iplot_data(
   .internal.only.i = TRUE,
   .i.select = 1,
   .aggr_es = NULL,
-  .group = "auto"
+  .group = "auto",
+  ...
 )
 
 coefplot_data(
@@ -26,7 +27,8 @@ coefplot_data(
   .dict = fixest::getFixest_dict(),
   .internal.only.i = FALSE,
   .i.select = 1,
-  .aggr_es = "none"
+  .aggr_es = "none",
+  ...
 )
 }
 \arguments{
@@ -78,6 +80,10 @@ valid uses:
 ⁠group=list(group_name=c(\"var_start\", \"var_end\"))⁠,
 ⁠group=list(group_name=1:2))
 See the Details section of \code{?fixest::coefplot} for more.}
+
+\item{...}{Other arguments passed on to \code{summary.fixest}, e.g. for
+post-estimation VCOV adjustment. Irrelevant arguments will be silently
+ignored.}
 }
 \value{
 A data frame consisting of estimate values, confidence intervals,
