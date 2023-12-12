@@ -1,12 +1,19 @@
-# ggfixest 0.0.3.9000 (development version)
+# ggfixest 0.0.3.9001 (development version)
 
 ## New features
 
-- The `aggr_es` function now supports numeric sequences for aggregating
-specific period subsets, in addition to the existing keyword strings like "pre"
-or "post". This functionality passes through to the higher order functions that
-call `aggr_es` under the hood. (#33)
-
+- The `aggr_es` function now supports numeric sequences for aggregating a
+specific subset of periods, in addition to the existing keyword strings like
+"pre" or "post". This functionality also passes through to the higher order
+plotting functions that call `aggr_es` under the hood. For example,
+`ggiplot(est, aggr_eff = 6:8)`. (#33)
+- Users can now adjust standard errors for model objects on-the-fly at plot
+time, by passing an appropriate argument, e.g. `ggcoefplot(est, vcov = "hc1")`.
+These on-the-fly adjustments are done via `summary.fixest`, and so the effect is
+just the same as passing an adjusted object directly, e.g.
+`ggcoefplot(summary(est, vcov = "hc1"))`. However, it may prove more convenient
+for simultaneously adjusting a list of multiple models, e.g. 
+`ggcoefplot(list(est1, est2, est3), vcov = "hc1")`. (#35)
 
 # ggfixest 0.0.3
 
