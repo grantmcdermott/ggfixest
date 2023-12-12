@@ -12,7 +12,7 @@ with some added functionality and tweaks for the ggiplot equivalents."><!-- math
     
     <a class="navbar-brand me-2" href="../index.html">ggfixest</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3.9001</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +69,10 @@ with some added functionality and tweaks for the <code>ggiplot</code> equivalent
 <span>  .internal.only.i <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  .i.select <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  .aggr_es <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  .group <span class="op">=</span> <span class="st">"auto"</span></span>
+<span>  .group <span class="op">=</span> <span class="st">"auto"</span>,</span>
+<span>  .vcov <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  .cluster <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  .se <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">coefplot_data</span><span class="op">(</span></span>
@@ -81,7 +84,10 @@ with some added functionality and tweaks for the <code>ggiplot</code> equivalent
 <span>  .dict <span class="op">=</span> <span class="fu">fixest</span><span class="fu">::</span><span class="fu"><a href="https://lrberge.github.io/fixest/reference/setFixest_dict.html" class="external-link">getFixest_dict</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  .internal.only.i <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  .i.select <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  .aggr_es <span class="op">=</span> <span class="st">"none"</span></span>
+<span>  .aggr_es <span class="op">=</span> <span class="st">"none"</span>,</span>
+<span>  .vcov <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  .cluster <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  .se <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -152,6 +158,14 @@ valid uses:
 ⁠group=list(group_name=c(\"var_start\", \"var_end\"))⁠,
 ⁠group=list(group_name=1:2))
 See the Details section of <code><a href="https://lrberge.github.io/fixest/reference/coefplot.html" class="external-link">?fixest::coefplot</a></code> for more.</p></dd>
+
+
+<dt>.vcov, .cluster, .se</dt>
+<dd><p>Alternative options for adjusting the standard
+errors of the model object on the fly. See <code>summary.fixest</code> for details
+(although note that the "." period prefix should be ignored in the latter's
+argument documentation). Written here in superseding order; <code>.cluster</code> will
+only be considered if <code>.vcov</code> is not null, etc.</p></dd>
 
 </dl></div>
     <div class="section level2">
