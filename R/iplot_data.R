@@ -42,9 +42,11 @@
 #' aggregated mean treatment effects for some subset of the model should be
 #' added as a column to the returned data frame. Passed to
 #' `aggr_es(..., aggregation = "mean")`.
-#' @param ... Other arguments passed on to `summary.fixest`, e.g. for
-#' post-estimation VCOV adjustment. Irrelevant arguments will be silently
-#' ignored.
+#' @param .vcov,.cluster,.se Alternative options for adjusting the standard
+#' errors of the model object on the fly. See `summary.fixest` for details
+#' (although note that the "." period prefix should be ignored in the latter's
+#' argument documentation). Written here in superseding order; `.cluster` will
+#' only be considered if `.vcov` is not null, etc.
 #' @details This function is a wrapper around
 #' `fixest::iplot(..., only.params = TRUE)`, but with various checks and tweaks
 #' to better facilitate plotting with `ggplot2` and handling of complex object
@@ -82,7 +84,9 @@ iplot_data = function(
 		# .aggr_es = c("none", "post", "pre", "both"),
 		.aggr_es = NULL,
 		.group = "auto",
-		...
+		.vcov = NULL,
+		.cluster = NULL,
+		.se = NULL
 	) {
 
 	# .aggr_es = match.arg(.aggr_es)
@@ -99,8 +103,14 @@ iplot_data = function(
 		.group = NULL
 	}
 
-	# Catch any args pass through ... to summary.fixest (e.g., vcov adjustments)
-	object = summary(object, ...)
+	# Catch VCOV adjustments (if any)
+	if (!is.null(.vcov)) {
+		object = summary(object, vcov = .vcov)
+	} else if (!is.null(.cluster)) {
+		object = summary(object, cluster = .cluster)
+	} else if (!is.null(.se)) {
+		object = summary(object, se = .se)
+	}
 
   p = coefplot(object, only.params = TRUE, ci_level = .ci_level, dict = .dict, keep = .keep, drop = .drop, internal.only.i = .internal.only.i, i.select = .i.select)
   d = p$prms
@@ -432,9 +442,17 @@ coefplot_data = function(
 	.internal.only.i = FALSE,
 	.i.select = 1,
 	.aggr_es = "none",
-	...
+	.vcov = NULL,
+	.cluster = NULL,
+	.se = NULL
 ) {
 
-	iplot_data(object, .ci_level = .ci_level, .dict = .dict, .keep = .keep, .drop = .drop, .internal.only.i = .internal.only.i, .group = .group, ...)
+	iplot_data(
+		object,
+		.ci_level = .ci_level, .dict = .dict,
+		.keep = .keep, .drop = .drop,
+		.internal.only.i = .internal.only.i, .group = .group,
+		.vcov = .vcov, .cluster = .cluster, .se = .se
+		)
 
 	}
