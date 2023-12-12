@@ -32,7 +32,7 @@
 #' hypothesis test is also provided as an attribute. See Examples.
 #' @export
 #' @examples
-#' library(fixest)
+#' library(ggfixest) ## Will load fixest too
 #'
 #' est = feols(y ~ x1 + i(period, treat, 5) | id + period, base_did)
 #'

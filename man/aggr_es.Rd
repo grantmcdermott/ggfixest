@@ -54,7 +54,7 @@ effects too. At its heart, \code{aggr_es()} is a convenience wrapper around
 joint hypothesis test.
 }
 \examples{
-library(fixest)
+library(ggfixest) ## Will load fixest too
 
 est = feols(y ~ x1 + i(period, treat, 5) | id + period, base_did)
 
