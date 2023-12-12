@@ -1,5 +1,6 @@
 #' @title Internal function for grabbing and preparing iplot data
 #'
+#' @md
 #' @description Grabs the underlying data used to construct `fixest::iplot`,
 #' with some added functionality and tweaks for the `ggiplot` equivalents.
 #' @param object A model object of class `fixest` or `fixest_multi`, where
@@ -17,10 +18,10 @@
 #'   the coefficients to be grouped while the name of the element is the group
 #'   name. Passed down to `fixest::coefplot(..., group = .group)`. Example of
 #'   valid uses:
-#'   ⁠group=list(group_name=\"pattern\")⁠,
-#'   ⁠group=list(group_name=c(\"var_start\", \"var_end\"))⁠,
-#'   ⁠group=list(group_name=1:2))
-#'   See the Details section of `?fixest::coefplot` for more.
+#'   * group=list(group_name="pattern")
+#'   * group=list(group_name=c("var_start", "var_end"))
+#'   * group=list(group_name=1:2)
+#'   * See the Details section of `?fixest::coefplot` for more.
 #' @param .dict A dictionary (i.e. named character vector or a logical scalar).
 #' Used for changing coefficient names. Defaults to the values in
 #' `getFixest_dict()`. See the `?fixest::coefplot` documentation for more

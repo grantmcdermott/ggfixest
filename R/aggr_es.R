@@ -1,5 +1,6 @@
 #' @title Aggregates event-study treatment effects.
 #'
+#' @md
 #' @description Aggregates post- (and/or pre-) treatment effects of an
 #' "event-study" estimation, also known as a dynamic difference-in-differences
 #' (DDiD) model. The event-study should have been estimated using the `fixest`

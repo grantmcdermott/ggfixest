@@ -80,10 +80,12 @@ added as a column to the returned data frame. Passed to
 the coefficients to be grouped while the name of the element is the group
 name. Passed down to \code{fixest::coefplot(..., group = .group)}. Example of
 valid uses:
-⁠group=list(group_name=\"pattern\")⁠,
-⁠group=list(group_name=c(\"var_start\", \"var_end\"))⁠,
-⁠group=list(group_name=1:2))
-See the Details section of \code{?fixest::coefplot} for more.}
+\itemize{
+\item group=list(group_name="pattern")
+\item group=list(group_name=c("var_start", "var_end"))
+\item group=list(group_name=1:2)
+\item See the Details section of \code{?fixest::coefplot} for more.
+}}
 
 \item{.vcov, .cluster, .se}{Alternative options for adjusting the standard
 errors of the model object on the fly. See \code{summary.fixest} for details
