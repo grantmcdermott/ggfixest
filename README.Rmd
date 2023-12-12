@@ -18,8 +18,8 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-universe status badge](https://grantmcdermott.r-universe.dev/badges/ggfixest)](https://grantmcdermott.r-universe.dev)
-[![Docs](https://img.shields.io/badge/docs-homepage-blue.svg)](https://grantmcdermott.com/ggfixest/index.html)
 [![R-CMD-check](https://github.com/grantmcdermott/ggfixest/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/grantmcdermott/ggfixest/actions/workflows/R-CMD-check.yaml)
+[![Docs](https://img.shields.io/badge/docs-homepage-blue.svg)](https://grantmcdermott.com/ggfixest/index.html)
 <!-- badges: end -->
 
 The **ggfixest** package provides dedicated **ggplot2** plotting methods for
