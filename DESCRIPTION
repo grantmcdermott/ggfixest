@@ -15,7 +15,7 @@ Authors@R:
 Description: Provides ggplot2 equivalents of fixest::coefplot and fixest::iplot,
     for producing nice coefficient plots and interactions plots. Enables some
     additional functionality and convenience features, including grouped
-    multi-fixest object faceting and programatic updating of existing plots
+    multi-fixest object faceting and programmatic updating of existing plots
     (e.g., themes and aesthetics).
 License: GPL-3
 Encoding: UTF-8
