@@ -1,3 +1,13 @@
+# ggfixest 0.0.3.9000 (development version)
+
+## New features
+
+- The `aggr_es` function now supports numeric sequences for aggregating
+specific period subsets, in addition to the existing keyword strings like "pre"
+or "post". This functionality passes through to the higher order functions that
+call `aggr_es` under the hood. (#33)
+
+
 # ggfixest 0.0.3
 
 ## Breaking change
