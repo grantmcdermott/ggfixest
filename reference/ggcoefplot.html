@@ -26,7 +26,7 @@ created with i, either interactions with factors or raw factors.'><!-- mathjax -
     
     <a class="navbar-brand me-2" href="../index.html">ggfixest</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,7 +94,7 @@ created with <code>i</code>, either interactions with factors or raw factors.</p
 <span>  <span class="va">object</span>,</span>
 <span>  geom_style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pointrange"</span>, <span class="st">"errorbar"</span>, <span class="st">"ribbon"</span><span class="op">)</span>,</span>
 <span>  multi_style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dodge"</span>, <span class="st">"facet"</span><span class="op">)</span>,</span>
-<span>  aggr_eff <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"post"</span>, <span class="st">"pre"</span>, <span class="st">"both"</span><span class="op">)</span>,</span>
+<span>  aggr_eff <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  aggr_eff.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"grey50"</span>, lwd <span class="op">=</span> <span class="fl">1</span>, lty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  facet_args <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  theme <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -144,7 +144,7 @@ require list objects. Currently used are:</p><ul><li><p><code>keep</code> and <c
 example, <code>zero.par = list(col = 'orange')</code>.</p></li>
 <li><p><code>ref.line</code> and <code>ref.line.par</code> for defining or adjusting the vertical
 reference line. For example, <code>ref.line.par = list(col = 'red', lty = 4)</code>.</p></li>
-<li><p><code>pt.pch</code>, <code>pt.size</code>, and <code>pt.join</code> for overriding the default point estimate shapes, size, and joining them, respectively.</p></li>
+<li><p><code>pt.pch</code> and <code>pt.join</code> for overriding the default point estimate shapes and joining them, respectively.</p></li>
 <li><p><code>col</code> for manually defining line, point, and ribbon colours.</p></li>
 <li><p><code>ci_level</code> for changing the desired confidence level (default = 0.95).
 Note that multiple levels are allowed, e.g. <code>ci_level = c(0.8, 0.95)</code>.</p></li>
@@ -160,10 +160,12 @@ channel. For example, we can make the CI band lighter with
 
 
 <dt>aggr_eff</dt>
-<dd><p>A character string indicating whether the aggregated mean
-post- (and/or pre-) treatment effect should be plotted alongside the
-individual period effects. Should be one of "none" (the default), "post",
-"pre", or "both".</p></dd>
+<dd><p>A keyword string or numeric sequence, indicating whether
+mean treatment effects for some subset of the model should be displayed as
+part of the plot. For example, the "post" keyword means that the mean
+post-treatment effect will be plotted alongside the individual period
+effects. Passed to <code><a href="aggr_es.html">aggr_es</a></code>; see that function's documentation for other
+valid options.</p></dd>
 
 
 <dt>aggr_eff.par</dt>

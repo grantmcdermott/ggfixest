@@ -28,7 +28,7 @@ joint hypothesis test.'><!-- mathjax --><script src="https://cdnjs.cloudflare.co
     
     <a class="navbar-brand me-2" href="../index.html">ggfixest</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,7 +87,7 @@ joint hypothesis test.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">aggr_es</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
 <span>  rhs <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  period <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"post"</span>, <span class="st">"pre"</span>, <span class="st">"both"</span><span class="op">)</span>,</span>
+<span>  period <span class="op">=</span> <span class="st">"post"</span>,</span>
 <span>  aggregation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mean"</span>, <span class="st">"cumulative"</span><span class="op">)</span>,</span>
 <span>  abbr_term <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
@@ -106,8 +106,10 @@ been used to facilitate an "event-study" DiD design. See Examples.</p></dd>
 
 
 <dt>period</dt>
-<dd><p>Character string. Which group of periods are we aggregating?
-One of "post" (the default), "prep", or "both".</p></dd>
+<dd><p>Keyword string or numeric sequence. Which group of periods
+are we aggregating? Can either be one of three convenience strings---i.e.,
+"post" (the default), "prep", or "both"---or a numeric sequence that matches
+a subset of periods in the data (e.g. 6:8).</p></dd>
 
 
 <dt>aggregation</dt>
@@ -143,7 +145,7 @@ hypothesis test is also provided as an attribute. See Examples.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lrberge.github.io/fixest/" class="external-link">fixest</a></span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://grantmcdermott.com/ggfixest/" class="external-link">ggfixest</a></span><span class="op">)</span> <span class="co">## Will load fixest too</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">est</span> <span class="op">=</span> <span class="fu"><a href="https://lrberge.github.io/fixest/reference/feols.html" class="external-link">feols</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x1</span> <span class="op">+</span> <span class="fu"><a href="https://lrberge.github.io/fixest/reference/i.html" class="external-link">i</a></span><span class="op">(</span><span class="va">period</span>, <span class="va">treat</span>, <span class="fl">5</span><span class="op">)</span> <span class="op">|</span> <span class="va">id</span> <span class="op">+</span> <span class="va">period</span>, <span class="va">base_did</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -160,19 +162,29 @@ hypothesis test is also provided as an attribute. See Examples.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Other hypothesis and aggregation options</span></span></span>
-<span class="r-in"><span><span class="fu">aggr_es</span><span class="op">(</span><span class="va">est</span>, aggregation <span class="op">=</span> <span class="st">"cumulative"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">aggr_es</span><span class="op">(</span><span class="va">est</span>, aggregation <span class="op">=</span> <span class="st">"cumulative"</span><span class="op">)</span> <span class="co"># cumulative instead of mean effects</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                           term estimate std.error statistic      p.value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: post-treatment (cumulative) 19.53277  4.299288  4.543257 5.539158e-06</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    s.value conf.low conf.high</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: 17.4619 11.10632  27.95922</span>
-<span class="r-in"><span><span class="fu">aggr_es</span><span class="op">(</span><span class="va">est</span>, period <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">aggr_es</span><span class="op">(</span><span class="va">est</span>, period <span class="op">=</span> <span class="st">"pre"</span><span class="op">)</span>             <span class="co"># pre period instead of post</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    term  estimate std.error statistic   p.value  s.value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: pre-treatment (mean) -1.179871 0.8561964 -1.378037 0.1681917 2.571821</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     conf.low conf.high</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: -2.857985 0.4982434</span>
+<span class="r-in"><span><span class="fu">aggr_es</span><span class="op">(</span><span class="va">est</span>, period <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span>            <span class="co"># pre &amp; post periods separately</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     term  estimate std.error statistic      p.value   s.value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:  pre-treatment (mean) -1.179871 0.8561964 -1.378037 1.681917e-01  2.571821</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2: post-treatment (mean)  3.906554 0.8598576  4.543257 5.539159e-06 17.461902</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     conf.low conf.high</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: -2.857985 0.4982434</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:  2.221264 5.5918440</span>
-<span class="r-in"><span><span class="fu">aggr_es</span><span class="op">(</span><span class="va">est</span>, rhs <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, period <span class="op">=</span> <span class="st">"pre"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">aggr_es</span><span class="op">(</span><span class="va">est</span>, period <span class="op">=</span> <span class="fl">6</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span>               <span class="co"># specific subset of periods</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           term estimate std.error statistic     p.value s.value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: periods6:8-treatment (mean) 2.731705 0.9299503  2.937474 0.003308975  8.2394</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     conf.low conf.high</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 0.9090361  4.554374</span>
+<span class="r-in"><span><span class="fu">aggr_es</span><span class="op">(</span><span class="va">est</span>, rhs <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, period <span class="op">=</span> <span class="st">"pre"</span><span class="op">)</span>   <span class="co"># pre period with H0 value of 1</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    term   estimate std.error  statistic   p.value   s.value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: pre-treatment (mean) -0.1798707 0.8561964 -0.2100811 0.8336044 0.2625653</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     conf.low conf.high</span>
