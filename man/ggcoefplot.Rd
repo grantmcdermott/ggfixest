@@ -70,6 +70,10 @@ are requested for the default pointrange style). The default value is 0.2.
 channel. For example, we can make the CI band lighter with
 \code{ci.fill.par = list(alpha = 0.2)} (the default alpha is 0.3).
 \item \code{dict} a dictionary for overriding coefficient names.
+\item \code{vcov}, \code{cluster} or \code{se} as alternative options for adjusting the
+standard errors of the model object(s) on the fly. See \code{summary.fixest} for
+details. Written here in superseding order; \code{cluster} will only be
+considered if \code{vcov} is not null, etc.
 }}
 
 \item{aggr_eff}{A keyword string or numeric sequence, indicating whether

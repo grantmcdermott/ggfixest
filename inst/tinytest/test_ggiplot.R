@@ -153,3 +153,41 @@ p18 = ggiplot(
 expect_snapshot_plot(p16, label = "ggiplot_multi_complex")
 expect_snapshot_plot(p17, label = "ggiplot_multi_complex_mci")
 expect_snapshot_plot(p18, label = "ggiplot_multi_complex_kitchen")
+
+# Last one(s): Check vcov adjustment of previous plot
+# Manual version, passing via summary first...
+p19a = ggiplot(
+    list(
+        'TWFE'                 = summary(est_twfe_grp, vcov = "iid"),
+        'Sun & Abraham (2020)' = summary(est_sa20_grp, vcov = "iid")
+        ),
+    main = 'Staggered treatment: Split mutli-sample',
+    ref.line = -1,
+    xlab = 'Time to treatment',
+    multi_style = 'facet',
+    geom_style = 'ribbon',
+    ci_level = c(.8, .95),
+    theme = theme_minimal() + theme(
+        text = element_text(family = 'HersheySans'),
+        plot.title = element_text(hjust = 0.5),
+        legend.position = 'none'
+    )
+)
+# Next, passing as a convenience string (via ...)
+p19b = ggiplot(
+    list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
+    vcov = "iid",
+    main = 'Staggered treatment: Split mutli-sample',
+    ref.line = -1,
+    xlab = 'Time to treatment',
+    multi_style = 'facet',
+    geom_style = 'ribbon',
+    ci_level = c(.8, .95),
+    theme = theme_minimal() + theme(
+        text = element_text(family = 'HersheySans'),
+        plot.title = element_text(hjust = 0.5),
+        legend.position = 'none'
+    )
+)
+expect_snapshot_plot(p19a, label = "ggiplot_multi_complex_kitchen_iid")
+expect_snapshot_plot(p19b, label = "ggiplot_multi_complex_kitchen_iid")

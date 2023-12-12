@@ -14,7 +14,10 @@ iplot_data(
   .internal.only.i = TRUE,
   .i.select = 1,
   .aggr_es = NULL,
-  .group = "auto"
+  .group = "auto",
+  .vcov = NULL,
+  .cluster = NULL,
+  .se = NULL
 )
 
 coefplot_data(
@@ -26,7 +29,10 @@ coefplot_data(
   .dict = fixest::getFixest_dict(),
   .internal.only.i = FALSE,
   .i.select = 1,
-  .aggr_es = "none"
+  .aggr_es = "none",
+  .vcov = NULL,
+  .cluster = NULL,
+  .se = NULL
 )
 }
 \arguments{
@@ -78,6 +84,12 @@ valid uses:
 ⁠group=list(group_name=c(\"var_start\", \"var_end\"))⁠,
 ⁠group=list(group_name=1:2))
 See the Details section of \code{?fixest::coefplot} for more.}
+
+\item{.vcov, .cluster, .se}{Alternative options for adjusting the standard
+errors of the model object on the fly. See \code{summary.fixest} for details
+(although note that the "." period prefix should be ignored in the latter's
+argument documentation). Written here in superseding order; \code{.cluster} will
+only be considered if \code{.vcov} is not null, etc.}
 }
 \value{
 A data frame consisting of estimate values, confidence intervals,

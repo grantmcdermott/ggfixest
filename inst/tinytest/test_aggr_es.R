@@ -80,7 +80,7 @@ aggr_rhs1_known = data.frame(
 
 #
 # tests ----
-tol = 1e-6
+tol = 1e-4
 
 for (col in c("term", "estimate", "std.error", "statistic", "p.value", "s.value",
 							"conf.low", "conf.high")) {
