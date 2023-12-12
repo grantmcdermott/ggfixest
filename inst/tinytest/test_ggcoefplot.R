@@ -56,3 +56,13 @@ data("base_did", package = "fixest")
 est_did = feols(y ~ x1 + i(period, treat, 5) | id + period, base_did)
 p_did = ggcoefplot(est_did)
 expect_snapshot_plot(p_did, label = "ggcoefplot_did")
+
+
+#
+## vcov adjustment (passed through ...) ----
+
+p_did_iid_summ = ggcoefplot(summary(est_did, vcov = "iid")) # manual approach
+p_did_iid      = ggcoefplot(est_did, vcov = "iid") # passed through "..."
+expect_snapshot_plot(p_did_iid_summ, label = "ggcoefplot_did_iid")
+expect_snapshot_plot(p_did_iid, label = "ggcoefplot_did_iid") # should be identical
+
