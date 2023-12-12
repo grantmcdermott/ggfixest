@@ -18,10 +18,12 @@
 #'   a continuous relationship among the coefficients.
 #' @param multi_style Character string. One of `c('dodge', 'facet')`, defining
 #'   how multi-model objects should be presented.
-#' @param aggr_eff A character string indicating whether the aggregated mean
-#'   post- (and/or pre-) treatment effect should be plotted alongside the
-#'   individual period effects. Should be one of "none" (the default), "post",
-#'   "pre", or "both".
+#' @param aggr_eff A keyword string or numeric sequence, indicating whether
+#'   mean treatment effects for some subset of the model should be displayed as
+#'   part of the plot. For example, the "post" keyword means that the mean
+#'   post-treatment effect will be plotted alongside the individual period
+#'   effects. Passed to [`aggr_es`]; see that function's documentation for other
+#'   valid options.
 #' @param aggr_eff.par List. Parameters of the aggregated treatment effect line,
 #'   if plotted. The default values are `col = 'gray50'`, `lwd = 1`, `lty = 1`.
 #' @param facet_args A list of arguments passed down to `ggplot::fact_wrap()`.

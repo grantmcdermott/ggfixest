@@ -8,7 +8,7 @@ ggiplot = function(
 	object,
 	geom_style = c('pointrange', 'errorbar', 'ribbon'),
 	multi_style = c('dodge', 'facet'),
-	aggr_eff = c('none', 'post', 'pre', 'both'),
+	aggr_eff = NULL,
 	aggr_eff.par = list(col = 'grey50', lwd = 1, lty = 1),
 	facet_args = NULL,
 	theme = NULL,
@@ -17,7 +17,8 @@ ggiplot = function(
 
   geom_style = match.arg(geom_style)
   multi_style = match.arg(multi_style)
-  aggr_eff = match.arg(aggr_eff)
+  # aggr_eff = match.arg(aggr_eff)
+  if (is.null(aggr_eff)) aggr_eff = "none"
   aggr_eff.par = utils::modifyList(list(col = "grey50", lwd = 1, lty = 1), aggr_eff.par)
 
   dots = list(...)
@@ -217,7 +218,7 @@ ggiplot = function(
           }
       } +
       {
-          if (aggr_eff != "none") {
+          if (is.numeric(aggr_eff) || aggr_eff != "none") {
               geom_line(aes(y = aggr_eff), col = aggr_eff.par$col, lwd = aggr_eff.par$lwd, lty = aggr_eff.par$lty)
           }
       } +

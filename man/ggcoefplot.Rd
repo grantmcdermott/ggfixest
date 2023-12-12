@@ -19,7 +19,7 @@ ggiplot(
   object,
   geom_style = c("pointrange", "errorbar", "ribbon"),
   multi_style = c("dodge", "facet"),
-  aggr_eff = c("none", "post", "pre", "both"),
+  aggr_eff = NULL,
   aggr_eff.par = list(col = "grey50", lwd = 1, lty = 1),
   facet_args = NULL,
   theme = NULL,
@@ -58,7 +58,7 @@ require list objects. Currently used are:
 example, \code{zero.par = list(col = 'orange')}.
 \item \code{ref.line} and \code{ref.line.par} for defining or adjusting the vertical
 reference line. For example, \code{ref.line.par = list(col = 'red', lty = 4)}.
-\item \code{pt.pch}, \code{pt.size}, and \code{pt.join} for overriding the default point estimate shapes, size, and joining them, respectively.
+\item \code{pt.pch} and \code{pt.join} for overriding the default point estimate shapes and joining them, respectively.
 \item \code{col} for manually defining line, point, and ribbon colours.
 \item \code{ci_level} for changing the desired confidence level (default = 0.95).
 Note that multiple levels are allowed, e.g. \code{ci_level = c(0.8, 0.95)}.
@@ -72,10 +72,12 @@ channel. For example, we can make the CI band lighter with
 \item \code{dict} a dictionary for overriding coefficient names.
 }}
 
-\item{aggr_eff}{A character string indicating whether the aggregated mean
-post- (and/or pre-) treatment effect should be plotted alongside the
-individual period effects. Should be one of "none" (the default), "post",
-"pre", or "both".}
+\item{aggr_eff}{A keyword string or numeric sequence, indicating whether
+mean treatment effects for some subset of the model should be displayed as
+part of the plot. For example, the "post" keyword means that the mean
+post-treatment effect will be plotted alongside the individual period
+effects. Passed to \code{\link{aggr_es}}; see that function's documentation for other
+valid options.}
 
 \item{aggr_eff.par}{List. Parameters of the aggregated treatment effect line,
 if plotted. The default values are \code{col = 'gray50'}, \code{lwd = 1}, \code{lty = 1}.}
