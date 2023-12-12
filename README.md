@@ -33,7 +33,7 @@ install.packages("ggfixest", repos = "https://grantmcdermott.r-universe.dev")
 
 ## Quickstart
 
-The [package website](http://grantmcdermott.com/ggfixest) provides a
+The [package website](https://grantmcdermott.com/ggfixest/) provides a
 number of examples in the help documentation. (Also available by typing
 `?ggcoefplot` or `?ggiplot` in your R console.) But here are a few
 quickstart examples to whet your appetite.
