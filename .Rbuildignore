@@ -9,3 +9,5 @@
 ^\.github$
 ^TESTING$
 ^.vscode$
+^cran-comments.md
+^CRAN-SUBMISSION$
