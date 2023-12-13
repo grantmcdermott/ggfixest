@@ -32,14 +32,15 @@ Imports:
     dreamerr,
     ggh4x,
     scales,
-    utils,
     marginaleffects (>= 0.10.0),
-    stats
+    stats,
+    utils
 Suggests: 
     knitr,
     rmarkdown,
     tinytest (>= 1.4.1),
     tinysnapshot (>= 0.0.3),
+    magick,
     rsvg,
     svglite,
     fontquiver,
