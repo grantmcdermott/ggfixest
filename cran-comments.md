@@ -2,9 +2,9 @@
 
 `ggfixest` 0.1.0 is a new CRAN submission.
 
+- I have addressed the package quoting issue.
 - The CPU time vs. elapsed time issue should now be resolved in the test suite.
-(Both data.table and fixest are explicitly set to single-threaded for the test
-suite.)
+(Single threading is explicitly imposed for data.table, fixest, and magick.)
 
 ## Test environments
 
