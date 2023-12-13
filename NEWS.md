@@ -1,4 +1,6 @@
-# ggfixest 0.0.3.9001 (development version)
+# ggfixest 0.1.0
+
+First CRAN release!
 
 ## New features
 

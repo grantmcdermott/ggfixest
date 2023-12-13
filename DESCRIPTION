@@ -1,6 +1,7 @@
 Package: ggfixest
 Title: Dedicated ggplot2 Methods for Fixest Objects
-Version: 0.0.3.9001
+Version: 0.1.0
+Date: 2023-12-12
 Authors@R: 
     c(person(given   = "Grant",
              family  = "McDermott",
@@ -36,11 +37,11 @@ Imports:
     stats
 Suggests: 
     knitr,
-    remotes,
     rmarkdown,
     tinytest (>= 1.4.1),
     tinysnapshot (>= 0.0.3),
     rsvg,
     svglite,
-    fontquiver
+    fontquiver,
+    data.table
 VignetteBuilder: knitr
