@@ -86,7 +86,7 @@ ggcoefplot(est) ## this package
 The above plot call and output should look very familiar to regular **fixest**
 users. Like its base equivalent, `ggcoefplot` can be heavily customized and
 contains various shortcuts for common operations. For example, we can use regex
-the control the coefficient grouping logic.
+to control the coefficient grouping logic.
 
 ```{r coefplot2, message=FALSE}
 ggcoefplot(est, group = list(Sepal = "^^Sepal.", Species = "^^Species"))
