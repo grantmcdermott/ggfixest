@@ -1,0 +1,10 @@
+pandoc: 2.19.2
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  ggiplot: ggiplot.html
+last_built: 2023-12-14T20:07Z
+urls:
+  reference: https://grantmcdermott.com/ggiplot/reference
+  article: https://grantmcdermott.com/ggiplot/articles
+
