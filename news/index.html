@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggfixest</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,9 +51,10 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.3.9001" id="ggfixest-0039001-development-version">ggfixest 0.0.3.9001 (development version)<a class="anchor" aria-label="anchor" href="#ggfixest-0039001-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.1.0" id="ggfixest-010">ggfixest 0.1.0<a class="anchor" aria-label="anchor" href="#ggfixest-010"></a></h2><p class="text-muted">CRAN release: 2023-12-14</p>
+<p>First CRAN release!</p>
 <div class="section level3">
-<h3 id="new-features-0-0-3-9001">New features<a class="anchor" aria-label="anchor" href="#new-features-0-0-3-9001"></a></h3>
+<h3 id="new-features-0-1-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-1-0"></a></h3>
 <ul><li>The <code>aggr_es</code> function now supports numeric sequences for aggregating a specific subset of periods, in addition to the existing keyword strings like “pre” or “post”. This functionality also passes through to the higher order plotting functions that call <code>aggr_es</code> under the hood. For example, <code>ggiplot(est, aggr_eff = 6:8)</code>. (<a href="https://github.com/grantmcdermott/ggfixest/issues/33" class="external-link">#33</a>)</li>
 <li>Users can now adjust standard errors for model objects on-the-fly at plot time, by passing an appropriate argument, e.g. <code>ggcoefplot(est, vcov = "hc1")</code>. These on-the-fly adjustments are done via <code>summary.fixest</code>, and so the effect is just the same as passing an adjusted object directly, e.g. <code>ggcoefplot(summary(est, vcov = "hc1"))</code>. However, it may prove more convenient for simultaneously adjusting a list of multiple models, e.g.  <code>ggcoefplot(list(est1, est2, est3), vcov = "hc1")</code>. (<a href="https://github.com/grantmcdermott/ggfixest/issues/35" class="external-link">#35</a>)</li>
 </ul></div>
