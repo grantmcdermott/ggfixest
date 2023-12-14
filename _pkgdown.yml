@@ -1,16 +1,37 @@
-url: http://grantmcdermott.com/ggiplot/
+url: https://grantmcdermott.com/ggiplot/
+
+home:
+  title: Dedicated 'ggplot2' Methods for 'fixest' Objects
+
 template:
   bootstrap: 5
 
+development:
+  mode: auto
+
 navbar:
+  title: ~
   type: default
   left:
-  - text: Vignettes
+  - text: Tutorials
+    href: articles/index.html
     menu:
-    - text: Comparing ggiplot with iplot
+    - text: Comparing ggiplot to iplot
       href: articles/ggiplot.html
+  - text: Functions
+    href: reference/index.html
   - text: News
     href: news/index.html
-  - text: Reference
-    href: reference/index.html
 
+reference:
+- subtitle: Plotting
+  desc: >
+    The main user-facing functions of the package.
+  contents:
+  - ggcoefplot
+- subtitle: Utilities
+  desc: >
+    Helper functions that are used as inputs to the main plotting functions.
+  contents:
+  - aggr_es
+  - iplot_data
