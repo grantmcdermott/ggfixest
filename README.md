@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![CRAN
+status](https://www.r-pkg.org/badges/version/ggfixest)](https://CRAN.R-project.org/package=ggfixest)
 [![R-universe status
 badge](https://grantmcdermott.r-universe.dev/badges/ggfixest)](https://grantmcdermott.r-universe.dev)
 [![R-CMD-check](https://github.com/grantmcdermott/ggfixest/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/grantmcdermott/ggfixest/actions/workflows/R-CMD-check.yaml)
@@ -25,7 +27,13 @@ minimal effort and scope for further customization.
 
 ## Installation
 
-The package is not yet on CRAN, but can be installed from R-universe:
+The stable version of **ggfixest** is available on CRAN.
+
+``` r
+install.packages("ggfixest")
+```
+
+Or, you can grab the latest development version from R-universe.
 
 ``` r
 install.packages("ggfixest", repos = "https://grantmcdermott.r-universe.dev")
@@ -69,7 +77,7 @@ ggcoefplot(est) ## this package
 The above plot call and output should look very familiar to regular
 **fixest** users. Like its base equivalent, `ggcoefplot` can be heavily
 customized and contains various shortcuts for common operations. For
-example, we can use regex the control the coefficient grouping logic.
+example, we can use regex to control the coefficient grouping logic.
 
 ``` r
 ggcoefplot(est, group = list(Sepal = "^^Sepal.", Species = "^^Species"))

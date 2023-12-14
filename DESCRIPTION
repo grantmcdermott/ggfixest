@@ -1,6 +1,7 @@
 Package: ggfixest
-Title: Dedicated ggplot2 methods for fixest objects
-Version: 0.0.3.9001
+Title: Dedicated 'ggplot2' Methods for 'fixest' Objects
+Version: 0.1.0
+Date: 2023-12-12
 Authors@R: 
     c(person(given   = "Grant",
              family  = "McDermott",
@@ -12,16 +13,16 @@ Authors@R:
             role    = "ctb",
             email   = "laurent.berge@u-bordeaux.fr")
     )
-Description: Provides ggplot2 equivalents of fixest::coefplot and fixest::iplot,
-    for producing nice coefficient plots and interactions plots. Enables some
+Description: Provides 'ggplot2' equivalents of fixest::coefplot() and fixest::iplot(),
+    for producing nice coefficient plots and interaction plots. Enables some
     additional functionality and convenience features, including grouped
-    multi-fixest object faceting and programatic updating of existing plots
+    multi-'fixest' object faceting and programmatic updates to existing plots
     (e.g., themes and aesthetics).
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3.9000
+RoxygenNote: 7.2.3
 URL: http://grantmcdermott.com/ggfixest/
 BugReports: https://github.com/grantmcdermott/ggfixest/issues
 Depends: 
@@ -31,16 +32,17 @@ Imports:
     dreamerr,
     ggh4x,
     scales,
-    utils,
     marginaleffects (>= 0.10.0),
-    stats
+    stats,
+    utils
 Suggests: 
     knitr,
-    remotes,
     rmarkdown,
     tinytest (>= 1.4.1),
     tinysnapshot (>= 0.0.3),
+    magick,
     rsvg,
     svglite,
-    fontquiver
+    fontquiver,
+    data.table
 VignetteBuilder: knitr

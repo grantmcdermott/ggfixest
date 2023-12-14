@@ -1,4 +1,4 @@
-#' @title Internal function for grabbing and preparing iplot data
+#' @title Internal function for grabbing and preparing iplot data.
 #'
 #' @md
 #' @description Grabs the underlying data used to construct `fixest::iplot`,

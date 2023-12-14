@@ -3,7 +3,7 @@
 \name{iplot_data}
 \alias{iplot_data}
 \alias{coefplot_data}
-\title{Internal function for grabbing and preparing iplot data}
+\title{Internal function for grabbing and preparing iplot data.}
 \usage{
 iplot_data(
   object,
