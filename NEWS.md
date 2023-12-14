@@ -1,3 +1,7 @@
+# ggfixest 0.1.0.9001 (development version)
+
+- Minor website and documentation improvements.
+
 # ggfixest 0.1.0
 
 First CRAN release!
