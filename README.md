@@ -9,7 +9,8 @@
 status](https://www.r-pkg.org/badges/version/ggfixest)](https://CRAN.R-project.org/package=ggfixest)
 [![R-universe status
 badge](https://grantmcdermott.r-universe.dev/badges/ggfixest)](https://grantmcdermott.r-universe.dev)
-[![CRAN checks](https://badges.cranchecks.info/worst/ggfixest.svg)](https://cran.r-project.org/web/checks/check_results_ggfixest.html)
+[![CRAN
+checks](https://badges.cranchecks.info/worst/ggfixest.svg)](https://cran.r-project.org/web/checks/check_results_ggfixest.html)
 [![R-CMD-check](https://github.com/grantmcdermott/ggfixest/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/grantmcdermott/ggfixest/actions/workflows/R-CMD-check.yaml)
 [![Docs](https://img.shields.io/badge/docs-homepage-blue.svg)](https://grantmcdermott.com/ggfixest/index.html)
 <!-- badges: end -->
@@ -55,9 +56,9 @@ library(ggfixest)
 #> Loading required package: fixest
 ```
 
-Note that this automatically loads **ggplot2** and **fixest** as required
-dependencies too. As the package name suggests, **ggfixest** _only_ 
-supports **fixest** model objects.[^1]
+Note that this automatically loads **ggplot2** and **fixest** as
+required dependencies too. As the package name suggests, **ggfixest**
+*only* supports **fixest** model objects.[^1]
 
 ### Coefficient plots
 
