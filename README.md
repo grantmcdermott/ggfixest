@@ -47,7 +47,7 @@ number of examples in the help documentation. (Also available by typing
 `?ggcoefplot` or `?ggiplot` in your R console.) But here are a few
 quickstart examples to whet your appetite.
 
-Start by loading the **ggfixest** packages.
+Start by loading the **ggfixest** package.
 
 ``` r
 library(ggfixest)
@@ -55,8 +55,8 @@ library(ggfixest)
 #> Loading required package: fixest
 ```
 
-Note this automatically loaded **ggplot2** and **fixest** too as
-required dependencies. As the package name suggests, **ggfixest** *only*
+Note that this automatically loads **ggplot2** and **fixest** as required
+dependencies too. As the package name suggests, **ggfixest** _only_ 
 supports **fixest** model objects.[^1]
 
 ### Coefficient plots
