@@ -338,7 +338,6 @@ last_plot() +
 	scale_fill_brewer(palette = 'Set1', aesthetics = c("colour", "fill"))
 # etc.
 
-#' @export
 }
 \seealso{
 \code{\link[fixest:coefplot]{fixest::coefplot()}}, \code{\link[fixest:coefplot]{fixest::iplot()}}.

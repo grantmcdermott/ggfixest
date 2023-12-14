@@ -292,7 +292,7 @@
 #' 	scale_fill_brewer(palette = 'Set1', aesthetics = c("colour", "fill"))
 #' # etc.
 #'
-#'#' @export
+#' @export
 ggcoefplot = function(
 		object,
 		geom_style = c('pointrange', 'errorbar'),
