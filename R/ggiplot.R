@@ -144,11 +144,24 @@ ggiplot = function(
   # Prep data for nested grouping
   has_groups = (!is.null(attributes(data)[["has_groups"]]) && isTRUE(attributes(data)[["has_groups"]]))
   if (isTRUE(has_groups)) {
-  	data[["x"]] = interaction(
-  		data[["x"]], data[["group_var"]],
-  		sep = "___", drop = TRUE#, lex.order = TRUE
-  		)
-  	data[["group_var"]] = NULL
+
+  	key <- unique(data[c("x", "group_var")])
+  	key <- key[order(key[["group_var"]], key[["x"]]), , drop = FALSE]
+  	xlimits <- as.character(key[["x"]])
+
+  	rle <- rle(as.character(key[["group_var"]]))
+  	keep <- nzchar(rle$values)
+  	end <- cumsum(rle$lengths)
+  	start <- end - rle$lengths + 1L
+
+  	key <- legendry::key_range_manual(
+  		start = xlimits[start[keep]],
+  		end   = xlimits[end[keep]],
+  		name  = rle$values[keep],
+  		level = 1L
+  	)
+
+  	data[["group_var"]] <- NULL
   }
 
   yrange = range(c(data[["ci_low"]], data[["ci_high"]]), na.rm = TRUE)
@@ -423,7 +436,13 @@ ggiplot = function(
    } +
    labs(x = xlab, y = ylab, title = main) + {
    	if (has_groups) {
-   		scale_x_discrete(guide = ggh4x::guide_axis_nested(delim = "___"))
+   		scale_x_discrete(
+   			limits = xlimits,
+   			guide = legendry::guide_axis_nested(
+   				key = key,
+   				theme = theme(legendry.bracket = element_line(linewidth = 0.5))
+   			)
+   		)
    	}
    } +
    {
@@ -455,11 +474,6 @@ ggiplot = function(
               plot.title = element_text(hjust = 0.5),
               legend.position = "bottom", legend.title = element_blank()
           )
-  }
-
-  if (has_groups) {
-  	gg = gg +
-  		theme(ggh4x.axis.nestline = element_line(linewidth = 0.5))
   }
 
   return(gg)

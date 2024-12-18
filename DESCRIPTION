@@ -30,11 +30,11 @@ Depends:
     fixest (>= 0.11.2)
 Imports: 
     dreamerr,
-    ggh4x,
     scales,
     marginaleffects (>= 0.10.0),
     stats,
-    utils
+    utils,
+    legendry (>= 0.2)
 Suggests: 
     knitr,
     rmarkdown,
