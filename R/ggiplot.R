@@ -476,11 +476,6 @@ ggiplot = function(
           )
   }
 
-  if (has_groups) {
-  	gg = gg +
-  		theme(ggh4x.axis.nestline = element_line(linewidth = 0.5))
-  }
-
   return(gg)
 
 }
