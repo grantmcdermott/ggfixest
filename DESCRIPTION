@@ -1,18 +1,28 @@
 Package: ggfixest
 Title: Dedicated 'ggplot2' Methods for 'fixest' Objects
-Version: 0.1.0.9001
-Date: 2023-12-12
-Authors@R: 
-    c(person(given   = "Grant",
-             family  = "McDermott",
-             role    = c("aut", "cre"),
-             email   = "gmcd@amazon.com",
-             comment = c(ORCID = "0000-0001-7883-8573")),
-      person(given   = "Laurent",
-            family  = "Berge",
-            role    = "ctb",
-            email   = "laurent.berge@u-bordeaux.fr")
+Version: 0.1.0.99
+Date: 2025-01-17
+Authors@R: c(
+    person(
+        given   = "Grant",
+        family  = "McDermott",
+        role    = c("aut", "cre"),
+        email   = "gmcd@amazon.com",
+        comment = c(ORCID = "0000-0001-7883-8573")
+    ),
+    person(
+        given   = "Laurent",
+        family  = "Berge",
+        role    = "ctb",
+        email   = "laurent.berge@u-bordeaux.fr"
+    ),
+    person(
+        given   = "Teun",
+        family  = "van den Brand",
+        role    = "ctb",
+        comment = c(ORCID = "0000-0002-9335-7468")
     )
+	)
 Description: Provides 'ggplot2' equivalents of fixest::coefplot() and fixest::iplot(),
     for producing nice coefficient plots and interaction plots. Enables some
     additional functionality and convenience features, including grouped

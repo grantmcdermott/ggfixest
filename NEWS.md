@@ -1,4 +1,14 @@
-# ggfixest 0.1.0.9001 (development version)
+# ggfixest 0.1.0.99 (development version)
+
+### Bug fixes
+
+- Fix missing "hypothesis" attribute for `aggr_es` objects (#43)
+
+### Internals
+
+- Replace `ggh4x` dependency with `legendry` (#41 @teunbrand)
+
+### Misc
 
 - Minor website and documentation improvements.
 
@@ -6,7 +16,7 @@
 
 First CRAN release!
 
-## New features
+### New features
 
 - The `aggr_es` function now supports numeric sequences for aggregating a
 specific subset of periods, in addition to the existing keyword strings like
@@ -23,20 +33,20 @@ for simultaneously adjusting a list of multiple models, e.g.
 
 # ggfixest 0.0.3
 
-## Breaking change
+### Breaking change
 
 - The package name has been changed to **ggfixest** (#29). 
 
 # ggiplot 0.0.2
 
-## New features
+### New features
 
 - Support for `ggcoefplot`, a ggplot equivalent of `coefplot` (#28).
 - Support `pt.size` argument for controlling the size of point markers (#27).
 Thanks @jcvdav.
 - Support `keep` and `drop` arguments for subsetting coefficients (#22).
 
-## Bug fixes and breaking changes
+### Bug fixes and breaking changes
 
 - Fix naming mismatch in multiple estimation with different time periods (#10).
 Thanks @brockmwilson.
@@ -48,7 +58,7 @@ closely match `iplot()` (#e5cf0b0).
 upstream changes in fixest (#25; see also
 https://github.com/lrberge/fixest/pull/408).
 
-## Internals
+### Internals
 
 - Add a (visual) test suite (#12 with several increments thereafter). Thanks to
 @vincentarelbundock for ~~tinyviztest~~
