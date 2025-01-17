@@ -40,7 +40,7 @@
 #' # Default hypothesis test is a null mean post-treatment effect
 #' (post_mean = aggr_es(est))
 #' # The underlying hypothesis is saved as an attribute
-#' attributes(post_mean)["hypothesis"]
+#' attr(post_mean, "hypothesis")
 #'
 #' # Other hypothesis and aggregation options
 #' aggr_es(est, aggregation = "cumulative") # cumulative instead of mean effects
@@ -113,14 +113,10 @@ aggr_es = function(object,
             return(ret)
         }
     )
-    ## Bind together and capture/re-assign and the hypothesis attribute (again,
-    ## mostly for the "both" case)
-    hyp_attr = sapply(res, function(x) {attributes(x)["hypothesis"]})
+    ## Bind together and capture/re-assign and the hypothesis attribute
+    hyp_attr = sapply(res, function(x) attr(x, "hypothesis"))
     res = do.call("rbind", res)
     row.names(res) = NULL
-    if (!is.numeric(period) && period == "both") {
-        attributes(res) = utils::modifyList(attributes(res), hyp_attr)
-        attributes(res)["hypothesis"] = NULL
-    }
+    if (!is.numeric(period)) attr(res, "hypothesis") = hyp_attr
     return(res)
 }

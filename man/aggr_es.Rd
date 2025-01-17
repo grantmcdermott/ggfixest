@@ -61,7 +61,7 @@ est = feols(y ~ x1 + i(period, treat, 5) | id + period, base_did)
 # Default hypothesis test is a null mean post-treatment effect
 (post_mean = aggr_es(est))
 # The underlying hypothesis is saved as an attribute
-attributes(post_mean)["hypothesis"]
+attr(post_mean, "hypothesis")
 
 # Other hypothesis and aggregation options
 aggr_es(est, aggregation = "cumulative") # cumulative instead of mean effects
