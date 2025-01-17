@@ -12,7 +12,8 @@ badge](https://grantmcdermott.r-universe.dev/badges/ggfixest)](https://grantmcde
 [![CRAN
 checks](https://badges.cranchecks.info/worst/ggfixest.svg)](https://cran.r-project.org/web/checks/check_results_ggfixest.html)
 [![R-CMD-check](https://github.com/grantmcdermott/ggfixest/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/grantmcdermott/ggfixest/actions/workflows/R-CMD-check.yaml)
-[![Docs](https://img.shields.io/badge/docs-homepage-blue.svg)](https://grantmcdermott.com/ggfixest/index.html)
+[![Docs](https://img.shields.io/badge/docs-stable-blue.svg)](https://grantmcdermott.com/ggfixest/index.html)
+[![Docs](https://img.shields.io/badge/docs-dev-blue.svg)](https://grantmcdermott.com/ggfixest/index.html)
 <!-- badges: end -->
 
 The **ggfixest** package provides dedicated **ggplot2** plotting methods
