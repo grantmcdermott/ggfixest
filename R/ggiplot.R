@@ -344,8 +344,9 @@ ggiplot = function(
            if (multi_style == "dodge") {
                if (length(ci_level) == 1) {
                    geom_line(
-                       aes(group = paste0(.data$group, .data$id)),
-                       position = position_dodge(width = ci.width)
+                       # aes(group = paste0(.data$group, .data$id)),
+                       # position = position_dodge(width = ci.width)
+                       position = position_dodge2(width = ci.width, padding = ci.width)
                    )
                } else {
                    geom_line(
