@@ -191,3 +191,17 @@ p19b = ggiplot(
 )
 expect_snapshot_plot(p19a, label = "ggiplot_multi_complex_kitchen_iid")
 expect_snapshot_plot(p19b, label = "ggiplot_multi_complex_kitchen_iid")
+
+#
+# Making sure pt.join works with sw() and is not sensitive to ordering
+
+# https://github.com/grantmcdermott/ggfixest/issues/40#issuecomment-2444436162
+base_did$y2 = base_did$y*1.5
+base_did$y3 = base_did$y*2
+
+m20a = fixest::feols(y ~ x1 + i(period, treat, 5) | sw0(period, id), base_did)
+m20b = fixest::feols(y ~ x1 + i(period, treat, 5) | sw0(id, period), base_did)
+p20a = ggiplot(m20a, pt.join = TRUE)
+p20b = ggiplot(m20b, pt.join = TRUE)
+expect_snapshot_plot(p20a, label = "ggiplot_multi_sw_pt_join1")
+expect_snapshot_plot(p20b, label = "ggiplot_multi_sw_pt_join2")

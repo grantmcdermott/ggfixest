@@ -145,23 +145,23 @@ ggiplot = function(
   has_groups = (!is.null(attributes(data)[["has_groups"]]) && isTRUE(attributes(data)[["has_groups"]]))
   if (isTRUE(has_groups)) {
 
-  	key <- unique(data[c("x", "group_var")])
-  	key <- key[order(key[["group_var"]], key[["x"]]), , drop = FALSE]
-  	xlimits <- as.character(key[["x"]])
+  	key = unique(data[c("x", "group_var")])
+  	key = key[order(key[["group_var"]], key[["x"]]), , drop = FALSE]
+  	xlimits = as.character(key[["x"]])
 
-  	rle <- rle(as.character(key[["group_var"]]))
-  	keep <- nzchar(rle$values)
-  	end <- cumsum(rle$lengths)
-  	start <- end - rle$lengths + 1L
+  	rle = rle(as.character(key[["group_var"]]))
+  	keep = nzchar(rle$values)
+  	end = cumsum(rle$lengths)
+  	start = end - rle$lengths + 1L
 
-  	key <- legendry::key_range_manual(
+  	key = legendry::key_range_manual(
   		start = xlimits[start[keep]],
   		end   = xlimits[end[keep]],
   		name  = rle$values[keep],
   		level = 1L
   	)
 
-  	data[["group_var"]] <- NULL
+  	data[["group_var"]] = NULL
   }
 
   yrange = range(c(data[["ci_low"]], data[["ci_high"]]), na.rm = TRUE)
@@ -343,10 +343,15 @@ ggiplot = function(
        if (geom_style == "ribbon" || pt.join) {
            if (multi_style == "dodge") {
                if (length(ci_level) == 1) {
-                   geom_line(
-                       aes(group = paste0(.data$group, .data$id)),
-                       position = position_dodge(width = ci.width)
-                   )
+               		 if (identical(data$group, data$id)) {
+	                   geom_line(position = position_dodge2(width = ci.width, padding = ci.width))
+               		 } else {
+	                   geom_line(
+	                       aes(group = paste0(.data$group, .data$id)), # catch for complex split combos
+	                       position = position_dodge2(width = ci.width, padding = ci.width)
+	                   )
+
+               		 }
                } else {
                    geom_line(
                        data = ~ subset(.x, ci_level == max(ci_level)),
