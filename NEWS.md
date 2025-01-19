@@ -2,11 +2,12 @@
 
 ### Bug fixes
 
-- Fix missing "hypothesis" attribute for `aggr_es` objects (#43)
+- Fix missing "hypothesis" attribute for `aggr_es` objects. (#43)
+- Fix dodge misalignment between points and lines with multi fixest objects. (#44)
 
 ### Internals
 
-- Replace `ggh4x` dependency with `legendry` (#41 @teunbrand)
+- Replace `ggh4x` dependency with `legendry`. (#41 @teunbrand)
 
 ### Misc
 
