@@ -1,33 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>http://grantmcdermott.com/ggiplot/404.html</loc>
-  </url>
-  <url>
-    <loc>http://grantmcdermott.com/ggiplot/articles/ggiplot.html</loc>
-  </url>
-  <url>
-    <loc>http://grantmcdermott.com/ggiplot/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>http://grantmcdermott.com/ggiplot/authors.html</loc>
-  </url>
-  <url>
-    <loc>http://grantmcdermott.com/ggiplot/index.html</loc>
-  </url>
-  <url>
-    <loc>http://grantmcdermott.com/ggiplot/news/index.html</loc>
-  </url>
-  <url>
-    <loc>http://grantmcdermott.com/ggiplot/reference/aggr_es.html</loc>
-  </url>
-  <url>
-    <loc>http://grantmcdermott.com/ggiplot/reference/ggcoefplot.html</loc>
-  </url>
-  <url>
-    <loc>http://grantmcdermott.com/ggiplot/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>http://grantmcdermott.com/ggiplot/reference/iplot_data.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://grantmcdermott.com/ggiplot/404.html</loc></url>
+<url><loc>https://grantmcdermott.com/ggiplot/articles/ggiplot.html</loc></url>
+<url><loc>https://grantmcdermott.com/ggiplot/articles/index.html</loc></url>
+<url><loc>https://grantmcdermott.com/ggiplot/authors.html</loc></url>
+<url><loc>https://grantmcdermott.com/ggiplot/index.html</loc></url>
+<url><loc>https://grantmcdermott.com/ggiplot/news/index.html</loc></url>
+<url><loc>https://grantmcdermott.com/ggiplot/reference/aggr_es.html</loc></url>
+<url><loc>https://grantmcdermott.com/ggiplot/reference/ggcoefplot.html</loc></url>
+<url><loc>https://grantmcdermott.com/ggiplot/reference/index.html</loc></url>
+<url><loc>https://grantmcdermott.com/ggiplot/reference/iplot_data.html</loc></url>
 </urlset>
+
