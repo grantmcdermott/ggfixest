@@ -1,7 +1,7 @@
 Package: ggfixest
 Title: Dedicated 'ggplot2' Methods for 'fixest' Objects
-Version: 0.1.0.99
-Date: 2025-01-17
+Version: 0.2.0
+Date: 2025-01-21
 Authors@R: c(
     person(
         given   = "Grant",
