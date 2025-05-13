@@ -1,3 +1,9 @@
+# ggfixest 0.2.0.99 (development version)
+
+### Internals
+
+- Bump `svglite` dependency version and update test snapshots. (#51) 
+
 # ggfixest 0.2.0
 
 ### Bug fixes
