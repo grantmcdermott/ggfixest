@@ -20,7 +20,7 @@ ggiplot(
   geom_style = c("pointrange", "errorbar", "ribbon"),
   multi_style = c("dodge", "facet"),
   aggr_eff = NULL,
-  aggr_eff.par = list(col = "grey50", lwd = 1, lty = 1),
+  aggr_eff.par = list(col = "grey", lwd = 1, lty = 1),
   facet_args = NULL,
   theme = NULL,
   ...
@@ -47,7 +47,7 @@ adjustments, such as centered plot title. Can also be defined on an
 existing ggiplot object to redefine theme elements. See examples.}
 
 \item{...}{Arguments passed down to, or equivalent to, the corresponding
-\code{fixest::coefplot}/\code{fixest::iplot} arguments. Note that some of these
+\code{\link[fixest:coefplot]{fixest::coefplot}}/\code{\link[fixest:coefplot]{fixest::iplot}} arguments. Note that some of these
 require list objects. Currently used are:
 \itemize{
 \item \code{keep} and \code{drop} for subsetting variables using regular expressions. The \code{fixest::iplot} help page includes more detailed examples, but these should generally work as you expect. One useful regexp trick worth mentioning briefly for event studies with many pre-/post-periods is \code{drop = "[[:digit:]]{2}"}. This will cause the plot to zoom in around single digit pre-/post-periods.
@@ -78,7 +78,7 @@ considered if \code{vcov} is not null, etc.
 
 \item{aggr_eff}{A keyword string or numeric sequence, indicating whether
 mean treatment effects for some subset of the model should be displayed as
-part of the plot. For example, the "post" keyword means that the mean
+part of the plot. For example, the \code{"post"} keyword means that the mean
 post-treatment effect will be plotted alongside the individual period
 effects. Passed to \code{\link{aggr_es}}; see that function's documentation for other
 valid options.}
@@ -90,8 +90,8 @@ if plotted. The default values are \code{col = 'gray50'}, \code{lwd = 1}, \code{
 A ggplot2 object.
 }
 \description{
-Draws the \code{ggplot2} equivalents of \code{fixest::coefplot} and
-\code{fixest::iplot}. These "gg" versions do their best to recycle the same
+Draws the \code{ggplot2} equivalents of \code{\link[fixest:coefplot]{fixest::coefplot}} and
+\code{\link[fixest:coefplot]{fixest::iplot}}. These "gg" versions do their best to recycle the same
 arguments  and plotting logic as their original base counterparts. But they
 also support additional features via the \code{ggplot2} API and infrastructure.
 The overall goal remains the same as the original functions. To wit:
@@ -182,7 +182,8 @@ ggiplot(est_did)
 
 ggiplot(est_did, ci_level = c(0.8, 0.95))
 ggiplot(est_did, ref.line = FALSE, pt.join = TRUE, geom_style = "errorbar")
-ggiplot(est_did, geom_style = "ribbon", col = "orange")
+ggiplot(est_did, geom_style = "ribbon", col = "hotpink")
+ggiplot(est_did, aggr_eff = "both", aggr_eff.par = list(col = "orange"))
 # etc
 
 # We can also use a dictionary to replace label values. The dicionary should
@@ -205,7 +206,7 @@ ggiplot(est_did, pt.join = TRUE, geom_style = "errorbar", dict = dict)
 base_inter$period_month = all_months[base_inter$period]
 
 # The new estimation
-est = feols(y ~ x1 + i(period_month, treat, "oct") | id+period, base_inter)
+est = feols(y ~ x1 + i(period_month, treat, "oct") | id + period, base_inter)
 # Since 'period_month' of type character, iplot/coefplot both sort it
 ggiplot(est)
 
