@@ -20,7 +20,7 @@ ggiplot(
   geom_style = c("pointrange", "errorbar", "ribbon"),
   multi_style = c("dodge", "facet"),
   aggr_eff = NULL,
-  aggr_eff.par = list(col = "grey", lwd = 1, lty = 1),
+  aggr_eff.par = list(col = "gray", lwd = 1, lty = 1),
   facet_args = NULL,
   theme = NULL,
   ...
@@ -84,7 +84,7 @@ effects. Passed to \code{\link{aggr_es}}; see that function's documentation for 
 valid options.}
 
 \item{aggr_eff.par}{List. Parameters of the aggregated treatment effect line,
-if plotted. The default values are \code{col = 'gray50'}, \code{lwd = 1}, \code{lty = 1}.}
+if plotted. The default values are \code{col = 'gray'}, \code{lwd = 1}, \code{lty = 1}.}
 }
 \value{
 A ggplot2 object.
@@ -183,7 +183,7 @@ ggiplot(est_did)
 ggiplot(est_did, ci_level = c(0.8, 0.95))
 ggiplot(est_did, ref.line = FALSE, pt.join = TRUE, geom_style = "errorbar")
 ggiplot(est_did, geom_style = "ribbon", col = "hotpink")
-ggiplot(est_did, aggr_eff = "both", aggr_eff.par = list(col = "orange"))
+ggiplot(est_did, aggr_eff = "both")
 # etc
 
 # We can also use a dictionary to replace label values. The dicionary should

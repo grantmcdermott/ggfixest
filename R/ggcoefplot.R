@@ -137,7 +137,7 @@
 #' ggiplot(est_did, ci_level = c(0.8, 0.95))
 #' ggiplot(est_did, ref.line = FALSE, pt.join = TRUE, geom_style = "errorbar")
 #' ggiplot(est_did, geom_style = "ribbon", col = "hotpink")
-#' ggiplot(est_did, aggr_eff = "both", aggr_eff.par = list(col = "orange"))
+#' ggiplot(est_did, aggr_eff = "both")
 #' # etc
 #'
 #' # We can also use a dictionary to replace label values. The dicionary should
