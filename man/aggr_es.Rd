@@ -6,8 +6,8 @@
 \usage{
 aggr_es(
   object,
+  period = c("post", "pre", "both", "diff"),
   rhs = 0,
-  period = "post",
   aggregation = c("mean", "cumulative"),
   abbr_term = TRUE,
   ...
@@ -17,23 +17,24 @@ aggr_es(
 \item{object}{A model object of class \code{fixest}, where the \code{i()} operator has
 been used to facilitate an "event-study" DiD design. See Examples.}
 
+\item{period}{Keyword string or numeric sequence. Which group of periods
+are we aggregating? Accepts the following convenience strings: \code{"post"} (the
+default), \code{"pre"}, \code{"both"}, or \verb{"diff} (for the difference between the post
+and pre periods). Alternatively, can also be a numeric sequence that
+designates an explicit subset of periods in the data (e.g. \code{6:8}).}
+
 \item{rhs}{Numeric. The null hypothesis value. Defaults to 0.}
 
-\item{period}{Keyword string or numeric sequence. Which group of periods
-are we aggregating? Can either be one of three convenience strings---i.e.,
-"post" (the default), "prep", or "both"---or a numeric sequence that matches
-a subset of periods in the data (e.g. 6:8).}
-
-\item{aggregation}{Character string. The aggregation type. Either "mean" (the
-default) or "cumulative".}
+\item{aggregation}{Character string. The aggregation type. Either \code{"mean"}
+(the default) or \code{"cumulative"}.}
 
 \item{abbr_term}{Logical. Should the leading "term" column of the return
-data frame be abbreviated? The default is TRUE. If FALSE, then the term
+data frame be abbreviated? The default is \code{TRUE}. If \code{FALSE}, then the term
 column will retain the full hypothesis test string as per usual with
-\code{marginaleffects()}. Note that this information is retained as an attribute
-of the return object, regardless.}
+\code{\link[marginaleffects:hypotheses]{marginaleffects::hypotheses()}}. Note that this information is retained as
+an attribute of the return object, regardless.}
 
-\item{...}{Additional arguments passed to \code{marginaleffects::hypotheses()}.}
+\item{...}{Additional arguments passed to \code{\link[marginaleffects:hypotheses]{marginaleffects::hypotheses()}}.}
 }
 \value{
 A "tidy" data frame of aggregated (pre and/or post) treatment
@@ -47,11 +48,9 @@ Aggregates post- (and/or pre-) treatment effects of an
 (DDiD) model. The event-study should have been estimated using the \code{fixest}
 package, which provides a specialised \code{i()} operator for this class
 of models. By default, the function will return the average post-treatment
-effect (i.e. across multiple periods). However, it can also return the
+effect (i.e., across multiple periods). However, it can also return the
 cumulative post-treatment effect and can be used to aggregate pre-treatment
-effects too. At its heart, \code{aggr_es()} is a convenience wrapper around
-\code{marginaleffects::hypotheses()}, which is used to perform the underlying
-joint hypothesis test.
+effects too.
 }
 \examples{
 library(ggfixest) ## Will load fixest too
@@ -60,6 +59,7 @@ est = feols(y ~ x1 + i(period, treat, 5) | id + period, base_did)
 
 # Default hypothesis test is a null mean post-treatment effect
 (post_mean = aggr_es(est))
+
 # The underlying hypothesis is saved as an attribute
 attr(post_mean, "hypothesis")
 
@@ -67,11 +67,13 @@ attr(post_mean, "hypothesis")
 aggr_es(est, aggregation = "cumulative") # cumulative instead of mean effects
 aggr_es(est, period = "pre")             # pre period instead of post
 aggr_es(est, period = "both")            # pre & post periods separately
+aggr_es(est, period = "diff")            # post vs pre difference
 aggr_es(est, period = 6:8)               # specific subset of periods
 aggr_es(est, rhs = -1, period = "pre")   # pre period with H0 value of 1
 # Etc.
 
 }
 \seealso{
-\code{\link[marginaleffects:hypotheses]{marginaleffects::hypotheses()}}
+\code{\link[marginaleffects:hypotheses]{marginaleffects::hypotheses()}}, which this function is ultimately a
+convenience wrapper around.
 }
