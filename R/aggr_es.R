@@ -45,12 +45,12 @@
 #' attr(post_mean, "hypothesis")
 #'
 #' # Other hypothesis and aggregation options
-#' aggr_es(est, aggregation = "cumulative") # cumulative instead of mean effects
 #' aggr_es(est, period = "pre")             # pre period instead of post
 #' aggr_es(est, period = "both")            # pre & post periods separately
 #' aggr_es(est, period = "diff")            # post vs pre difference
 #' aggr_es(est, period = 6:8)               # specific subset of periods
-#' aggr_es(est, rhs = -1, period = "pre")   # pre period with H0 value of 1
+#' aggr_es(est, period = "pre", rhs = -1)   # pre period with H0 value of 1
+#' aggr_es(est, aggregation = "cumulative") # cumulative instead of mean effects
 #' # Etc.
 #'
 aggr_es = function(object,
@@ -92,7 +92,7 @@ aggr_es = function(object,
             period = setdiff(period, mm$ref)
         }
         idx = list(match(period, mm$items))
-        names(idx) = paste0("periods", paste(range(period), collapse=":"))
+        names(idx) = paste("periods", paste(range(period), collapse=":"))
     } else if (period == "post") {
         idx = list("post" = (ref_id + 1):length(coefs))
     } else if (period == "pre") {
@@ -119,7 +119,7 @@ aggr_es = function(object,
     res = hypotheses(object, hypothesis = hstring, ...)
     if (abbr_term) {
         if (is.numeric(period)) {
-            res$term = paste0(gsub("^periods", "periods ", names(idx)), " (", aggregation, ")")
+            res$term = paste0(names(idx), " (", aggregation, ")")
         } else if (period == "diff") {
             res$term = "difference (post vs pre mean)"
         } else {
@@ -131,29 +131,6 @@ aggr_es = function(object,
     res$hypothesis = NULL
     attr(res, "hypothesis") = hstring
 
-    # ## We're doing a bit more work than we need to here with the lapply call and
-    # ## binding afterwards. But this allows us to handle the "both" aggregation
-    # ## case.
-    # res = lapply(
-    #     seq_along(idx),
-    #     function(i) {
-    #         # coefs2 = coefs[idx[[i]]]
-    #         # period2 = names(idx)[i]
-    #         # hypothesis = paste(paste0("`", coefs2, "`"), collapse = " + ")
-    #         # if (aggregation == "mean") hypothesis = paste0("(", hypothesis, ")/", length(coefs2))
-    #         # hypothesis = paste(hypothesis, "=", rhs)
-    #         hstring = gen_hstring(coefs, idx[[i]])
-    #         ret = hypotheses(object, hypothesis = hstring, ...)
-    #         if (abbr_term) ret$term = paste0(names(idx)[i], "-treatment (", aggregation, ")")
-    #         attr(ret, "hypothesis") = hstring
-    #         return(ret)
-    #     }
-    # )
-    # ## Bind together and capture/re-assign and the hypothesis attribute
-    # hyp_attr = sapply(res, function(x) attr(x, "hypothesis"))
-    # res = do.call("rbind", res)
-    # row.names(res) = NULL
-    # if (!is.numeric(period)) attr(res, "hypothesis") = hyp_attr
     return(res)
 }
 

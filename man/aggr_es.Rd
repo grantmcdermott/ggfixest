@@ -64,12 +64,12 @@ est = feols(y ~ x1 + i(period, treat, 5) | id + period, base_did)
 attr(post_mean, "hypothesis")
 
 # Other hypothesis and aggregation options
-aggr_es(est, aggregation = "cumulative") # cumulative instead of mean effects
 aggr_es(est, period = "pre")             # pre period instead of post
 aggr_es(est, period = "both")            # pre & post periods separately
 aggr_es(est, period = "diff")            # post vs pre difference
 aggr_es(est, period = 6:8)               # specific subset of periods
-aggr_es(est, rhs = -1, period = "pre")   # pre period with H0 value of 1
+aggr_es(est, period = "pre", rhs = -1)   # pre period with H0 value of 1
+aggr_es(est, aggregation = "cumulative") # cumulative instead of mean effects
 # Etc.
 
 }
