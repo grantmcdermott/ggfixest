@@ -9,7 +9,7 @@ ggiplot = function(
 	geom_style = c('pointrange', 'errorbar', 'ribbon'),
 	multi_style = c('dodge', 'facet'),
 	aggr_eff = NULL,
-	aggr_eff.par = list(col = 'grey50', lwd = 1, lty = 1),
+	aggr_eff.par = list(col = 'gray', lwd = 1, lty = 1),
 	facet_args = NULL,
 	theme = NULL,
 	...
@@ -19,7 +19,7 @@ ggiplot = function(
   multi_style = match.arg(multi_style)
   # aggr_eff = match.arg(aggr_eff)
   if (is.null(aggr_eff)) aggr_eff = "none"
-  aggr_eff.par = utils::modifyList(list(col = "grey50", lwd = 1, lty = 1), aggr_eff.par)
+  aggr_eff.par = utils::modifyList(list(col = "gray", lwd = 1, lty = 1), aggr_eff.par)
 
   dots = list(...)
   ## Defaults

@@ -15,6 +15,7 @@ aggr_post = aggr_es(est)                             # default post
 aggr_cum  = aggr_es(est, aggregation = "cumulative") # cumulative instead of mean effects
 aggr_pre  = aggr_es(est, period = "pre")             # pre period instead of post
 aggr_both = aggr_es(est, period = "both")            # pre & post periods separately
+aggr_diff = aggr_es(est, period = "diff")            # difference (post vs pre)
 aggr_rhs1 = aggr_es(est, period = "pre", rhs = -1)   # pre period with H0 value of 1
 
 #
@@ -54,17 +55,27 @@ aggr_pre_known = data.frame(
 	conf.high = 0.49824338533526924
 )
 
-aggr_both_known =
-	data.frame(
-		term = c("pre-treatment (mean)", "post-treatment (mean)"),
-		estimate = c(-1.1798706992411545, 3.906554122950695),
-		std.error = c(0.8561963882056884, 0.8598575665281263),
-		statistic = c(-1.3780374637106132, 4.543257249830702),
-		p.value = c(0.16819172163573184, 5.5391585244779775e-06),
-		s.value = c(2.5718213967199377, 17.461901741925015),
-		conf.low = c(-2.857984783817578, 2.2212642607213144),
-		conf.high = c(0.49824338533526924, 5.591843985180075)
-	)
+aggr_both_known = data.frame(
+	term = c("pre-treatment (mean)", "post-treatment (mean)"),
+	estimate = c(-1.1798706992411545, 3.906554122950695),
+	std.error = c(0.8561963882056884, 0.8598575665281263),
+	statistic = c(-1.3780374637106132, 4.543257249830702),
+	p.value = c(0.16819172163573184, 5.5391585244779775e-06),
+	s.value = c(2.5718213967199377, 17.461901741925015),
+	conf.low = c(-2.857984783817578, 2.2212642607213144),
+	conf.high = c(0.49824338533526924, 5.591843985180075)
+)
+
+aggr_diff_known = data.frame(
+	term = "difference (post vs pre mean)",
+	estimate = 5.08642482219185,
+	std.error = 0.47207477585529,
+	statistic = 10.7746168241598,
+	p.value = 4.53667090889737e-27,
+	s.value = 87.5104245518892,
+	conf.low = 4.16117526350566,
+	conf.high = 6.01167438087804
+)
 
 aggr_rhs1_known = data.frame(
 	term = "pre-treatment (mean)",
@@ -88,5 +99,6 @@ for (col in c("term", "estimate", "std.error", "statistic", "p.value", "s.value"
 	expect_equivalent(aggr_cum[[col]], aggr_cum_known[[col]], tolerance = tol)
 	expect_equivalent(aggr_pre[[col]], aggr_pre_known[[col]], tolerance = tol)
 	expect_equivalent(aggr_both[[col]], aggr_both_known[[col]], tolerance = tol)
+	expect_equivalent(aggr_diff[[col]], aggr_diff_known[[col]], tolerance = tol)
 	expect_equivalent(aggr_rhs1[[col]], aggr_rhs1_known[[col]], tolerance = tol)
 }

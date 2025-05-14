@@ -1,8 +1,8 @@
 #' @title Draw coefficient plots and interaction plots from `fixest` regression
 #'   objects.
 #'
-#' @description Draws the `ggplot2` equivalents of `fixest::coefplot` and
-#'   `fixest::iplot`. These "gg" versions do their best to recycle the same
+#' @description Draws the `ggplot2` equivalents of [`fixest::coefplot`] and
+#'   [`fixest::iplot`]. These "gg" versions do their best to recycle the same
 #'   arguments  and plotting logic as their original base counterparts. But they
 #'   also support additional features via the `ggplot2` API and infrastructure.
 #'   The overall goal remains the same as the original functions. To wit:
@@ -20,12 +20,12 @@
 #'   how multi-model objects should be presented.
 #' @param aggr_eff A keyword string or numeric sequence, indicating whether
 #'   mean treatment effects for some subset of the model should be displayed as
-#'   part of the plot. For example, the "post" keyword means that the mean
+#'   part of the plot. For example, the `"post"` keyword means that the mean
 #'   post-treatment effect will be plotted alongside the individual period
 #'   effects. Passed to [`aggr_es`]; see that function's documentation for other
 #'   valid options.
 #' @param aggr_eff.par List. Parameters of the aggregated treatment effect line,
-#'   if plotted. The default values are `col = 'gray50'`, `lwd = 1`, `lty = 1`.
+#'   if plotted. The default values are `col = 'gray'`, `lwd = 1`, `lty = 1`.
 #' @param facet_args A list of arguments passed down to `ggplot::fact_wrap()`.
 #'   E.g. `facet_args = list(ncol = 2, scales = 'free_y')`. Only used if
 #'   `multi_style = 'facet'`.
@@ -33,7 +33,7 @@
 #'   adjustments, such as centered plot title. Can also be defined on an
 #'   existing ggiplot object to redefine theme elements. See examples.
 #' @param ... Arguments passed down to, or equivalent to, the corresponding
-#'   `fixest::coefplot`/`fixest::iplot` arguments. Note that some of these
+#'   [`fixest::coefplot`]/[`fixest::iplot`] arguments. Note that some of these
 #'   require list objects. Currently used are:
 #'   * `keep` and `drop` for subsetting variables using regular expressions. The `fixest::iplot` help page includes more detailed examples, but these should generally work as you expect. One useful regexp trick worth mentioning briefly for event studies with many pre-/post-periods is `drop = "[[:digit:]]{2}"`. This will cause the plot to zoom in around single digit pre-/post-periods.
 #'   * `group` a list indicating variables to group over. Each element of the list reports the coefficients to be grouped while the name of the element is the group name. Each element of the list can be either: i) a character vector of length 1, ii) of length 2, or iii) a numeric vector. Special patterns such as "^^var_start" can be used to more appealing plotting, where group labels are separated from their subsidiary labels. This can be especially useful for plotting interaction terms. See the Details section of `fixest::coefplot` for more information.
@@ -136,7 +136,8 @@
 #'
 #' ggiplot(est_did, ci_level = c(0.8, 0.95))
 #' ggiplot(est_did, ref.line = FALSE, pt.join = TRUE, geom_style = "errorbar")
-#' ggiplot(est_did, geom_style = "ribbon", col = "orange")
+#' ggiplot(est_did, geom_style = "ribbon", col = "hotpink")
+#' ggiplot(est_did, aggr_eff = "both")
 #' # etc
 #'
 #' # We can also use a dictionary to replace label values. The dicionary should
@@ -159,7 +160,7 @@
 #' base_inter$period_month = all_months[base_inter$period]
 #'
 #' # The new estimation
-#' est = feols(y ~ x1 + i(period_month, treat, "oct") | id+period, base_inter)
+#' est = feols(y ~ x1 + i(period_month, treat, "oct") | id + period, base_inter)
 #' # Since 'period_month' of type character, iplot/coefplot both sort it
 #' ggiplot(est)
 #'
