@@ -1,7 +1,7 @@
 ## Overview
 
-`ggfixest` 0.2.0 is a minor update, which includes some bug fixes and
-dependency changes.
+`ggfixest` 0.3.0 is a minor update that address some CRAN errors due to a
+dependency change.
 
 ## Test environments
 
