@@ -4,20 +4,16 @@
 (DDiD) model. The event-study should have been estimated using the fixest
 package, which provides a specialised i() operator for this class
 of models. By default, the function will return the average post-treatment
-effect (i.e. across multiple periods). However, it can also return the
+effect (i.e., across multiple periods). However, it can also return the
 cumulative post-treatment effect and can be used to aggregate pre-treatment
-effects too. At its heart, aggr_es() is a convenience wrapper around
-marginaleffects::hypotheses(), which is used to perform the underlying
-joint hypothesis test.'><meta property="og:description" content='Aggregates post- (and/or pre-) treatment effects of an
+effects too.'><meta property="og:description" content='Aggregates post- (and/or pre-) treatment effects of an
 "event-study" estimation, also known as a dynamic difference-in-differences
 (DDiD) model. The event-study should have been estimated using the fixest
 package, which provides a specialised i() operator for this class
 of models. By default, the function will return the average post-treatment
-effect (i.e. across multiple periods). However, it can also return the
+effect (i.e., across multiple periods). However, it can also return the
 cumulative post-treatment effect and can be used to aggregate pre-treatment
-effects too. At its heart, aggr_es() is a convenience wrapper around
-marginaleffects::hypotheses(), which is used to perform the underlying
-joint hypothesis test.'></head><body>
+effects too.'></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -25,7 +21,7 @@ joint hypothesis test.'></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">ggfixest</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,7 +47,7 @@ joint hypothesis test.'></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Aggregates event-study treatment effects.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/grantmcdermott/ggfixest/blob/v0.2.0/R/aggr_es.R" class="external-link"><code>R/aggr_es.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/grantmcdermott/ggfixest/blob/main/R/aggr_es.R" class="external-link"><code>R/aggr_es.R</code></a></small>
       <div class="d-none name"><code>aggr_es.Rd</code></div>
     </div>
 
@@ -61,19 +57,17 @@ joint hypothesis test.'></head><body>
 (DDiD) model. The event-study should have been estimated using the <code>fixest</code>
 package, which provides a specialised <code><a href="https://lrberge.github.io/fixest/reference/i.html" class="external-link">i()</a></code> operator for this class
 of models. By default, the function will return the average post-treatment
-effect (i.e. across multiple periods). However, it can also return the
+effect (i.e., across multiple periods). However, it can also return the
 cumulative post-treatment effect and can be used to aggregate pre-treatment
-effects too. At its heart, <code>aggr_es()</code> is a convenience wrapper around
-<code><a href="https://marginaleffects.com/man/r/hypotheses.html" class="external-link">marginaleffects::hypotheses()</a></code>, which is used to perform the underlying
-joint hypothesis test.</p>
+effects too.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">aggr_es</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
+<span>  period <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"post"</span>, <span class="st">"pre"</span>, <span class="st">"both"</span>, <span class="st">"diff"</span><span class="op">)</span>,</span>
 <span>  rhs <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  period <span class="op">=</span> <span class="st">"post"</span>,</span>
 <span>  aggregation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mean"</span>, <span class="st">"cumulative"</span><span class="op">)</span>,</span>
 <span>  abbr_term <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
@@ -89,28 +83,29 @@ joint hypothesis test.</p>
 been used to facilitate an "event-study" DiD design. See Examples.</p></dd>
 
 
+<dt id="arg-period">period<a class="anchor" aria-label="anchor" href="#arg-period"></a></dt>
+<dd><p>Keyword string or numeric sequence. Which group of periods
+are we aggregating? Accepts the following convenience strings: <code>"post"</code> (the
+default), <code>"pre"</code>, <code>"both"</code>, or <code>"diff</code> (for the difference between the post
+and pre periods). Alternatively, can also be a numeric sequence that
+designates an explicit subset of periods in the data (e.g. <code>6:8</code>).</p></dd>
+
+
 <dt id="arg-rhs">rhs<a class="anchor" aria-label="anchor" href="#arg-rhs"></a></dt>
 <dd><p>Numeric. The null hypothesis value. Defaults to 0.</p></dd>
 
 
-<dt id="arg-period">period<a class="anchor" aria-label="anchor" href="#arg-period"></a></dt>
-<dd><p>Keyword string or numeric sequence. Which group of periods
-are we aggregating? Can either be one of three convenience strings—i.e.,
-"post" (the default), "prep", or "both"—or a numeric sequence that matches
-a subset of periods in the data (e.g. 6:8).</p></dd>
-
-
 <dt id="arg-aggregation">aggregation<a class="anchor" aria-label="anchor" href="#arg-aggregation"></a></dt>
-<dd><p>Character string. The aggregation type. Either "mean" (the
-default) or "cumulative".</p></dd>
+<dd><p>Character string. The aggregation type. Either <code>"mean"</code>
+(the default) or <code>"cumulative"</code>.</p></dd>
 
 
 <dt id="arg-abbr-term">abbr_term<a class="anchor" aria-label="anchor" href="#arg-abbr-term"></a></dt>
 <dd><p>Logical. Should the leading "term" column of the return
-data frame be abbreviated? The default is TRUE. If FALSE, then the term
+data frame be abbreviated? The default is <code>TRUE</code>. If <code>FALSE</code>, then the term
 column will retain the full hypothesis test string as per usual with
-<code>marginaleffects()</code>. Note that this information is retained as an attribute
-of the return object, regardless.</p></dd>
+<code><a href="https://marginaleffects.com/man/r/hypotheses.html" class="external-link">marginaleffects::hypotheses()</a></code>. Note that this information is retained as
+an attribute of the return object, regardless.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -126,7 +121,8 @@ hypothesis test is also provided as an attribute. See Examples.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="https://marginaleffects.com/man/r/hypotheses.html" class="external-link">marginaleffects::hypotheses()</a></code></p></div>
+    <div class="dont-index"><p><code><a href="https://marginaleffects.com/man/r/hypotheses.html" class="external-link">marginaleffects::hypotheses()</a></code>, which this function is ultimately a
+convenience wrapper around.</p></div>
     </div>
 
     <div class="section level2">
@@ -137,54 +133,61 @@ hypothesis test is also provided as an attribute. See Examples.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Default hypothesis test is a null mean post-treatment effect</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">post_mean</span> <span class="op">=</span> <span class="fu">aggr_es</span><span class="op">(</span><span class="va">est</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     term estimate std.error statistic      p.value s.value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   &lt;char&gt;    &lt;num&gt;     &lt;num&gt;     &lt;num&gt;        &lt;num&gt;   &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: post-treatment (mean) 3.906554 0.8598576  4.543257 5.539159e-06 17.4619</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    conf.low conf.high</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;num&gt;     &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 2.221264  5.591844</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Estimate Std. Error    z Pr(&gt;|z|)    S 2.5 % 97.5 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      3.91       0.86 4.54   &lt;0.001 17.5  2.22   5.59</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Term: post-treatment (mean)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># The underlying hypothesis is saved as an attribute</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">post_mean</span>, <span class="st">"hypothesis"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "(`period::6:treat` + `period::7:treat` + `period::8:treat` + `period::9:treat` + `period::10:treat`)/5 = 0"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                         post </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "(`period::6:treat` + `period::7:treat` + `period::8:treat` + `period::9:treat` + `period::10:treat`)/5 = 0" </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Other hypothesis and aggregation options</span></span></span>
-<span class="r-in"><span><span class="fu">aggr_es</span><span class="op">(</span><span class="va">est</span>, aggregation <span class="op">=</span> <span class="st">"cumulative"</span><span class="op">)</span> <span class="co"># cumulative instead of mean effects</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                           term estimate std.error statistic      p.value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                         &lt;char&gt;    &lt;num&gt;     &lt;num&gt;     &lt;num&gt;        &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: post-treatment (cumulative) 19.53277  4.299288  4.543257 5.539158e-06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    s.value conf.low conf.high</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      &lt;num&gt;    &lt;num&gt;     &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 17.4619 11.10632  27.95922</span>
 <span class="r-in"><span><span class="fu">aggr_es</span><span class="op">(</span><span class="va">est</span>, period <span class="op">=</span> <span class="st">"pre"</span><span class="op">)</span>             <span class="co"># pre period instead of post</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    term  estimate std.error statistic   p.value  s.value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  &lt;char&gt;     &lt;num&gt;     &lt;num&gt;     &lt;num&gt;     &lt;num&gt;    &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: pre-treatment (mean) -1.179871 0.8561964 -1.378037 0.1681917 2.571821</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     conf.low conf.high</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;num&gt;     &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: -2.857985 0.4982434</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Estimate Std. Error     z Pr(&gt;|z|)   S 2.5 % 97.5 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     -1.18      0.856 -1.38    0.168 2.6 -2.86  0.498</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Term: pre-treatment (mean)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">aggr_es</span><span class="op">(</span><span class="va">est</span>, period <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span>            <span class="co"># pre &amp; post periods separately</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     term  estimate std.error statistic      p.value   s.value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   &lt;char&gt;     &lt;num&gt;     &lt;num&gt;     &lt;num&gt;        &lt;num&gt;     &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:  pre-treatment (mean) -1.179871 0.8561964 -1.378037 1.681917e-01  2.571821</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2: post-treatment (mean)  3.906554 0.8598576  4.543257 5.539159e-06 17.461902</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     conf.low conf.high</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;num&gt;     &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: -2.857985 0.4982434</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:  2.221264 5.5918440</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   Term Estimate Std. Error     z Pr(&gt;|z|)    S 2.5 % 97.5 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  pre-treatment (mean)     -1.18      0.856 -1.38    0.168  2.6 -2.86  0.498</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  post-treatment (mean)     3.91      0.860  4.54   &lt;0.001 17.5  2.22  5.592</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="fu">aggr_es</span><span class="op">(</span><span class="va">est</span>, period <span class="op">=</span> <span class="st">"diff"</span><span class="op">)</span>            <span class="co"># post vs pre difference</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Estimate Std. Error    z Pr(&gt;|z|)    S 2.5 % 97.5 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      5.09      0.472 10.8   &lt;0.001 87.5  4.16   6.01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Term: difference (post vs pre mean)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">aggr_es</span><span class="op">(</span><span class="va">est</span>, period <span class="op">=</span> <span class="fl">6</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span>               <span class="co"># specific subset of periods</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                           term estimate std.error statistic     p.value s.value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                         &lt;char&gt;    &lt;num&gt;     &lt;num&gt;     &lt;num&gt;       &lt;num&gt;   &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: periods6:8-treatment (mean) 2.731705 0.9299503  2.937474 0.003308975  8.2394</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     conf.low conf.high</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;num&gt;     &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 0.9090361  4.554374</span>
-<span class="r-in"><span><span class="fu">aggr_es</span><span class="op">(</span><span class="va">est</span>, rhs <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, period <span class="op">=</span> <span class="st">"pre"</span><span class="op">)</span>   <span class="co"># pre period with H0 value of 1</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    term   estimate std.error  statistic   p.value   s.value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  &lt;char&gt;      &lt;num&gt;     &lt;num&gt;      &lt;num&gt;     &lt;num&gt;     &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: pre-treatment (mean) -0.1798707 0.8561964 -0.2100811 0.8336044 0.2625653</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     conf.low conf.high</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;num&gt;     &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: -1.857985  1.498243</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Estimate Std. Error    z Pr(&gt;|z|)   S 2.5 % 97.5 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      2.73       0.93 2.94  0.00331 8.2 0.909   4.55</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Term: periods 6:8 (mean)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="fu">aggr_es</span><span class="op">(</span><span class="va">est</span>, period <span class="op">=</span> <span class="st">"pre"</span>, rhs <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span>   <span class="co"># pre period with H0 value of 1</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Estimate Std. Error     z Pr(&gt;|z|)   S 2.5 % 97.5 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     -0.18      0.856 -0.21    0.834 0.3 -1.86    1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Term: pre-treatment (mean)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="fu">aggr_es</span><span class="op">(</span><span class="va">est</span>, aggregation <span class="op">=</span> <span class="st">"cumulative"</span><span class="op">)</span> <span class="co"># cumulative instead of mean effects</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Estimate Std. Error    z Pr(&gt;|z|)    S 2.5 % 97.5 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      19.5        4.3 4.54   &lt;0.001 17.5  11.1     28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Term: post-treatment (cumulative)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># Etc.</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -198,7 +201,7 @@ hypothesis test is also provided as an attribute. See Examples.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
     </footer></div>
