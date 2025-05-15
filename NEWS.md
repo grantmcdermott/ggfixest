@@ -1,4 +1,4 @@
-# ggfixest 0.2.0.99 (development version)
+# ggfixest 0.3.0
 
 ### New features
 
