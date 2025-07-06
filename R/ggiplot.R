@@ -243,7 +243,7 @@ ggiplot = function(
 
   gg = gg +
   	{
-  		if (ref.line != "auto") {
+  		if (!is.null(ref.line) && ref.line != "auto") {
 	      geom_vline(xintercept = ref.line, col = ref.line.par$col, lwd = ref.line.par$lwd, lty = ref.line.par$lty)
   		}
   	} +
