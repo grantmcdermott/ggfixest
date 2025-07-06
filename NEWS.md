@@ -2,6 +2,10 @@
 
 This update contains no user-facing changes.
 
+### Internals
+
+- Bump `ggplot2` dependency version and update test snapshots. (#55) 
+
 # ggfixest 0.3.0
 
 ### New features
