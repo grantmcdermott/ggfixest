@@ -257,52 +257,88 @@
 <g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHw1MDQuMDA=)'>
 </g>
 <defs>
-  <clipPath id='cpMzAuODF8MjAwLjM0fDI1MC42OHwyODMuOTg='>
-    <rect x='30.81' y='250.68' width='169.53' height='33.30' />
+  <clipPath id='cpMzAuODF8MjAwLjM0fDI1MC42OHwyNjcuMzM='>
+    <rect x='30.81' y='250.68' width='169.53' height='16.65' />
   </clipPath>
 </defs>
-<g clip-path='url(#cpMzAuODF8MjAwLjM0fDI1MC42OHwyODMuOTg=)'>
+<g clip-path='url(#cpMzAuODF8MjAwLjM0fDI1MC42OHwyNjcuMzM=)'>
 <rect x='30.81' y='250.68' width='169.53' height='16.65' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' />
 <text x='115.58' y='262.03' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Liberation Sans";' textLength='54.27px' lengthAdjust='spacingAndGlyphs'>sample: Odds</text>
+</g>
+<g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHw1MDQuMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpMzAuODF8MjAwLjM0fDI2Ny4zM3wyODMuOTg='>
+    <rect x='30.81' y='267.33' width='169.53' height='16.65' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMzAuODF8MjAwLjM0fDI2Ny4zM3wyODMuOTg=)'>
 <rect x='30.81' y='267.33' width='169.53' height='16.65' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' />
 <text x='115.58' y='278.69' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Liberation Sans";' textLength='89.45px' lengthAdjust='spacingAndGlyphs'>Sun &amp; Abraham (2020)</text>
 </g>
 <g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHw1MDQuMDA=)'>
 </g>
 <defs>
-  <clipPath id='cpMjA1LjgyfDM3NS4zNXwyNTAuNjh8MjgzLjk4'>
-    <rect x='205.82' y='250.68' width='169.53' height='33.30' />
+  <clipPath id='cpMjA1LjgyfDM3NS4zNXwyNTAuNjh8MjY3LjMz'>
+    <rect x='205.82' y='250.68' width='169.53' height='16.65' />
   </clipPath>
 </defs>
-<g clip-path='url(#cpMjA1LjgyfDM3NS4zNXwyNTAuNjh8MjgzLjk4)'>
+<g clip-path='url(#cpMjA1LjgyfDM3NS4zNXwyNTAuNjh8MjY3LjMz)'>
 <rect x='205.82' y='250.68' width='169.53' height='16.65' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' />
 <text x='290.58' y='262.03' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Liberation Sans";' textLength='54.27px' lengthAdjust='spacingAndGlyphs'>sample: Odds</text>
+</g>
+<g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHw1MDQuMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpMjA1LjgyfDM3NS4zNXwyNjcuMzN8MjgzLjk4'>
+    <rect x='205.82' y='267.33' width='169.53' height='16.65' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjA1LjgyfDM3NS4zNXwyNjcuMzN8MjgzLjk4)'>
 <rect x='205.82' y='267.33' width='169.53' height='16.65' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' />
 <text x='290.58' y='278.69' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Liberation Sans";' textLength='24.92px' lengthAdjust='spacingAndGlyphs'>TWFE</text>
 </g>
 <g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHw1MDQuMDA=)'>
 </g>
 <defs>
-  <clipPath id='cpMzAuODF8MjAwLjM0fDIyLjc3fDU2LjA3'>
-    <rect x='30.81' y='22.77' width='169.53' height='33.30' />
+  <clipPath id='cpMzAuODF8MjAwLjM0fDIyLjc3fDM5LjQy'>
+    <rect x='30.81' y='22.77' width='169.53' height='16.65' />
   </clipPath>
 </defs>
-<g clip-path='url(#cpMzAuODF8MjAwLjM0fDIyLjc3fDU2LjA3)'>
+<g clip-path='url(#cpMzAuODF8MjAwLjM0fDIyLjc3fDM5LjQy)'>
 <rect x='30.81' y='22.77' width='169.53' height='16.65' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' />
 <text x='115.58' y='34.12' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Liberation Sans";' textLength='57.70px' lengthAdjust='spacingAndGlyphs'>sample: Evens</text>
+</g>
+<g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHw1MDQuMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpMzAuODF8MjAwLjM0fDM5LjQyfDU2LjA3'>
+    <rect x='30.81' y='39.42' width='169.53' height='16.65' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMzAuODF8MjAwLjM0fDM5LjQyfDU2LjA3)'>
 <rect x='30.81' y='39.42' width='169.53' height='16.65' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' />
 <text x='115.58' y='50.77' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Liberation Sans";' textLength='89.45px' lengthAdjust='spacingAndGlyphs'>Sun &amp; Abraham (2020)</text>
 </g>
 <g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHw1MDQuMDA=)'>
 </g>
 <defs>
-  <clipPath id='cpMjA1LjgyfDM3NS4zNXwyMi43N3w1Ni4wNw=='>
-    <rect x='205.82' y='22.77' width='169.53' height='33.30' />
+  <clipPath id='cpMjA1LjgyfDM3NS4zNXwyMi43N3wzOS40Mg=='>
+    <rect x='205.82' y='22.77' width='169.53' height='16.65' />
   </clipPath>
 </defs>
-<g clip-path='url(#cpMjA1LjgyfDM3NS4zNXwyMi43N3w1Ni4wNw==)'>
+<g clip-path='url(#cpMjA1LjgyfDM3NS4zNXwyMi43N3wzOS40Mg==)'>
 <rect x='205.82' y='22.77' width='169.53' height='16.65' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' />
 <text x='290.58' y='34.12' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Liberation Sans";' textLength='57.70px' lengthAdjust='spacingAndGlyphs'>sample: Evens</text>
+</g>
+<g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHw1MDQuMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpMjA1LjgyfDM3NS4zNXwzOS40Mnw1Ni4wNw=='>
+    <rect x='205.82' y='39.42' width='169.53' height='16.65' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjA1LjgyfDM3NS4zNXwzOS40Mnw1Ni4wNw==)'>
 <rect x='205.82' y='39.42' width='169.53' height='16.65' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' />
 <text x='290.58' y='50.77' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Liberation Sans";' textLength='24.92px' lengthAdjust='spacingAndGlyphs'>TWFE</text>
 </g>
@@ -340,11 +376,11 @@
 <rect x='386.31' y='239.65' width='112.21' height='49.89' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <text x='386.31' y='248.36' style='font-size: 11.00px; font-family: "Liberation Sans";' textLength='28.16px' lengthAdjust='spacingAndGlyphs'>group</text>
 <rect x='386.31' y='254.98' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<rect x='387.02' y='255.69' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #66C2A5; fill-opacity: 0.30;' />
+<rect x='387.02' y='255.69' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; fill: #66C2A5; fill-opacity: 0.30;' />
 <line x1='388.04' y1='263.62' x2='401.86' y2='263.62' style='stroke-width: 1.07; stroke: #66C2A5; stroke-linecap: butt;' />
 <circle cx='394.95' cy='263.62' r='1.95' style='stroke-width: 0.71; stroke: none; fill: #66C2A5;' />
 <rect x='386.31' y='272.26' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<rect x='387.02' y='272.97' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #FC8D62; fill-opacity: 0.30;' />
+<rect x='387.02' y='272.97' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; fill: #FC8D62; fill-opacity: 0.30;' />
 <line x1='388.04' y1='280.90' x2='401.86' y2='280.90' style='stroke-width: 1.07; stroke: #FC8D62; stroke-linecap: butt;' />
 <polygon points='394.95,277.86 397.58,282.42 392.32,282.42 ' style='stroke-width: 0.71; stroke: none; fill: #FC8D62;' />
 <text x='409.07' y='266.64' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='89.45px' lengthAdjust='spacingAndGlyphs'>Sun &amp; Abraham (2020)</text>

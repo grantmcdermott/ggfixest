@@ -1,3 +1,7 @@
+# Development version
+
+This update contains no user-facing changes.
+
 # ggfixest 0.3.0
 
 ### New features

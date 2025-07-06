@@ -241,9 +241,12 @@ ggiplot = function(
   }
 
 
-  gg =
-      gg +
-      geom_vline(xintercept = ref.line, col = ref.line.par$col, lwd = ref.line.par$lwd, lty = ref.line.par$lty) +
+  gg = gg +
+  	{
+  		if (ref.line != "auto") {
+	      geom_vline(xintercept = ref.line, col = ref.line.par$col, lwd = ref.line.par$lwd, lty = ref.line.par$lty)
+  		}
+  	} +
       {
           if (zero) {
               geom_hline(yintercept = 0, col = zero.par$col, lwd = zero.par$lwd, lty = zero.par$lty)
