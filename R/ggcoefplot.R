@@ -269,7 +269,7 @@
 #'   xlab = 'Time to treatment',
 #'   multi_style = 'facet',
 #'   geom_style = 'ribbon',
-#'   facet_args = list(labeller = labeller(id = \(x) gsub(".*: ", "", x))),
+#'   facet_args = list(labeller = labeller(id = function(x) gsub(".*: ", "", x))),
 #'   theme = theme_minimal() +
 #'     theme(
 #'       text = element_text(family = 'HersheySans'),
