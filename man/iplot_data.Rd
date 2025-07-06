@@ -130,5 +130,5 @@ iplot_data(est_split)                # The wrapper provided by this package
 
 }
 \seealso{
-\code{\link[fixest:coefplot]{fixest::iplot()}}, \code{\link[=aggr_es]{aggr_es()}}.
+\code{\link[fixest:iplot]{fixest::iplot()}}, \code{\link[=aggr_es]{aggr_es()}}.
 }
