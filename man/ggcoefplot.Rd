@@ -47,7 +47,7 @@ adjustments, such as centered plot title. Can also be defined on an
 existing ggiplot object to redefine theme elements. See examples.}
 
 \item{...}{Arguments passed down to, or equivalent to, the corresponding
-\code{\link[fixest:coefplot]{fixest::coefplot}}/\code{\link[fixest:coefplot]{fixest::iplot}} arguments. Note that some of these
+\code{\link[fixest:coefplot]{fixest::coefplot}}/\code{\link[fixest:iplot]{fixest::iplot}} arguments. Note that some of these
 require list objects. Currently used are:
 \itemize{
 \item \code{keep} and \code{drop} for subsetting variables using regular expressions. The \code{fixest::iplot} help page includes more detailed examples, but these should generally work as you expect. One useful regexp trick worth mentioning briefly for event studies with many pre-/post-periods is \code{drop = "[[:digit:]]{2}"}. This will cause the plot to zoom in around single digit pre-/post-periods.
@@ -91,7 +91,7 @@ A ggplot2 object.
 }
 \description{
 Draws the \code{ggplot2} equivalents of \code{\link[fixest:coefplot]{fixest::coefplot}} and
-\code{\link[fixest:coefplot]{fixest::iplot}}. These "gg" versions do their best to recycle the same
+\code{\link[fixest:iplot]{fixest::iplot}}. These "gg" versions do their best to recycle the same
 arguments  and plotting logic as their original base counterparts. But they
 also support additional features via the \code{ggplot2} API and infrastructure.
 The overall goal remains the same as the original functions. To wit:
@@ -315,7 +315,7 @@ ggiplot(
   xlab = 'Time to treatment',
   multi_style = 'facet',
   geom_style = 'ribbon',
-  facet_args = list(labeller = labeller(id = \(x) gsub(".*: ", "", x))),
+  facet_args = list(labeller = labeller(id = function(x) gsub(".*: ", "", x))),
   theme = theme_minimal() +
     theme(
       text = element_text(family = 'HersheySans'),
@@ -341,5 +341,5 @@ last_plot() +
 
 }
 \seealso{
-\code{\link[fixest:coefplot]{fixest::coefplot()}}, \code{\link[fixest:coefplot]{fixest::iplot()}}.
+\code{\link[fixest:coefplot]{fixest::coefplot()}}, \code{\link[fixest:iplot]{fixest::iplot()}}.
 }

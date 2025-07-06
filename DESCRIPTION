@@ -1,7 +1,7 @@
 Package: ggfixest
 Title: Dedicated 'ggplot2' Methods for 'fixest' Objects
-Version: 0.3.0
-Date: 2025-05-13
+Version: 0.3.1
+Date: 2025-07-05
 Authors@R: c(
     person(
         given   = "Grant",
@@ -35,8 +35,9 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 URL: https://grantmcdermott.com/ggfixest/
 BugReports: https://github.com/grantmcdermott/ggfixest/issues
+Remotes: tidyverse/ggplot2
 Depends: 
-    ggplot2 (>= 2.2.0),
+    ggplot2 (>= 3.5.2.9001),
     fixest (>= 0.11.2)
 Imports: 
     dreamerr,
