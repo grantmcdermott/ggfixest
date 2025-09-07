@@ -8,7 +8,8 @@ data("base_did", package = "fixest")
 
 est = fixest::feols(
 	fml = y ~ x1 + i(period, treat, 5) | id + period,
-	data = base_did
+	data = base_did,
+	vcov = "cluster"
 )
 
 aggr_post = aggr_es(est)                             # default post
