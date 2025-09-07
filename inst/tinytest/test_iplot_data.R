@@ -8,13 +8,15 @@ data("base_did", package = "fixest")
 
 est = fixest::feols(
 	fml = y ~ x1 + i(period, treat, 5) | id + period,
-	data = base_did
+	data = base_did,
+	vcov = "cluster"
 )
 
 est_log = fixest::feols(
 	fml = log(y) ~ x1 + i(period, treat, 5) | id + period,
 	data = base_did,
-	subset = ~ y >= 0
+	subset = ~ y >= 0,
+	vcov = "cluster"
 )
 
 
