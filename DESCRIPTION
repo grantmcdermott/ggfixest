@@ -37,7 +37,7 @@ URL: https://grantmcdermott.com/ggfixest/
 BugReports: https://github.com/grantmcdermott/ggfixest/issues
 Depends: 
     ggplot2 (>= 4.0.0),
-    fixest (>= 0.11.2)
+    fixest (>= 0.13.2)
 Imports: 
     dreamerr,
     scales,
