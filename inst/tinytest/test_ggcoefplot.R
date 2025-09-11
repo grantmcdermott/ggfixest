@@ -1,10 +1,6 @@
 source("tinysnapshot_helpers.R")
-using("tinysnapshot")
-if (Sys.info()["sysname"] != "Linux") exit_file("Linux snapshots")
 
 library(ggfixest)
-library(tinytest)
-
 
 # NB: 1st test runs will fail, but write the targets to file. 2nd run(s) should
 # pass.

@@ -1,9 +1,6 @@
 source("tinysnapshot_helpers.R")
-using("tinysnapshot")
-if (Sys.info()["sysname"] != "Linux") exit_file("Linux snapshots")
 
 library(ggfixest)
-library(tinytest)
 
 #
 # Datasets and models ----
@@ -15,23 +12,27 @@ base_stagg_grp$grp = ifelse(base_stagg_grp$id %% 2 == 0, 'Evens', 'Odds')
 
 est = fixest::feols(
     fml = y ~ x1 + i(period, treat, 5) | id + period,
-    data = base_did
+    data = base_did,
+    vcov = ~id
     )
 
 est_twfe = fixest::feols(
     y ~ x1 + i(time_to_treatment, treated, ref = c(-1, -1000)) | id + year,
-    base_stagg
+    base_stagg,
+    vcov = ~id
     )
 
 est_twfe_grp = fixest::feols(
     y ~ x1 + i(time_to_treatment, treated, ref = c(-1, -1000)) | id + year,
     base_stagg_grp,
+    vcov = ~id,
     split = ~ grp
     )
 
 est_sa20_grp = fixest::feols(
     y ~ x1 + sunab(year_treated, year) | id + year,
     base_stagg_grp,
+    vcov = ~id,
     split = ~ grp
     )
 
@@ -76,7 +77,8 @@ expect_snapshot_plot(p8, label = "ggiplot_stagg_mci_ribbon")
 
 est_sa20 = fixest::feols(
     y ~ x1 + sunab(year_treated, year) | id + year,
-    base_stagg
+    base_stagg,
+    vcov = ~id
     )
 
 p9 = ggiplot(

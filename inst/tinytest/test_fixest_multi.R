@@ -1,6 +1,4 @@
 source("tinysnapshot_helpers.R")
-using("tinysnapshot")
-if (Sys.info()["sysname"] != "Linux") exit_file("Linux snapshots")
 
 library(ggfixest)
 
