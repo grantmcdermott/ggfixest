@@ -246,12 +246,8 @@ to manually add a legend for the former)</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://lrberge.github.io/fixest/reference/coefplot.html" class="external-link">iplot</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'TWFE'</span> <span class="op">=</span> <span class="va">est_twfe_grp</span>, <span class="st">'Sun &amp; Abraham (2020)'</span> <span class="op">=</span> <span class="va">est_sa20_grp</span><span class="op">)</span>,</span>
 <span>    ref.line <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, main <span class="op">=</span> <span class="st">'Staggered treatment: Split mutli-sample'</span></span>
-<span>    <span class="op">)</span></span>
-<span><span class="co">#&gt; The degrees of freedom for the t distribution could not be deduced. Using a Normal distribution instead.</span></span>
-<span><span class="co">#&gt; Note that you can provide the argument `df.t` directly.</span></span>
-<span><span class="co">#&gt; Error: in iplot(list(TWFE = est_twfe_grp, `Sun &amp; Abraham (2...: </span></span>
-<span><span class="co">#&gt; The 1st element of 'object' raises and error:</span></span>
-<span><span class="co">#&gt; Error in nb * sd : non-numeric argument to binary operator</span></span></code></pre></div>
+<span>    <span class="op">)</span></span></code></pre></div>
+<p><img src="ggiplot_files/figure-html/stagg_grp_multi_iplot-1.png" width="700"></p>
 <p>In contrast, <code>ggiplot</code> works…</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggcoefplot.html">ggiplot</a></span><span class="op">(</span></span>
