@@ -4,7 +4,8 @@ This update contains no user-facing changes.
 
 ### Internals
 
-- Bump `ggplot2` dependency version and update test snapshots. (#55) 
+- Bump `ggplot2` dependency to v4.0.0 and update test snapshots. (#55, #59) 
+- Bump `fixest` dependency to v0.13.0 and update tests. (#58, #59) 
 
 # ggfixest 0.3.0
 
