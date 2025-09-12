@@ -84,22 +84,22 @@ est_sa20 = fixest::feols(
     )
 
 p9 = ggiplot(
-    list('TWFE' = est_twfe, 'Sun & Abraham (2020)' = est_sa20)
+    list('TWFE' = est_twfe, 'SA20' = est_sa20)
     )
 p10 = ggiplot(
     list(est_twfe, est_sa20)
     )
 p11 = ggiplot(
-    list('TWFE' = est_twfe, 'Sun & Abraham (2020)' = est_sa20),
+    list('TWFE' = est_twfe, 'SA20' = est_sa20),
     geom_style = "ribbon"
     )
 p12 = ggiplot(
-    list('TWFE' = est_twfe, 'Sun & Abraham (2020)' = est_sa20),
+    list('TWFE' = est_twfe, 'SA20' = est_sa20),
     main = 'Staggered treatment', ref.line = -1, pt.join = TRUE,
     ci_level = c(.8, .95)
     )
 p13 = ggiplot(
-    list('TWFE' = est_twfe, 'Sun & Abraham (2020)' = est_sa20),
+    list('TWFE' = est_twfe, 'SA20' = est_sa20),
     main = 'Staggered treatment', ref.line = -1, pt.join = TRUE,
     ci_level = c(.8, .95), geom_style = 'ribbon'
     )
@@ -113,12 +113,12 @@ expect_snapshot_plot(p13, label = "ggiplot_multi_single_kitchen_ribbon")
 # Multi plots (facetted) ----
 
 p14 = ggiplot(
-    list('TWFE' = est_twfe, 'Sun & Abraham (2020)' = est_sa20),
+    list('TWFE' = est_twfe, 'SA20' = est_sa20),
     main = 'Staggered treatment', ref.line = -1, pt.join = TRUE,
     ci_level = c(.8, .95), multi_style = 'facet'
     )
 p15 = ggiplot(
-    list('TWFE' = est_twfe, 'Sun & Abraham (2020)' = est_sa20),
+    list('TWFE' = est_twfe, 'SA20' = est_sa20),
     main = 'Staggered treatment', ref.line = -1, pt.join = TRUE,
     ci_level = c(.8, .95), multi_style = 'facet',
     geom_style = 'ribbon'
@@ -130,18 +130,18 @@ expect_snapshot_plot(p15, label = "ggiplot_multi_facet_ribbon")
 # Multi plots and split samples (complex) ----
 
 p16 = ggiplot(
-    list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
+    list('TWFE' = est_twfe_grp, 'SA20' = est_sa20_grp),
     main = 'Staggered treatment: Split mutli-sample',
     ref.line = -1,
     pt.join = TRUE)
 p17 = ggiplot(
-    list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
+    list('TWFE' = est_twfe_grp, 'SA20' = est_sa20_grp),
     main = 'Staggered treatment: Split mutli-sample',
     ref.line = -1, pt.join = TRUE,
     ci_level = c(.8, .95)
     )
 p18 = ggiplot(
-    list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
+    list('TWFE' = est_twfe_grp, 'SA20' = est_sa20_grp),
     main = 'Staggered treatment: Split mutli-sample',
     ref.line = -1,
     xlab = 'Time to treatment',
@@ -163,7 +163,7 @@ expect_snapshot_plot(p17, label = "ggiplot_multi_complex_mci")
 p19a = ggiplot(
     list(
         'TWFE'                 = summary(est_twfe_grp, vcov = "iid"),
-        'Sun & Abraham (2020)' = summary(est_sa20_grp, vcov = "iid")
+        'SA20' = summary(est_sa20_grp, vcov = "iid")
         ),
     main = 'Staggered treatment: Split mutli-sample',
     ref.line = -1,
@@ -179,7 +179,7 @@ p19a = ggiplot(
 )
 # Next, passing as a convenience string (via ...)
 p19b = ggiplot(
-    list('TWFE' = est_twfe_grp, 'Sun & Abraham (2020)' = est_sa20_grp),
+    list('TWFE' = est_twfe_grp, 'SA20' = est_sa20_grp),
     vcov = "iid",
     main = 'Staggered treatment: Split mutli-sample',
     ref.line = -1,
