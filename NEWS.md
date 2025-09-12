@@ -4,6 +4,8 @@
 
 - The `keep` and `drop` arguments now work correctly with a list of models.
   Thanks to @femdias for the report. (#60)
+- If a (named) list of models if provided to either `ggcoefplot` or `ggiplot`
+  then the original order is preserved for grouping and facet behaviour (#63)
 
 ### Internals
 
