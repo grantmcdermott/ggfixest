@@ -2,7 +2,7 @@
 #'   objects.
 #'
 #' @description Draws the `ggplot2` equivalents of [`fixest::coefplot`] and
-#'   [`fixest::iplot`]. These "gg" versions do their best to recycle the same
+#'   [`fixest::iplot`]. These `"gg*"` versions do their best to recycle the same
 #'   arguments  and plotting logic as their original base counterparts. But they
 #'   also support additional features via the `ggplot2` API and infrastructure.
 #'   The overall goal remains the same as the original functions. To wit:
@@ -91,16 +91,21 @@
 #' # Show multiple CIs
 #' ggcoefplot(est, ci_level = c(0.8, 0.95))
 #'
-#' # By default, fixest model standard errors are clustered by the first fixed
-#' # effect (here: Species).
-#' # But we can easily switch to "regular" standard-errors
-#' est_std = summary(est, se = "iid")
+#' # Note: as of fixest v0.13.0, standard errors for all models are IID by
+#' # default (i.e., if no 'vcov' argument). But we can easily adjust to other
+#' # SE types on the fly, e.g.:
+#' 
+#' # Switch to "HC3" heteroskedasticity-robust standard errors
+#' est_hc3 = summary(est, vcov = "hc3")
 #'
 #' # You can plot both results at once in the same plot frame...
-#' ggcoefplot(list("Clustered" = est, "IID" = est_std))
+#' ggcoefplot(list("IID" = est, "HC3" = est_hc3))
 #' # ... or as separate facets
-#' ggcoefplot(list("Clustered" = est, "IID" = est_std), multi_style = "facet") +
-#' 	theme(legend.position = "none")
+#' ggcoefplot(
+#'   list("IID" = est, "HC3" = est_hc3),
+#'   multi_style = "facet"
+#' ) +
+#' 	 theme(legend.position = "none")
 #'
 #'
 #' #
@@ -114,7 +119,8 @@
 #' base_inter = base_did
 #'
 #' # We interact the variable 'period' with the variable 'treat'
-#' est_did = feols(y ~ x1 + i(period, treat, 5) | id + period, base_inter)
+#' est_did = feols(y ~ x1 + i(period, treat, 5) | id + period, base_inter
+#'                 vcov = ~id)
 #'
 #' # In the estimation, the variable treat is interacted
 #' #  with each value of period but 5, set as a reference
@@ -160,13 +166,15 @@
 #' base_inter$period_month = all_months[base_inter$period]
 #'
 #' # The new estimation
-#' est = feols(y ~ x1 + i(period_month, treat, "oct") | id + period, base_inter)
+#' est = feols(y ~ x1 + i(period_month, treat, "oct") | id + period, base_inter
+#'             vcov = ~id)
 #' # Since 'period_month' of type character, iplot/coefplot both sort it
 #' ggiplot(est)
 #'
 #' # To respect a plotting order, use a factor
 #' base_inter$month_factor = factor(base_inter$period_month, levels = all_months)
-#' est     = feols(y ~ x1 + i(month_factor, treat, "oct") | id + period, base_inter)
+#' est = feols(y ~ x1 + i(month_factor, treat, "oct") | id + period, base_inter,
+#'             vcov = ~id)
 #' ggiplot(est)
 #'
 #' # dict -> c("old_name" = "new_name")
@@ -183,7 +191,8 @@
 #' # global fixest settings like setFixest_dict(). SImple example:
 #'
 #' base_inter$letter = letters[base_inter$period]
-#' est_letters = feols(y ~ x1 + i(letter, treat, 'e') | id+letter, base_inter)
+#' est_letters = feols(y ~ x1 + i(letter, treat, 'e') | id + letter, base_inter,
+#'                     vcov = ~id)
 #'
 #' # Set global dictionary for capitalising the letters
 #' dict = LETTERS[1:10]; names(dict) = letters[1:10]
@@ -224,11 +233,13 @@
 #' data(base_stagg)
 #' est_twfe = feols(
 #'   y ~ x1 + i(time_to_treatment, treated, ref = c(-1, -1000)) | id + year,
-#'   base_stagg
+#'   base_stagg,
+#'   vcov = ~id
 #' )
 #' est_sa20 = feols(
 #'   y ~ x1 + sunab(year_treated, year) | id + year,
-#'   data = base_stagg
+#'   data = base_stagg,
+#'   vcov = ~id
 #' )
 #'
 #' # Plot both regressions in a faceted plot
@@ -248,11 +259,13 @@
 #' # generate fixest_multi objects.
 #' est_twfe_grp = feols(
 #'   y ~ x1 + i(time_to_treatment, treated, ref = c(-1, -1000)) | id + year,
-#'   data = base_stagg_grp, split = ~ grp
+#'   data = base_stagg_grp, split = ~ grp,
+#'   vcov = ~id
 #' )
 #' est_sa20_grp = feols(
 #'   y ~ x1 + sunab(year_treated, year) | id + year,
-#'   data = base_stagg_grp, split = ~ grp
+#'   data = base_stagg_grp, split = ~ grp,
+#'   vcov = ~id
 #' )
 #'
 #' # ggiplot combines the list of multi-estimation objects without a problem...

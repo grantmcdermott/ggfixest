@@ -57,7 +57,6 @@ ggiplot = function(
   # The next few blocks grab the underlying iplot/coefplot data, contingent on the
   # object that was passed into the function (i.e. fixest, fixest_multi, or
   # list)
-#   browser()
   iplot_data_func = ifelse(isTRUE(is_iplot), iplot_data, coefplot_data)
 
   if (inherits(object, c("fixest", "fixest_multi"))) {
@@ -129,6 +128,7 @@ ggiplot = function(
       }
       rm(zz)
       data = do.call("rbind", data)
+      data$group = factor(data$group, levels = nms) ## keep original order
       rownames(data) = NULL
       if (length(unique(data$id)) == 1) {
           fct_vars = ~group
