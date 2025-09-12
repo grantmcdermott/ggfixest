@@ -104,16 +104,21 @@ iplot_data = function(
 		.group = NULL
 	}
 
-	# Catch VCOV adjustments (if any)
-	if (!is.null(.vcov)) {
-		object = summary(object, vcov = .vcov)
-	} else if (!is.null(.cluster)) {
-		object = summary(object, cluster = .cluster)
-	} else if (!is.null(.se)) {
-		object = summary(object, se = .se)
-	}
+	# Multi vcov catch (fixest >= 0.13.0)
+	multi_vcov = !is.null(.vcov) && inherits(.vcov, 'list') && length(.vcov) > 1
 
-  p = coefplot(object, only.params = TRUE, ci_level = .ci_level, dict = .dict, keep = .keep, drop = .drop, internal.only.i = .internal.only.i, i.select = .i.select)
+  p = coefplot(
+		object, only.params = TRUE,
+		vcov = .vcov,
+		se = .se,
+		cluster = .cluster,
+		ci_level = .ci_level,
+		dict = .dict,
+		keep = .keep,
+		drop = .drop,
+		internal.only.i = .internal.only.i,
+		i.select = .i.select
+	)
   d = p$prms
 
   if (inherits(object, "fixest_multi")) {
@@ -149,9 +154,14 @@ iplot_data = function(
       d$id = factor(d$id, labels = gsub("sample\\.var: \\w+; ", "", names(object))) ## again, don't need sample.var
 
   } else {
-
-	if (inherits(p$labels, "integer")) p$labels = as.numeric(p$labels) ## catch (for geom_ribbon)
-    if (!identical(d$x, p$labels)) d$x = factor(d$x, labels = p$labels)
+		if (inherits(p$labels, "integer")) p$labels = as.numeric(p$labels) ## catch (for geom_ribbon)
+		if (multi_vcov) {
+			vcovs = unlist(.vcov)
+			d$id = vcovs[d$id]
+			if (!identical(d$x, rep(p$labels, length(vcovs)))) d$x = factor(d$x, labels = rep(p$labels, length(vcovs)))
+		} else {
+			if (!identical(d$x, p$labels)) d$x = factor(d$x, labels = p$labels)
+		}
     d$lhs = deparse1(object$fml[[2]])
 
   }
