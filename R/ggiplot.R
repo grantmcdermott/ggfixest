@@ -57,6 +57,7 @@ ggiplot = function(
   # The next few blocks grab the underlying iplot/coefplot data, contingent on the
   # object that was passed into the function (i.e. fixest, fixest_multi, or
   # list)
+#   browser()
   iplot_data_func = ifelse(isTRUE(is_iplot), iplot_data, coefplot_data)
 
   if (inherits(object, c("fixest", "fixest_multi"))) {
@@ -97,6 +98,7 @@ ggiplot = function(
           data = lapply(
               object, iplot_data_func,
               .ci_level = ci_level, .dict = dict, .aggr_es = aggr_eff,
+              .keep = keep, .drop = drop,
               .group = group, .i.select = i.select,
               .vcov = vcov, .cluster = cluster, .se = se
           )
@@ -106,6 +108,7 @@ ggiplot = function(
               	object, iplot_data_func,
               	.ci_level = ci_l,
               	.dict = dict, .aggr_es = aggr_eff,
+                .keep = keep, .drop = drop, 
               	.group = group, .i.select = i.select,
               	.vcov = vcov, .cluster = cluster, .se = se
               )

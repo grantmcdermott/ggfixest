@@ -1,6 +1,9 @@
 # Development version
 
-This update contains no user-facing changes.
+### Bug fixes
+
+- The `keep` and `drop` arguments now work correctly with a list of models.
+  Thanks to @femdias for the report. (#60)
 
 ### Internals
 
