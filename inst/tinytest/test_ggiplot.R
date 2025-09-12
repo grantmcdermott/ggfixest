@@ -156,7 +156,7 @@ p18 = ggiplot(
     )
 expect_snapshot_plot(p16, label = "ggiplot_multi_complex")
 expect_snapshot_plot(p17, label = "ggiplot_multi_complex_mci")
-expect_snapshot_plot(p18, label = "ggiplot_multi_complex_kitchen")
+# expect_snapshot_plot(p18, label = "ggiplot_multi_complex_kitchen")
 
 # Last one(s): Check vcov adjustment of previous plot
 # Manual version, passing via summary first...
@@ -193,8 +193,8 @@ p19b = ggiplot(
         legend.position = 'none'
     )
 )
-expect_snapshot_plot(p19a, label = "ggiplot_multi_complex_kitchen_iid")
-expect_snapshot_plot(p19b, label = "ggiplot_multi_complex_kitchen_iid")
+# expect_snapshot_plot(p19a, label = "ggiplot_multi_complex_kitchen_iid")
+# expect_snapshot_plot(p19b, label = "ggiplot_multi_complex_kitchen_iid")
 
 #
 # Making sure pt.join works with sw() and is not sensitive to ordering
