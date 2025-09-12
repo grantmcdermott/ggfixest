@@ -51,7 +51,7 @@ expect_snapshot_plot(p_grp4, label = "ggcoefplot_group_names_prefix")
 ## DiD (mostly to check auto grouping) ----
 
 data("base_did", package = "fixest")
-est_did = feols(y ~ x1 + i(period, treat, 5) | id + period, base_did)
+est_did = feols(y ~ x1 + i(period, treat, 5) | id + period, base_did, vcov = ~id)
 p_did = ggcoefplot(est_did)
 expect_snapshot_plot(p_did, label = "ggcoefplot_did")
 
