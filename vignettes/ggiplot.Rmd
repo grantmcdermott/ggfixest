@@ -12,6 +12,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+fixest::fixest_startup_msg(FALSE)
 ```
 
 As far as possible, the **ggfixest** plotting functions try to mimic the
