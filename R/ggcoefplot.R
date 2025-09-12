@@ -119,7 +119,7 @@
 #' base_inter = base_did
 #'
 #' # We interact the variable 'period' with the variable 'treat'
-#' est_did = feols(y ~ x1 + i(period, treat, 5) | id + period, base_inter
+#' est_did = feols(y ~ x1 + i(period, treat, 5) | id + period, base_inter,
 #'                 vcov = ~id)
 #'
 #' # In the estimation, the variable treat is interacted
@@ -166,7 +166,7 @@
 #' base_inter$period_month = all_months[base_inter$period]
 #'
 #' # The new estimation
-#' est = feols(y ~ x1 + i(period_month, treat, "oct") | id + period, base_inter
+#' est = feols(y ~ x1 + i(period_month, treat, "oct") | id + period, base_inter,
 #'             vcov = ~id)
 #' # Since 'period_month' of type character, iplot/coefplot both sort it
 #' ggiplot(est)
