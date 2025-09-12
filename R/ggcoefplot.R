@@ -95,14 +95,14 @@
 #' # default (i.e., if no 'vcov' argument). But we can easily adjust to other
 #' # SE types on the fly, e.g.:
 #' 
-#' # Switch to "HC3" heteroskedasticity-robust standard errors
-#' est_hc3 = summary(est, vcov = "hc3")
+#' # Switch to "HC1" heteroskedasticity-robust standard errors
+#' est_hc1 = summary(est, vcov = "hc1")
 #'
 #' # You can plot both results at once in the same plot frame...
-#' ggcoefplot(list("IID" = est, "HC3" = est_hc3))
+#' ggcoefplot(list("IID" = est, "HC1" = est_hc1))
 #' # ... or as separate facets
 #' ggcoefplot(
-#'   list("IID" = est, "HC3" = est_hc3),
+#'   list("IID" = est, "HC1" = est_hc1),
 #'   multi_style = "facet"
 #' ) +
 #' 	 theme(legend.position = "none")
