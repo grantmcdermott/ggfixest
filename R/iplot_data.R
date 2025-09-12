@@ -158,7 +158,7 @@ iplot_data = function(
 		if (multi_vcov) {
 			vcovs = unlist(.vcov)
 			d$id = vcovs[d$id]
-			if (!identical(d$x, rep(p$labels, length(vcovs)))) d$x = factor(d$x, labels = rep(p$labels, length(vcovs)))
+			if (!identical(d$x, rep(p$labels, length(vcovs)))) d$x = factor(d$x, labels = rep(p$labels, each = length(vcovs)))
 		} else {
 			if (!identical(d$x, p$labels)) d$x = factor(d$x, labels = p$labels)
 		}
