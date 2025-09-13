@@ -1,3 +1,10 @@
+# Development version
+
+### Documentation
+
+- Shorten some of the `?ggcoefplot` examples to avoid the CRAN run time NOTE.
+  (#68)
+
 # ggfixest 0.4.0
 
 ### New features
