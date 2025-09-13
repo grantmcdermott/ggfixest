@@ -1,5 +1,15 @@
 # Development version
 
+### New features
+
+- Users can now supply a list of vcov arguments to compare multiple SE 
+  adjustments on the fly. (#65)
+  
+  ```r
+  est = est = feols(flipper_len ~ bill_len | species, penguins)
+  ggcoefplot(est, vcov = list("iid", "hc1", ~species))
+  ```
+
 ### Bug fixes
 
 - The `keep` and `drop` arguments now work correctly with a list of models.
