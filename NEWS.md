@@ -1,4 +1,4 @@
-# Development version
+# ggfixest 0.4.0
 
 ### New features
 
