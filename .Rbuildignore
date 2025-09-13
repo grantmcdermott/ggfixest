@@ -8,6 +8,7 @@
 ^pkgdown$
 ^\.github$
 ^TESTING$
+^SCRATCH$
 ^.vscode$
 ^cran-comments.md
 ^CRAN-SUBMISSION$

@@ -1,7 +1,7 @@
 ## Overview
 
-`ggfixest` 0.3.0 is a minor update that address some CRAN errors due to a
-dependency change.
+`ggfixest` 0.4.0 is a minor update that addresses some CRAN errors due to
+upstream dependency changes. We address some minor bugs and new features.
 
 ## Test environments
 
