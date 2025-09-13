@@ -88,7 +88,7 @@ valid uses:
 }}
 
 \item{.vcov, .cluster, .se}{Alternative options for adjusting the standard
-errors of the model object on the fly. See \code{summary.fixest} for details
+errors of the model object on the fly. See \code{vcov.fixest} for details
 (although note that the "." period prefix should be ignored in the latter's
 argument documentation). Written here in superseding order; \code{.cluster} will
 only be considered if \code{.vcov} is not null, etc.}

@@ -71,7 +71,7 @@ channel. For example, we can make the CI band lighter with
 \code{ci.fill.par = list(alpha = 0.2)} (the default alpha is 0.3).
 \item \code{dict} a dictionary for overriding coefficient names.
 \item \code{vcov}, \code{cluster} or \code{se} as alternative options for adjusting the
-standard errors of the model object(s) on the fly. See \code{summary.fixest} for
+standard errors of the model object(s) on the fly. See \code{vcov.fixest} for
 details. Written here in superseding order; \code{cluster} will only be
 considered if \code{vcov} is not null, etc.
 }}
@@ -134,25 +134,19 @@ est = feols(Petal.Length ~ Petal.Width + Sepal.Length + Sepal.Width | Species, i
 
 ggcoefplot(est)
 
+# Add/compare multiple SE types on the fly
+ggcoefplot(est, vcov = list("iid", "hc1"))
+# ... or as separate facets
+ggcoefplot(est, vcov = list("iid", "hc1"), multi_style = "facet") +
+	 theme(legend.position = "none")
+
 # Show multiple CIs
 ggcoefplot(est, ci_level = c(0.8, 0.95))
 
-# Note: as of fixest v0.13.0, standard errors for all models are IID by
-# default (i.e., if no 'vcov' argument). But we can easily adjust to other
-# SE types on the fly, e.g.:
+# Combine multiple CIs with multiple SE types
+ggcoefplot(est, ci_level = c(0.8, 0.95), vcov = list("iid", "hc1"))
 
-# Switch to "HC1" heteroskedasticity-robust standard errors
-est_hc1 = summary(est, vcov = "hc1")
-
-# You can plot both results at once in the same plot frame...
-ggcoefplot(list("IID" = est, "HC1" = est_hc1))
-# ... or as separate facets
-ggcoefplot(
-  list("IID" = est, "HC1" = est_hc1),
-  multi_style = "facet"
-) +
-	 theme(legend.position = "none")
-
+#
 
 #
 # Example 2: Interactions

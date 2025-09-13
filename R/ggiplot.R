@@ -53,6 +53,7 @@ ggiplot = function(
   vcov    = if (!is.null(dots[['vcov']])) dots[['vcov']] else NULL
   cluster = if (!is.null(dots[['cluster']])) dots[['cluster']] else NULL
   se      = if (!is.null(dots[['se']])) dots[['se']] else NULL
+  multi_vcov = !is.null(vcov) && inherits(vcov, 'list') && length(vcov) > 1
 
   # The next few blocks grab the underlying iplot/coefplot data, contingent on the
   # object that was passed into the function (i.e. fixest, fixest_multi, or
@@ -86,6 +87,9 @@ ggiplot = function(
           fct_vars = colnames(fixest::models(object)[, -1, drop = FALSE]) # drop id col
           fct_vars = setdiff(fct_vars, "sample.var") # also drop sample.var col
           fct_vars = stats::reformulate(fct_vars)
+          n_fcts = length(unique(data$id))
+      } else if (multi_vcov) {
+          fct_vars = "id"
           n_fcts = length(unique(data$id))
       } else {
           multi_style = "none"
