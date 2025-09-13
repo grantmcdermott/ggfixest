@@ -157,7 +157,7 @@ iplot_data = function(
 		if (inherits(p$labels, "integer")) p$labels = as.numeric(p$labels) ## catch (for geom_ribbon)
 		if (multi_vcov) {
 			vcovs = as.character(unlist(.vcov))
-			d$id = vcovs[d$id]
+			d$id = factor(vcovs[d$id], levels = vcovs)
 			if (!identical(d$x, rep(p$labels, length(vcovs)))) d$x = factor(d$x, labels = rep(p$labels, each = length(vcovs)))
 		} else {
 			if (!identical(d$x, p$labels)) d$x = factor(d$x, labels = p$labels)
