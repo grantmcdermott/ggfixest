@@ -153,19 +153,13 @@
 #' ggiplot(est_did, pt.join = TRUE, geom_style = "errorbar", dict = dict)
 #'
 #' #
-#' # What if the interacted variable is not numeric?
-#'
+#' # What if the interacted variable is not numeric? (tl;dr use a factor)
+#' 
 #' # let's re-use our all_months vector from the previous example, but add it
 #' # directly to the dataset
 #' base_inter$period_month = all_months[base_inter$period]
-#'
-#' # The new estimation
-#' est = feols(y ~ x1 + i(period_month, treat, "oct") | id + period, base_inter,
-#'             vcov = ~id)
-#' # Since 'period_month' of type character, iplot/coefplot both sort it
-#' ggiplot(est)
-#'
-#' # To respect a plotting order, use a factor
+#' # NB: Since 'period_month' of type character, iplot/coefplot both sort it
+#' #     alphabetically... To respect a plotting order, rather use a factor
 #' base_inter$month_factor = factor(base_inter$period_month, levels = all_months)
 #' est = feols(y ~ x1 + i(month_factor, treat, "oct") | id + period, base_inter,
 #'             vcov = ~id)
@@ -284,21 +278,6 @@
 #'       legend.position = 'none'
 #'     )
 #' )
-#'
-#' #
-#' # Aside on theming and scale adjustments
-#' #
-#'
-#' # Setting the theme inside the `ggiplot()` call is optional and not strictly
-#' # necessary, since the ggplot2 API allows programmatic updating of existing
-#' # plots. E.g.
-#' last_plot() +
-#' 	labs(caption = 'Note: Super fancy plot brought to you by ggiplot')
-#' last_plot() +
-#' 	theme_grey() +
-#' 	theme(legend.position = 'none') +
-#' 	scale_fill_brewer(palette = 'Set1', aesthetics = c("colour", "fill"))
-#' # etc.
 #'
 #' @export
 ggcoefplot = function(
