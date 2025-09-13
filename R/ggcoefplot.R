@@ -78,7 +78,6 @@
 #' #   features are sprinkled within, with the final set of examples in
 #' #   particular highlighting unique features of this package.
 #'
-#'
 #' #
 #' # Example 1: Basic use and stacking two sets of results on the same graph
 #' #
@@ -100,12 +99,10 @@
 #' # Combine multiple CIs with multiple SE types
 #' ggcoefplot(est, ci_level = c(0.8, 0.95), vcov = list("iid", "hc1"))
 #' 
-#' #
 #'
 #' #
 #' # Example 2: Interactions
 #' #
-#'
 #'
 #' # Now we estimate and plot the "yearly" treatment effects
 #'
@@ -122,7 +119,6 @@
 #' # ggcoefplot will show all the coefficients:
 #' ggcoefplot(est_did)
 #'
-#'
 #' # Note that the grouping of the coefficients is due to 'group = "auto"'
 #'
 #' # If you want to keep only the coefficients
@@ -132,13 +128,11 @@
 #' # We can see that the graph is different from before:
 #' #  - only interactions are shown,
 #' #  - the reference is present,
-#' # => this is fully flexible
-#'
-#' ggiplot(est_did, ci_level = c(0.8, 0.95))
-#' ggiplot(est_did, ref.line = FALSE, pt.join = TRUE, geom_style = "errorbar")
-#' ggiplot(est_did, geom_style = "ribbon", col = "hotpink")
-#' ggiplot(est_did, aggr_eff = "both")
-#' # etc
+#' # => this is fully flexible, e.g.:
+#' # ggiplot(est_did, ci_level = c(0.8, 0.95))
+#' # ggiplot(est_did, ref.line = FALSE, pt.join = TRUE, geom_style = "errorbar")
+#' # ggiplot(est_did, geom_style = "ribbon", col = "hotpink")
+#' # etc.
 #'
 #' # We can also use a dictionary to replace label values. The dicionary should
 #' # take the form of a named vector or list, e.g. c("old_lab1" = "new_lab1", ...)
@@ -214,8 +208,12 @@
 #' #
 #' # Example 5: Some more ggcoefplot/ggiplot extras
 #' #
+#' 
+#' # Add aggregated period effects to your plot (see also `?aggr_es`)
+#' ggiplot(est_did, ci_level = c(0.8, 0.95),
+#'         aggr_eff = "post", aggr_eff.par = list(col = "orange"))
 #'
-#' # We'll demonstrate using the staggered treatment example from the
+#' # For these next plots we'll use the staggered treatment example from the
 #' # introductory fixest vignette.
 #'
 #' data(base_stagg)

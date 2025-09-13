@@ -1,6 +1,6 @@
 Package: ggfixest
 Title: Dedicated 'ggplot2' Methods for 'fixest' Objects
-Version: 0.4.0
+Version: 0.4.0.99
 Date: 2025-09-13
 Authors@R: c(
     person(
