@@ -44,7 +44,7 @@
 #' added as a column to the returned data frame. Passed to
 #' `aggr_es(..., aggregation = "mean")`.
 #' @param .vcov,.cluster,.se Alternative options for adjusting the standard
-#' errors of the model object on the fly. See `summary.fixest` for details
+#' errors of the model object on the fly. See `vcov.fixest` for details
 #' (although note that the "." period prefix should be ignored in the latter's
 #' argument documentation). Written here in superseding order; `.cluster` will
 #' only be considered if `.vcov` is not null, etc.
@@ -156,7 +156,7 @@ iplot_data = function(
   } else {
 		if (inherits(p$labels, "integer")) p$labels = as.numeric(p$labels) ## catch (for geom_ribbon)
 		if (multi_vcov) {
-			vcovs = unlist(.vcov)
+			vcovs = as.character(unlist(.vcov))
 			d$id = vcovs[d$id]
 			if (!identical(d$x, rep(p$labels, length(vcovs)))) d$x = factor(d$x, labels = rep(p$labels, each = length(vcovs)))
 		} else {
